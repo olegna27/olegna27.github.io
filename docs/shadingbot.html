@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShadingBot: force control without knowing the surface | Angelo Chaca</title>
+<meta name="description" content="A simulated KUKA iiwa shades images by pressing a soft brush harder or lighter. Three ways of choosing pressure, compared when the brush and canvas are not what calibration assumed.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ShadingBot: force control without knowing the surface">
+<meta property="og:description" content="A simulated KUKA iiwa shades images by pressing a soft brush harder or lighter. Three ways of choosing pressure, compared when the brush and canvas are not what calibration assumed.">
+<meta property="og:image" content="https://olegna27.github.io/media/shadingbot/summary-tilt-1600.jpg">
+<meta property="og:url" content="https://olegna27.github.io/shadingbot.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://olegna27.github.io/shadingbot.html">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<header class="wrap site-head">
+  <a class="me" href="index.html">Angelo Chaca</a>
+  <nav aria-label="Site"><a href="index.html#work">Work</a><a href="index.html#evidence">Skills</a><a href="index.html#fixlog">Fix log</a><a href="about.html">About</a></nav>
+</header>
+<main>
+
+<div class="wrap case-head">
+  <h1>ShadingBot: holding the right pressure on a surface the robot has not measured</h1>
+  <p class="lede">A simulated KUKA iiwa shades a grayscale image by pressing a soft brush harder for dark tones and lighter for pale ones. We compare three ways of choosing that pressure, then change the brush and tilt the canvas without telling any of them.</p>
+  <p class="status sim">Simulation only, one run per condition</p>
+  <p class="soft" style="margin:0.9rem 0 0;max-width:44rem">Below: the same target drawn three ways on a canvas secretly tilted 2 degrees. Error, lower is better: 0.131 open loop, 0.099 camera feedback, 0.025 force only.</p>
+</div>
+
+<div class="wrap">
+  <div class="hero"><video src="media/shadingbot/compare-tilt.mp4" poster="media/shadingbot/summary-tilt-800.jpg" width="1760" height="720" muted loop playsinline controls data-auto preload="metadata" aria-label="Three simulated runs drawing the same step wedge on a canvas tilted two degrees"></video></div>
+</div>
+
+<div class="wrap case">
+  <div class="spec-col">
+    <dl class="spec">
+      <div><dt>Course</dt><dd>MIT 6.4210 Robotic Manipulation, final project</dd></div>
+      <div><dt>Dates</dt><dd>October to December 2026. Final report and video due December 2.</dd></div>
+      <div><dt>Team</dt><dd>Angelo Chaca, Alexander Li, Laura Zhang</dd></div>
+      <div><dt>My part</dt><dd>Simulation environment, the three methods, experiments, tests and CI, local app</dd></div>
+      <div><dt>Tools</dt><dd>Python, Drake (hydroelastic contact, inverse dynamics control, inverse kinematics), GitHub Actions</dd></div>
+    </dl>
+  </div>
+
+  <div class="prose">
+    <h2>The problem</h2>
+    <p>A robot that sands, polishes or holds an ultrasound probe has to deliver the right pressure across a surface whose height and stiffness it only roughly knows. Shading is our stand-in for that: it does nothing under a light touch, saturates under a heavy one, and a single photo of the finished canvas shows how well pressure was delivered everywhere.</p>
+    <p>The comparison changes one thing only, how pressure is chosen. The path, speed and brush stay fixed.</p>
+
+    <h2>What I built</h2>
+    <ul>
+      <li>The Drake scene: an iiwa 7 with the brush welded to its flange, a soft ellipsoid tip (6 x 6 x 20 mm) with hydroelastic contact on a rigid 20 cm canvas, and a simulated camera in front of the canvas.</li>
+      <li>The motion stack: global inverse kinematics for the start pose, differential inverse kinematics every 5 ms along a 23-row raster at 5 cm/s, and a joint-space inverse dynamics controller underneath.</li>
+      <li>The team's paint model, the depth-to-darkness calibration, the three pressure methods, and scoring from a rendered photo of the canvas.</li>
+      <li>29 tests and a CI job that runs lint, the tests and a contact smoke test on every pull request.</li>
+      <li>A local app that runs the three methods side by side on any uploaded image.</li>
+    </ul>
+
+    <figure class=""><div class="frame "><a href="media/shadingbot/scene-760.jpg"><img src="media/shadingbot/scene-760.jpg" srcset="media/shadingbot/scene-760.jpg 760w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Rendered view of a KUKA iiwa arm holding a brush over a small square canvas" width="760" height="500" loading="lazy" decoding="async"></a></div><figcaption>The simulated cell. The brush is welded to the flange so a slipping grasp cannot add error that has nothing to do with pressure.</figcaption></figure>
+
+    <h2>Three ways to choose pressure</h2>
+    <div class="scroll-x">
+    <table class="numbers">
+      <thead><tr><td></td><th>Open loop</th><th>Camera feedback</th><th>Force only</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Senses</th><td>Nothing while drawing</td><td>Camera pixels 12 mm behind the brush</td><td>Contact force</td></tr>
+        <tr><th scope="row">Assumes a level canvas</th><td>Yes</td><td>Yes</td><td>No</td></tr>
+        <tr><th scope="row">Commands</th><td>Press depth from the calibration table</td><td>Table depth plus a PI correction at 25 Hz</td><td>The depth that holds a force setpoint</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>The force-only method estimates before it controls. At each row's touchdown it ramps down, records depth against force, and fits two numbers by least squares: where the surface is, and how stiff the brush is compared with the calibrated one. It then rescales the calibration and holds the force that should give the target tone.</p>
+    <p>Across 23 rows it recovered brush stiffness as x0.97, x1.16 and x0.78 when the true values were x1.0, x1.2 and x0.8. On the tilted canvas it found the surface 2.7 to 3.0 mm from where a level canvas would be.</p>
+
+    <h2>Results</h2>
+    <p>Block tonal error is the mean absolute darkness gap between target and result over 23 x 23 blocks, on a scale where 0 is white and 1 is black. Lower is better. Our proposal's target was 0.10 or less.</p>
+    <div class="scroll-x">
+    <table class="numbers">
+      <thead><tr><th>Step wedge, condition</th><th class="n">Open loop</th><th class="n">Camera</th><th class="n">Force only</th></tr></thead>
+      <tbody>
+        <tr><td>As calibrated</td><td class="n">0.049</td><td class="n">0.051</td><td class="n">0.046</td></tr>
+        <tr><td>Brush 20% softer</td><td class="n">0.173</td><td class="n">0.064</td><td class="n">0.040</td></tr>
+        <tr><td>Brush 20% stiffer</td><td class="n">0.070</td><td class="n">0.046</td><td class="n">0.051</td></tr>
+        <tr><td>Canvas tilted 2 degrees</td><td class="n">0.131</td><td class="n">0.099</td><td class="n">0.025</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>With nothing changed since calibration the three land within 0.005 of each other. Feedback only earns its keep when the world differs from the model. Force only is not best everywhere: camera feedback is slightly ahead with a stiffer brush.</p>
+
+    <figure class="wide"><div class="frame white"><a href="media/shadingbot/summary-tilt-1600.jpg"><img src="media/shadingbot/summary-tilt-800.jpg" srcset="media/shadingbot/summary-tilt-800.jpg 800w, media/shadingbot/summary-tilt-1600.jpg 1600w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Six-panel figure: target step wedge, three camera views of the finished canvases and three paint maps with their scores" width="1760" height="720" loading="lazy" decoding="async"></a></div><figcaption>Canvas tilted 2 degrees, unknown to every method. The two that assume a level surface never touch down on the light side. Force only finds the surface at each row. Panel titles score the paint grid; the table scores the camera photo, so they differ in the third decimal.</figcaption></figure>
+
+    <figure class="wide"><div class="frame white"><a href="media/shadingbot/summary-portrait-1600.jpg"><img src="media/shadingbot/summary-portrait-800.jpg" srcset="media/shadingbot/summary-portrait-800.jpg 800w, media/shadingbot/summary-portrait-1600.jpg 1600w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Six-panel figure: a synthetic face target, the 23 by 23 scored blocks, and three shaded results" width="1760" height="720" loading="lazy" decoding="async"></a></div><figcaption>A test portrait drawn with a brush 20% stiffer than the calibrated one: 0.070, 0.068 and 0.057.</figcaption></figure>
+
+    <h2>Decisions, with the numbers behind them</h2>
+    <h3>Where the camera goes</h3>
+    <p>Our proposal put the camera overhead. I simulated nine brush poses across the canvas and measured how much of the feedback window each of five camera positions could see. Overhead saw 0% with an upright brush, because the wrist sits directly above the window. A camera in front of the canvas, angled back, saw 92 to 100% averaged over the poses, 75% in the worst one. We moved the camera.</p>
+    <h3>Where the canvas goes</h3>
+    <p>A reach check over a 5 x 5 grid of points and all 23 rows, at an 8 mm press with brush tilts up to 35 degrees, showed that with the canvas 0.60 m from the base only 24 of 25 points were reachable at a 30 degree tilt. At 0.62 to 0.66 m everything passed, so the canvas moved 4 cm to 0.64 m, the middle of that range.</p>
+
+    <h2>What broke</h2>
+    <div class="broke">
+      <h3>The first camera loop was no better than no feedback</h3>
+      <p>In the first runs closed loop scored 0.081 against open loop's 0.079. The controller was watching only the center line of each row, while the score averages darkness across the full row width, and it came out too light. With the window widened to the full row and a touchdown bug fixed, closed loop scored 0.051 against 0.064 on the same early test.</p>
+      <p class="result">Both changes went in together, so I cannot yet say how much each one bought. An ablation is on the list. In the current as-calibrated run the two methods tie, 0.051 and 0.049; feedback pulls ahead only when the brush or canvas differs from calibration.</p>
+    </div>
+    <div class="broke">
+      <h3>The touchdown fit was biased by the arm's own motion</h3>
+      <p>Fitting stiffness from the touchdown ramp read 38% high even with the nominal brush, because the arm's own motion during the ramp leaks into the force curve. I measured that bias once with the calibrated brush (stiffness x1.379, contact +0.16 mm) and divide it out of every later fit.</p>
+    </div>
+
+    <h2>What this does not show yet</h2>
+    <ul>
+      <li>It is simulation. No hardware, no real brush or paper.</li>
+      <li>One run per condition, so no error bars.</li>
+      <li>The paint rule's 5 and 60 kPa limits are placeholders the team chose, not measurements.</li>
+      <li>Open loop and camera feedback command depth while force only commands force, so the comparison is not like for like. Part of force only's win on the tilted canvas comes from that. Putting a force loop under all three is the next build.</li>
+      <li>Force is the simulator's contact force plus 0.02 N of noise, not an estimate from joint torques.</li>
+    </ul>
+
+    <h2>Credits</h2>
+    <p>Team 6.1: Angelo Chaca, Alexander Li and Laura Zhang. The problem framing, paint rule and metric come from our joint proposal, and every entry in the decision log is a team decision.</p>
+
+    <div class="next"><a href="earlier.html">Next: earlier work</a><a href="index.html#fixlog">Fix log</a></div>
+  </div>
+</div>
+
+</main>
+<footer class="wrap site-foot">
+  <span>Angelo Chaca, MIT class of 2029, Cambridge MA</span>
+  <span class="links"><a href="mailto:chaca@mit.edu">chaca@mit.edu</a> <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></span>
+</footer>
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('video[data-auto]').forEach(v=>v.play().catch(()=>{}))</script>
+</body>
+</html>

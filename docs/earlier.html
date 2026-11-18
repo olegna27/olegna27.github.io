@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Earlier work | Angelo Chaca</title>
+<meta name="description" content="Infrared luminescence imaging at Pompeii, orbit determination of a near-Earth asteroid, servo-valve mounts on MIT Rocket Team, and nuclear forensics research.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Earlier work: infrared imaging in Pompeii, orbit determination, rocket valves">
+<meta property="og:description" content="Infrared luminescence imaging at Pompeii, orbit determination of a near-Earth asteroid, servo-valve mounts on MIT Rocket Team, and nuclear forensics research.">
+<meta property="og:image" content="https://olegna27.github.io/media/earlier/pompeii-after-1600.jpg">
+<meta property="og:url" content="https://olegna27.github.io/earlier.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://olegna27.github.io/earlier.html">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<header class="wrap site-head">
+  <a class="me" href="index.html">Angelo Chaca</a>
+  <nav aria-label="Site"><a href="index.html#work">Work</a><a href="index.html#evidence">Skills</a><a href="index.html#fixlog">Fix log</a><a href="about.html">About</a></nav>
+</header>
+<main>
+
+<div class="wrap case-head">
+  <h1>Earlier work</h1>
+  <p class="lede">Smaller projects from before the dock: a field imaging method, an orbit from telescope data, and two research and team roles.</p>
+</div>
+
+<div class="wrap case">
+  <div class="prose" style="grid-column:1/-1;max-width:46rem">
+
+    <h2 id="pompeii" style="margin-top:0">Finding a Roman pigment with night-vision goggles</h2>
+    <p class="status built">Field-tested at Pompeii, January 2026</p>
+    <p style="margin-top:1rem">Egyptian Blue, a pigment the Romans used, absorbs visible light and glows in the near infrared, around 900 to 1,000 nm. Modified night-vision goggles can see that glow, so traces too faint to see by eye show up on the walls. On a three-person team in MIT's course on Roman Pompeii, we set out to make that survey faster and cleaner.</p>
+
+    <figure class=""><div class="frame "><a href="media/earlier/goggles-1024.jpg"><img src="media/earlier/goggles-800.jpg" srcset="media/earlier/goggles-800.jpg 800w, media/earlier/goggles-1024.jpg 1024w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Two hands holding a night-vision unit with its screen facing the camera" width="1024" height="768" loading="lazy" decoding="async"></a></div><figcaption>The modified night-vision unit.</figcaption></figure>
+
+    <p>The existing method subtracts one unlit photo from one lit photo. Lighting from one side leaves half the image brighter than the other, and stray infrared from the lamp lights up the wall's texture as noise.</p>
+    <p>My part was the code for our strobe method. It takes a few seconds of 4K video from the goggles while a light strobes, stacks the frames into one array and sorts every pixel's brightness over time. It throws away the darkest 15%, the brightest 15% and the middle 40%, which are the frames caught mid-flash, then averages what is left into one synthetic lit frame and one unlit frame and subtracts them.</p>
+
+    <figure class="wide">
+      <div class="pair">
+        <div class="frame"><img src="media/earlier/pompeii-before-800.jpg" srcset="media/earlier/pompeii-before-800.jpg 800w, media/earlier/pompeii-before-1600.jpg 1600w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Noisy grayscale infrared image of a painted figure on a fresco" width="1843" height="1173" loading="lazy" decoding="async"></div>
+        <div class="frame"><img src="media/earlier/pompeii-after-800.jpg" srcset="media/earlier/pompeii-after-800.jpg 800w, media/earlier/pompeii-after-1600.jpg 1600w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Much cleaner grayscale infrared image of the same painted figure" width="2199" height="1400" loading="lazy" decoding="async"></div>
+      </div>
+      <figcaption>The same fresco figure. First: the earlier single-subtraction method. Second: our strobe-video method. The comparison is by eye; we did not put a number on the noise.</figcaption>
+    </figure>
+
+    <p>One short video replaces a set of carefully aligned photos, which is what makes surveying a whole site plausible. The cost is that fine detail can be lost.</p>
+    <p class="soft">Team: Coleman Duplessie, Angelo Chaca, Joshua Curhan. Python, NumPy, OpenCV.</p>
+
+    <h2 id="orbit">The orbit of a near-Earth asteroid from twelve telescope images</h2>
+    <p class="status built">Summer Science Program, 2024</p>
+    <p style="margin-top:1rem">Three of us measured the orbit of asteroid (352143) 2007 LR32 from our own observations: twelve usable images over four nights on 0.4 m telescopes at Las Cumbres Observatory.</p>
+    <p>The pipeline, in Python, finds the asteroid's centroid in each image, fits plate constants against ten reference stars by least squares to get its sky position, and runs the Method of Gauss on three observations to get the six orbital elements. A jackknife over 108 triples of observations picked the set to use. Each of us then ran the orbit determination and a 10,000-sample Monte Carlo for the uncertainties independently, with our own code.</p>
+    <div class="scroll-x">
+    <table class="numbers">
+      <thead><tr><th>Element</th><th class="n">My result</th><th class="n">Difference from JPL</th></tr></thead>
+      <tbody>
+        <tr><td>Semi-major axis</td><td class="n">2.593 ± 0.085 au</td><td class="n">1.2%</td></tr>
+        <tr><td>Eccentricity</td><td class="n">0.511 ± 0.013</td><td class="n">1.0%</td></tr>
+        <tr><td>Inclination</td><td class="n">10.12 ± 0.19°</td><td class="n">0.6%</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>On those three elements my code landed closest to JPL's values of the three, with the widest error bars. Our three scripts, fed the same data, often disagreed by more than their stated uncertainties, which the report says plainly. We submitted the observations to the Minor Planet Center.</p>
+
+    <figure class=""><div class="frame white"><a href="media/earlier/ssp-elements-1596.jpg"><img src="media/earlier/ssp-elements-800.jpg" srcset="media/earlier/ssp-elements-800.jpg 800w, media/earlier/ssp-elements-1596.jpg 1596w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Six bar charts comparing each team member&#x27;s orbital elements with the expected JPL value" width="1596" height="901" loading="lazy" decoding="async"></a></div><figcaption>Each team member's six orbital elements against JPL's value, in red. From our report.</figcaption></figure>
+
+    <p class="soft">Team: Dillan Jagannath, Sarah Choi, Angelo Chaca.</p>
+
+    <h2 id="rocket">MIT Rocket Team, fluid systems</h2>
+    <p class="soft">August 2025 to May 2026</p>
+    <p>Project Osiris is a nitrogen-pressurized, throttleable liquid engine with nitrous oxide as its oxidizer and servo-driven ball valves. I designed servo-valve mounts for it in SolidWorks, and drafted failure-state procedures for the throttle-valve characterization test: what to do at each step if a valve fails to open or fails to close, and a general abort.</p>
+
+    <h2 id="nnsa">Nuclear forensics research</h2>
+    <p class="soft">MIT Nuclear Science and Engineering, December 2025 to September 2026</p>
+    <p>An NNSA-funded project that uses flash calorimetry to read the energy stored in irradiated ceramics as a record of their dose history. I debugged the lab's MATLAB enthalpy pipeline, tracing consistently low results to a baseline window that overlapped the start of melting, and validated a Monte Carlo method for estimating sample mass on nanogram indium samples.</p>
+
+    <h2 id="ems">MIT Emergency Medical Services</h2>
+    <p class="soft">December 2025 to present</p>
+    <p>Nationally Registered EMT. I run 911 calls in Cambridge and Boston.</p>
+
+    <div class="next"><a href="index.html#work">Back to the main projects</a><a href="about.html">About</a></div>
+  </div>
+</div>
+
+</main>
+<footer class="wrap site-foot">
+  <span>Angelo Chaca, MIT class of 2029, Cambridge MA</span>
+  <span class="links"><a href="mailto:chaca@mit.edu">chaca@mit.edu</a> <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></span>
+</footer>
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('video[data-auto]').forEach(v=>v.play().catch(()=>{}))</script>
+</body>
+</html>

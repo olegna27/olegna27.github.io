@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+{{base}}<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{og_title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:image" content="{{og_image}}">
+<meta property="og:url" content="{{url}}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="{{url}}">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+{{head}}
+</head>
+<body>
+<header class="wrap site-head">
+  <a class="me" href="index.html">Angelo Chaca</a>
+  <nav aria-label="Site">{{nav}}</nav>
+</header>
+<main>
+{{body}}
+</main>
+<footer class="wrap site-foot">
+  <span>Angelo Chaca, MIT class of 2029, Cambridge MA</span>
+  <span class="links"><a href="mailto:chaca@mit.edu">chaca@mit.edu</a> <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></span>
+</footer>
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('video[data-auto]').forEach(v=>v.play().catch(()=>{}))</script>
+</body>
+</html>
