@@ -28,7 +28,7 @@
 
 <div class="wrap case-head">
   <h1>A dock that lets a drone land, charge and relaunch from an unmanned boat</h1>
-  <p class="lede">Offshore drone inspections need a crewed vessel nearby. This dock rides on a 3 to 5 m unmanned boat instead, so the drone can stay out for weeks. I build the landing funnel, the drone that lands in it, and the boat-side power and control.</p>
+  <p class="lede">Offshore drone inspections need a crewed vessel nearby. This dock rides on a 3 to 5 m unmanned boat instead, so the drone can stay out for weeks. I build the landing funnel, the drone that lands in it, and the boat-side power and control.</p>
   <p class="status partial">Lands in the lab, including on a moving platform, and charges. Not yet on water.</p>
 </div>
 
@@ -36,9 +36,9 @@
   <figure class="viewer" style="margin:0">
     <div class="stage">
       <img src="media/dock/funnel-top-800.jpg" srcset="media/dock/funnel-top-800.jpg 800w, media/dock/funnel-top-1600.jpg 1600w" sizes="(min-width: 70rem) 65rem, 100vw" alt="CAD render of a square funnel-shaped landing pad made of eight laser-cut flap halves joined by dovetails, with a black marker plate at the center" width="2000" height="1125" fetchpriority="high">
-      <button class="load" type="button" data-src="media/dock/funnel-v5.glb" data-alt="Interactive 3D model of the funnel landing pad">Rotate the 3D model (2.4 MB)</button>
+      <button class="load" type="button" data-src="media/dock/funnel-v5.glb" data-alt="Interactive 3D model of the funnel landing pad">Rotate the 3D model (2.4 MB)</button>
     </div>
-    <figcaption><span></span>Landing funnel v5, straight from the assembly I cut and built from: 35 in across the rim, 14 in opening, walls at 16 degrees.</figcaption>
+    <figcaption><span></span>Landing funnel v5, straight from the assembly I cut and built from: 35 in across the rim, 14 in opening, walls at 16 degrees.</figcaption>
   </figure>
 </div>
 
@@ -69,11 +69,11 @@
     </ul>
 
     <h2>The funnel</h2>
-    <p>The funnel is 6 mm MDF on eight ribs, bolted with stainless #8-32 hardware because it will live in salt air. Ribs slot into the center box and hold captive square nuts in T-slot pockets, so every flap bolts down from the top.</p>
+    <p>The funnel is 6 mm MDF on eight ribs, bolted with stainless #8-32 hardware because it will live in salt air. Ribs slot into the center box and hold captive square nuts in T-slot pockets, so every flap bolts down from the top.</p>
 
     <h3>Made to fit the laser I had</h3>
-    <p>The flaps are 35 in wide and the laser bed is 32 x 18 in. Rather than find a bigger machine, I split each flap down its centerline into two 17.4 in halves. Three laser-cut dovetails and two printed splice brackets underneath join each seam.</p>
-    <p>All ten blanks nest onto four 24 x 36 in sheets. The cut files come from one parametric script, so a change to the bed size or sheet thickness regenerates every blank, and a script check found zero interferences across the 330 bodies in the assembly.</p>
+    <p>The flaps are 35 in wide and the laser bed is 32 x 18 in. Rather than find a bigger machine, I split each flap down its centerline into two 17.4 in halves. Three laser-cut dovetails and two printed splice brackets underneath join each seam.</p>
+    <p>All ten blanks nest onto four 24 x 36 in sheets. The cut files come from one parametric script, so a change to the bed size or sheet thickness regenerates every blank, and a script check found zero interferences across the 330 bodies in the assembly.</p>
 
     <figure class="wide"><div class="frame white"><a href="media/dock/sheet-plan-1600.jpg"><img src="media/dock/sheet-plan-800.jpg" srcset="media/dock/sheet-plan-800.jpg 800w, media/dock/sheet-plan-1600.jpg 1600w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Cutting layout showing ten blanks nested on four MDF sheets, including a small fit coupon" width="2332" height="891" loading="lazy" decoding="async"></a></div><figcaption>Ten blanks on four sheets. Blank 8 is the fit coupon.</figcaption></figure>
 
@@ -86,25 +86,25 @@
     </figure>
 
     <h3>Measured the fit, then regenerated the parts</h3>
-    <p>Laser kerf widens every slot, and a press fit in MDF has almost no tolerance. The first files drew slots at 0.232 in for 0.236 in stock. Before cutting four sheets I cut a coupon with six slot widths from 0.220 to 0.240 in and three dovetail offsets, and tried each by hand.</p>
-    <p>The best fit was the tightest slot, 0.220 in, and dovetail sockets 0.008 in undersize per side. All ten blanks were regenerated with those values.</p>
+    <p>Laser kerf widens every slot, and a press fit in MDF has almost no tolerance. The first files drew slots at 0.232 in for 0.236 in stock. Before cutting four sheets I cut a coupon with six slot widths from 0.220 to 0.240 in and three dovetail offsets, and tried each by hand.</p>
+    <p>The best fit was the tightest slot, 0.220 in, and dovetail sockets 0.008 in undersize per side. All ten blanks were regenerated with those values.</p>
 
     <h2>What broke</h2>
 
     <div class="broke">
       <h3>The drone landed in the funnel but would not slide to the center</h3>
       <p>The first plan was new landing gear: a narrower stance with PTFE ball feet on printed clamps, about $200 to $300 and a week of work. Before any of that was built, the symptom got a second look. The same feet slid fine on the lab's vinyl platform. A foot that works on one surface and not another points at the surface.</p>
-      <p>On a 16 degree wall a foot slides only if the friction coefficient is below tan 16°, which is 0.29. Raw MDF sits at or above that. The screw heads standing proud of the flaps were a second problem: a sliding foot of this size can only climb a step of about 0.13 to 0.20 mm.</p>
+      <p>On a 16 degree wall a foot slides only if the friction coefficient is below tan 16°, which is 0.29. Raw MDF sits at or above that. The screw heads standing proud of the flaps were a second problem: a sliding foot of this size can only climb a step of about 0.13 to 0.20 mm.</p>
       <p>The fix was to sink the screw heads flush and face each flap with UHMW tape. The drone now slides to center.</p>
-      <p class="result">The limit tightens as the deck tilts: 0.19 at 5 degrees and 0.10 at 10 degrees, which is the edge of what the tape can do.</p>
+      <p class="result">The limit tightens as the deck tilts: 0.19 at 5 degrees and 0.10 at 10 degrees, which is the edge of what the tape can do.</p>
     </div>
 
     <figure class=""><div class="frame white"><a href="media/dock/friction.svg"><img src="media/dock/friction.svg" alt="Chart comparing friction ranges for raw MDF, packing tape and UHMW tape against the sliding limit at three deck tilts" width="600" height="470" loading="lazy" decoding="async"></a></div><figcaption>Why the surface was the problem. A foot slides only if friction is left of the blue line for the current deck tilt.</figcaption></figure>
 
     <div class="broke">
       <h3>A clamp that would have let go without anyone noticing</h3>
-      <p>In the clamp design, the drone is held down by an electromagnetic lock rated for 60 kg. In my first layout the magnet's pull line and the point that reacts it were 60.6 mm apart. At full pull that is a 36.4 N·m couple, and the drone's weight on its landing gear resists with about 4.5 N·m. The drone would pitch, and 2 degrees of tilt at the plate opens a 1.29 mm gap.</p>
-      <p>That matters because a maglock holds but cannot pull: at a 1 mm gap it makes single-digit newtons. Worse, the fault is silent. It passes any bench test where someone steadies the drone by hand.</p>
+      <p>In the clamp design, the drone is held down by an electromagnetic lock rated for 60 kg. In my first layout the magnet's pull line and the point that reacts it were 60.6 mm apart. At full pull that is a 36.4 N·m couple, and the drone's weight on its landing gear resists with about 4.5 N·m. The drone would pitch, and 2 degrees of tilt at the plate opens a 1.29 mm gap.</p>
+      <p>That matters because a maglock holds but cannot pull: at a 1 mm gap it makes single-digit newtons. Worse, the fault is silent. It passes any bench test where someone steadies the drone by hand.</p>
       <p>The fix is geometric: hard reaction pads outboard of the magnet, so the pull is reacted where it is applied. I put the layout through a load-path review before building any of it, and this is what the review found. The rework is on paper.</p>
     </div>
 
@@ -121,10 +121,10 @@
     </div>
 
     <h2>The drone</h2>
-    <p>I assembled and wired the Holybro X650, a 650 mm quadrotor running PX4, corrected its airframe configuration, and brought up its telemetry radio link. It replaced a smaller first-generation drone used for the early landing tests.</p>
+    <p>I assembled and wired the Holybro X650, a 650 mm quadrotor running PX4, corrected its airframe configuration, and brought up its telemetry radio link. It replaced a smaller first-generation drone used for the early landing tests.</p>
 
     <h2>Charging contacts</h2>
-    <p>The drone can land at any heading, so the contact design puts concentric rings on the drone and spring pins on the dock. Contact force set the design. Bare copper needs 13 to 18 N to break through its oxide, and the whole dock has about 4 N to spend. So the design uses gold-plated spring pins at about 1.2 N each, which fits inside that budget.</p>
+    <p>The drone can land at any heading, so the contact design puts concentric rings on the drone and spring pins on the dock. Contact force set the design. Bare copper needs 13 to 18 N to break through its oxide, and the whole dock has about 4 N to spend. So the design uses gold-plated spring pins at about 1.2 N each, which fits inside that budget.</p>
     <p>Wireless charging was ruled out on mass: the receiver alone would be 11 to 16% of the drone's flying weight.</p>
 
     <h2>Rules for modifying the airframe</h2>

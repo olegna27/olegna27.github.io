@@ -6,14 +6,14 @@
 }-->
 <div class="wrap case-head">
   <h1>Earlier work</h1>
-  <p class="lede">Smaller projects from before the dock: a field imaging method, an orbit from telescope data, and two research and team roles.</p>
+  <p class="lede">Smaller projects before and alongside the dock: a field imaging method, an orbit from telescope data, and three research and team roles.</p>
 </div>
 
 <div class="wrap case">
   <div class="prose" style="grid-column:1/-1;max-width:46rem">
 
     <h2 id="pompeii" style="margin-top:0">Finding a Roman pigment with night-vision goggles</h2>
-    <p class="status built">Field-tested at Pompeii, January 2026</p>
+    <p class="soft">MIT course on Roman Pompeii, on site in January 2026</p>
     <p style="margin-top:1rem">Egyptian Blue, a pigment the Romans used, absorbs visible light and glows in the near infrared, around 900 to 1,000 nm. Modified night-vision goggles can see that glow, so traces too faint to see by eye show up on the walls. On a three-person team in MIT's course on Roman Pompeii, we set out to make that survey faster and cleaner.</p>
 
     {{fig:earlier/goggles.png|Two hands holding a night-vision unit with its screen facing the camera|The modified night-vision unit.|}}
@@ -33,7 +33,7 @@
     <p class="soft">Team: Coleman Duplessie, Angelo Chaca, Joshua Curhan. Python, NumPy, OpenCV.</p>
 
     <h2 id="orbit">The orbit of a near-Earth asteroid from twelve telescope images</h2>
-    <p class="status built">Summer Science Program, 2024</p>
+    <p class="soft">Summer Science Program, 2024</p>
     <p style="margin-top:1rem">Three of us measured the orbit of asteroid (352143) 2007 LR32 from our own observations: twelve usable images over four nights on 0.4 m telescopes at Las Cumbres Observatory.</p>
     <p>The pipeline, in Python, finds the asteroid's centroid in each image, fits plate constants against ten reference stars by least squares to get its sky position, and runs the Method of Gauss on three observations to get the six orbital elements. A jackknife over 108 triples of observations picked the set to use. Each of us then ran the orbit determination and a 10,000-sample Monte Carlo for the uncertainties independently, with our own code.</p>
     <div class="scroll-x">
@@ -46,7 +46,7 @@
       </tbody>
     </table>
     </div>
-    <p>On those three elements my code landed closest to JPL's values of the three, with the widest error bars. Our three scripts, fed the same data, often disagreed by more than their stated uncertainties, which the report says plainly. We submitted the observations to the Minor Planet Center.</p>
+    <p>On those three elements my code landed closer to JPL's values than either teammate's, with the widest error bars. Our three scripts, fed the same data, often disagreed by more than their stated uncertainties, which the report says plainly. We submitted the observations to the Minor Planet Center.</p>
 
     {{fig:earlier/ssp-elements.png|Six bar charts comparing each team member's orbital elements with the expected JPL value|Each team member's six orbital elements against JPL's value, in red. From our report.|white}}
 

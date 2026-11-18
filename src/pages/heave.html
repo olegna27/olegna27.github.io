@@ -57,7 +57,7 @@
     <table class="numbers">
       <thead><tr><th>Concept</th><th>Verdict</th><th>Why</th></tr></thead>
       <tbody>
-        <tr><td>Electric rod actuator</td><td>Out</td><td>Built for force. Typical 20 to 50 mm/s, about ten times too slow.</td></tr>
+        <tr><td>Electric rod actuator</td><td>Out</td><td>Built for force. At a typical 20 to 50 mm/s a stroke takes about 30 s instead of 3.</td></tr>
         <tr><td>Lead screw</td><td>Out</td><td>An 8 mm lead needs 6,000 rpm. A 1.7 m screw whips near 1,000 rpm.</td></tr>
         <tr><td>Ball screw</td><td>Out</td><td>Even a 20 mm lead needs 2,400 rpm against a whip limit near 840 to 1,210 rpm.</td></tr>
         <tr><td>Scotch yoke</td><td>Out</td><td>The crank radius equals the amplitude, 0.75 m. Fixed sine only.</td></tr>
@@ -127,7 +127,7 @@
       <li>Firmware clamps commands to the stroke.</li>
       <li>Overtravel switches 20 mm past each end open a hard-wired safety chain: brake on, driver disabled. The microcontroller reads the chain but is not part of it, so a software crash cannot defeat it.</li>
       <li>The brake engages on any loss of power.</li>
-      <li>Shock absorbers 80 mm past each end take whatever speed is left: 13.0 J each after a full-speed brake stop, 15.4 J if the brake does nothing, against a 19.6 J rating.</li>
+      <li>Shock absorbers 80 mm past each end take whatever speed is left: 13.0 J each after a full-speed brake stop, and 15.4 J each from full speed with no brake at all, against a 19.6 J rating.</li>
       <li>Pins lock the platform at the bottom while the payload is changed.</li>
     </ul>
 

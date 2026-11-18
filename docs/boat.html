@@ -42,7 +42,7 @@
       <div><dt>Where</dt><dd>MIT Beaver Works, Hart lab, undergraduate research</dd></div>
       <div><dt>Dates</dt><dd>June to August 2026</dd></div>
       <div><dt>My part</dt><dd>Power wiring, control link, ground station, battery telemetry</dd></div>
-      <div><dt>Hardware</dt><dd>Pixhawk 6X (ArduRover), NVIDIA Jetson Orin Nano, Starlink, 48 V 100 Ah lithium pack, pan-tilt-zoom IP camera</dd></div>
+      <div><dt>Hardware</dt><dd>Pixhawk 6X (ArduRover), NVIDIA Jetson Orin Nano, Starlink, 48 V 100 Ah lithium pack, pan-tilt-zoom IP camera</dd></div>
       <div><dt>Software</dt><dd>Python, MAVLink, mavlink-router, QGroundControl, Tailscale, WebRTC, ONVIF, RS485</dd></div>
       <div><dt>Credit</dt><dd>Task plan and boat mounting design by Vasu Kaker</dd></div>
     </dl>
@@ -51,7 +51,7 @@
   <div class="prose">
     <h2>What I built</h2>
     <ul>
-      <li><strong>Power.</strong> Assembled and crimped the boat's distribution wiring: a 48 V battery bus feeding 24, 12 and 5 V converters and an inverter, in 10 AWG with ring and fork terminals.</li>
+      <li><strong>Power.</strong> Assembled and crimped the boat's distribution wiring: a 48 V battery bus feeding 24, 12 and 5 V converters and an inverter, in 10 AWG with ring and fork terminals.</li>
       <li><strong>Control link.</strong> MAVLink from the Pixhawk through a Jetson Orin Nano and across a Tailscale mesh on Starlink, so a laptop anywhere drives the boat in QGroundControl as if it were plugged in.</li>
       <li><strong>Ground station.</strong> One page served by a Python program with no dependencies beyond the standard library: live video, pan-tilt-zoom control and a live battery panel.</li>
       <li><strong>Battery telemetry.</strong> A daemon that polls the battery management system every 2 seconds for pack voltage, current, charge, temperature and all 16 cell voltages.</li>
@@ -62,7 +62,7 @@
 
     <div class="broke">
       <h3>A battery port with no documentation</h3>
-      <p>I assumed the monitor port was plain serial and wired it to a microcontroller. Nothing came back. Before writing more code I measured the port: 160 ohms across the two data wires, which is bus termination. It was differential RS485, not logic-level serial.</p>
+      <p>I assumed the monitor port was plain serial and wired it to a microcontroller. Nothing came back. Before writing more code I measured the port: 160 ohms across the two data wires, which is bus termination. It was differential RS485, not logic-level serial.</p>
       <p>On a proper adapter it still ignored Modbus and the framings that JBD, Daly, JK and PACE packs use. So I wrote a probe that sends every candidate frame at every common baud rate and prints anything that answers.</p>
 <pre><code>for baud in BAUDS:                      # 9600, 115200, 19200, 57600, 38400, 4800
     s = serial.Serial(port, baud, bytesize=8, parity="N", stopbits=1, timeout=0.4)
@@ -73,7 +73,7 @@
         resp = s.read(256)
         if resp:
             print(f"  {name:&lt;11} -> {resp.hex(' ')}")</code></pre>
-      <p>One combination answered: a vendor-specific frame at 19,200 baud, which an open-source Bluetooth decoder for the same brand had already mapped. I adapted that decoder to the wired link and checked every field against the pack: 52.96 V, 0 A, 48%, 21 °C, 16 cells at about 3.3 V.</p>
+      <p>One combination answered: a vendor-specific frame at 19,200 baud, which an open-source Bluetooth decoder for the same brand had already mapped. I adapted that decoder to the wired link and checked every field against the pack: 52.96 V, 0 A, 48%, 21 °C, 16 cells at about 3.3 V.</p>
       <p class="result">The same bus carries commands that switch charging and discharging off. The daemon only ever sends the status request.</p>
     </div>
 
@@ -96,7 +96,7 @@
 
     <div class="broke">
       <h3>An inherited microcontroller bridge with two power sources</h3>
-      <p>A Teensy 4.1 sits between the Pixhawk and the vehicle control board. Before changing it I traced how it was powered. It now runs from a 24 V to 5 V converter into its input pin, with the trace that ties USB power to that pin cut so a plugged-in laptop cannot back-feed the rail, one common ground, and no second 5 V feed from the Pixhawk's telemetry port.</p>
+      <p>A Teensy 4.1 sits between the Pixhawk and the vehicle control board. Before changing it I traced how it was powered. It now runs from a 24 V to 5 V converter into its input pin, with the trace that ties USB power to that pin cut so a plugged-in laptop cannot back-feed the rail, one common ground, and no second 5 V feed from the Pixhawk's telemetry port.</p>
     </div>
 
     <div class="broke">

@@ -28,7 +28,7 @@
 
 <div class="wrap case-head">
   <h1>A test rig that moves a drone dock like a boat deck in swell</h1>
-  <p class="lede">Landing on a boat means landing on a deck that rises and falls 1.5 m. To test that on land I designed a two-tower, belt-driven rig that heaves the dock's platform, up to 30 kg, at up to 0.8 m/s, and is designed to hold it on power loss, E-stop or a driver fault.</p>
+  <p class="lede">Landing on a boat means landing on a deck that rises and falls 1.5 m. To test that on land I designed a two-tower, belt-driven rig that heaves the dock's platform, up to 30 kg, at up to 0.8 m/s, and is designed to hold it on power loss, E-stop or a driver fault.</p>
   <p class="status built">Built and running</p>
 </div>
 
@@ -42,10 +42,10 @@
       <div><dt>Where</dt><dd>MIT Beaver Works, Hart lab, undergraduate research</dd></div>
       <div><dt>Dates</dt><dd>October 2026 to present</dd></div>
       <div><dt>My part</dt><dd>Requirements, mechanism selection, sizing, layout and build</dd></div>
-      <div><dt>Size</dt><dd>About 2.2 m tall, 1.4 m wide, 1.0 m deep. 1.10 m clear between carriages.</dd></div>
+      <div><dt>Size</dt><dd>About 2.2 m tall, 1.4 m wide, 1.0 m deep. 1.10 m clear between carriages.</dd></div>
       <div><dt>Parts</dt><dd>40-series aluminum extrusion, HGR20 rails, HTD-5M belts, closed-loop NEMA 34 stepper with brake, Teensy 4.1</dd></div>
       <div><dt>Budget</dt><dd>$2,500 cap. Parts list came to $2,444.</dd></div>
-      <div><dt>Credit</dt><dd>Motion spec (1.5 m, 0.8 m/s) from Vasu Kaker</dd></div>
+      <div><dt>Credit</dt><dd>Motion spec (1.5 m, 0.8 m/s) from Vasu Kaker</dd></div>
     </dl>
   </div>
 
@@ -53,7 +53,7 @@
     <p class="soft">The rig is built and running. This page is about how it was designed: the image above is the layout model the build was planned from, and every number below is a design calculation. Test results against each requirement are not on this page yet.</p>
 
     <h2>The problem</h2>
-    <p>The <a href="dock.html">drone dock</a> will ride on a boat whose deck is expected to heave 1.5 m in total at up to 0.8 m/s. The lab's existing platform tilts in pitch and roll but cannot heave. The brief was short: 1.5 m of stroke, 0.8 m/s, and not the slow linear actuators already in the lab.</p>
+    <p>The <a href="dock.html">drone dock</a> will ride on a boat whose deck is expected to heave 1.5 m in total at up to 0.8 m/s. The lab's existing platform tilts in pitch and roll but cannot heave. The brief was short: 1.5 m of stroke, 0.8 m/s, and not the slow linear actuators already in the lab.</p>
     <p>The rig has to carry that pitch and roll platform on top, so both motions run together, and leave open sky above it for the drone.</p>
 
     <h2>Requirements first</h2>
@@ -62,30 +62,30 @@
     <table class="numbers">
       <thead><tr><th>Requirement</th><th>Value</th><th>How it gets checked</th></tr></thead>
       <tbody>
-        <tr><td>Stroke and speed</td><td>1.5 m, 0.8 m/s, 1.0 m/s² design acceleration</td><td>Encoder log</td></tr>
-        <tr><td>Accuracy and tilt</td><td>Within 5 mm of command, under 0.5° of unwanted tilt</td><td>Laser distance sensor, IMU</td></tr>
-        <tr><td>Payload</td><td>15 kg nominal, 30 kg maximum, 150 mm off center, plus a 5 kg drone landing at 1.3 m/s</td><td>Load and sandbag drop tests</td></tr>
-        <tr><td>Stiffness</td><td>Lowest structural mode at or above 5 Hz</td><td>Tap test</td></tr>
+        <tr><td>Stroke and speed</td><td>1.5 m, 0.8 m/s, 1.0 m/s² design acceleration</td><td>Encoder log</td></tr>
+        <tr><td>Accuracy and tilt</td><td>Within 5 mm of command, under 0.5° of unwanted tilt</td><td>Laser distance sensor, IMU</td></tr>
+        <tr><td>Payload</td><td>15 kg nominal, 30 kg maximum, 150 mm off center, plus a 5 kg drone landing at 1.3 m/s</td><td>Load and sandbag drop tests</td></tr>
+        <tr><td>Stiffness</td><td>Lowest structural mode at or above 5 Hz</td><td>Tap test</td></tr>
         <tr><td>Safety</td><td>Holds on power loss, E-stop or driver fault. Three layers of travel limits.</td><td>Functional tests</td></tr>
-        <tr><td>Space</td><td>1.05 m clear width, open top, under 2.4 m tall</td><td>Tape measure</td></tr>
-        <tr><td>Program</td><td>Off-the-shelf parts, $2,500 cap, one 120 V outlet</td><td>Parts list</td></tr>
+        <tr><td>Space</td><td>1.05 m clear width, open top, under 2.4 m tall</td><td>Tape measure</td></tr>
+        <tr><td>Program</td><td>Off-the-shelf parts, $2,500 cap, one 120 V outlet</td><td>Parts list</td></tr>
       </tbody>
     </table>
     </div>
 
     <h2>Choosing the mechanism</h2>
-    <p>Eight ways to make linear motion, screened against 1.5 m of stroke at 0.8 m/s. Stroke turned out to decide it.</p>
+    <p>Eight ways to make linear motion, screened against 1.5 m of stroke at 0.8 m/s. Stroke turned out to decide it.</p>
     <div class="scroll-x">
     <table class="numbers">
       <thead><tr><th>Concept</th><th>Verdict</th><th>Why</th></tr></thead>
       <tbody>
-        <tr><td>Electric rod actuator</td><td>Out</td><td>Built for force. Typical 20 to 50 mm/s, about ten times too slow.</td></tr>
-        <tr><td>Lead screw</td><td>Out</td><td>An 8 mm lead needs 6,000 rpm. A 1.7 m screw whips near 1,000 rpm.</td></tr>
-        <tr><td>Ball screw</td><td>Out</td><td>Even a 20 mm lead needs 2,400 rpm against a whip limit near 840 to 1,210 rpm.</td></tr>
-        <tr><td>Scotch yoke</td><td>Out</td><td>The crank radius equals the amplitude, 0.75 m. Fixed sine only.</td></tr>
+        <tr><td>Electric rod actuator</td><td>Out</td><td>Built for force. At a typical 20 to 50 mm/s a stroke takes about 30 s instead of 3.</td></tr>
+        <tr><td>Lead screw</td><td>Out</td><td>An 8 mm lead needs 6,000 rpm. A 1.7 m screw whips near 1,000 rpm.</td></tr>
+        <tr><td>Ball screw</td><td>Out</td><td>Even a 20 mm lead needs 2,400 rpm against a whip limit near 840 to 1,210 rpm.</td></tr>
+        <tr><td>Scotch yoke</td><td>Out</td><td>The crank radius equals the amplitude, 0.75 m. Fixed sine only.</td></tr>
         <tr><td>Scissor lift</td><td>Out</td><td>Force varies about six times over the stroke, and the pin joints add play.</td></tr>
         <tr><td>Rack and pinion</td><td>Backup</td><td>Works, but backlash knocks at every reversal.</td></tr>
-        <tr><td>Cable and drum</td><td>Alternate</td><td>A cable can only pull, which caps the counterweight at 12.6 kg for a 15 kg payload.</td></tr>
+        <tr><td>Cable and drum</td><td>Alternate</td><td>A cable can only pull, which caps the counterweight at 12.6 kg for a 15 kg payload.</td></tr>
         <tr class="pick"><td>Belt and pulley</td><td>Chosen</td><td>Nothing long spins, stroke only costs belt, and a closed loop allows full counterweighting.</td></tr>
       </tbody>
     </table>
@@ -97,27 +97,27 @@
         <div class="frame white"><img src="media/heave/jackshaft-800.jpg" srcset="media/heave/jackshaft-800.jpg 800w, media/heave/jackshaft-1200.jpg 1200w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Render of the base of the rig showing a steel jackshaft in pillow blocks joining two drive pulleys" width="1200" height="800" loading="lazy" decoding="async"></div>
         <div class="frame white"><img src="media/heave/counterweight-800.jpg" srcset="media/heave/counterweight-800.jpg 800w, media/heave/counterweight-1100.jpg 1100w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Render of a counterweight carriage with weight plates riding a rail on the back of a tower" width="1100" height="900" loading="lazy" decoding="async"></div>
       </div>
-      <figcaption>First: one 15 mm jackshaft ties the two belt loops together. Second: each tower carries a counterweight on its own rail, behind the tower and away from the operator. Both from the layout model.</figcaption>
+      <figcaption>First: one 15 mm jackshaft ties the two belt loops together. Second: each tower carries a counterweight on its own rail, behind the tower and away from the operator. Both from the layout model.</figcaption>
     </figure>
 
     <h2>What the sizing showed</h2>
 
     <h3>Counterweights cut the motor torque by 4.6 times</h3>
-    <p>Without counterweights the motor lifts the platform's weight on every cycle. With the platform balanced it only supplies inertia and friction: peak torque drops from 4.40 to 0.96 N·m for the nominal 15 kg payload. The balance also nearly removes the vertical force the machine puts into the floor.</p>
-    <p>The motor is not sized on that number. It is sized on the worst load case, 30 kg of payload with a 5 kg drone sitting on it unbalanced, at the corner of the operating envelope: 2.19 N·m.</p>
+    <p>Without counterweights the motor lifts the platform's weight on every cycle. With the platform balanced it only supplies inertia and friction: peak torque drops from 4.40 to 0.96 N·m for the nominal 15 kg payload. The balance also nearly removes the vertical force the machine puts into the floor.</p>
+    <p>The motor is not sized on that number. It is sized on the worst load case, 30 kg of payload with a 5 kg drone sitting on it unbalanced, at the corner of the operating envelope: 2.19 N·m.</p>
 
-    <figure class=""><div class="frame white"><a href="media/heave/torque-1280.jpg"><img src="media/heave/torque-800.jpg" srcset="media/heave/torque-800.jpg 800w, media/heave/torque-1280.jpg 1280w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Line chart of motor torque over one wave period, with and without the counterweight" width="1280" height="640" loading="lazy" decoding="async"></a></div><figcaption>Motor torque over one 5.9 s wave with the 15 kg payload. Red is without counterweights, green is balanced.</figcaption></figure>
+    <figure class=""><div class="frame white"><a href="media/heave/torque-1280.jpg"><img src="media/heave/torque-800.jpg" srcset="media/heave/torque-800.jpg 800w, media/heave/torque-1280.jpg 1280w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Line chart of motor torque over one wave period, with and without the counterweight" width="1280" height="640" loading="lazy" decoding="async"></a></div><figcaption>Motor torque over one 5.9 s wave with the 15 kg payload. Red is without counterweights, green is balanced.</figcaption></figure>
 
     <h3>The brake picked the motor</h3>
-    <p>A balanced machine has a new problem: it coasts. With power lost, friction alone slows it at 0.22 m/s², so it would travel 1.46 m, nearly the whole stroke, into the end stops. With a drone on board it drifts down and arrives with up to 44 J.</p>
-    <p>So the motor is a closed-loop NEMA 34 stepper with a brake that engages whenever it is unpowered, through a 2:1 belt reduction that halves the motor torque and doubles the brake's hold. The brake gives 419 N at the belt and stops the worst case from full speed in 127 mm. A NEMA 23 would have been about $110 cheaper and has no brake.</p>
+    <p>A balanced machine has a new problem: it coasts. With power lost, friction alone slows it at 0.22 m/s², so it would travel 1.46 m, nearly the whole stroke, into the end stops. With a drone on board it drifts down and arrives with up to 44 J.</p>
+    <p>So the motor is a closed-loop NEMA 34 stepper with a brake that engages whenever it is unpowered, through a 2:1 belt reduction that halves the motor torque and doubles the brake's hold. The brake gives 419 N at the belt and stops the worst case from full speed in 127 mm. A NEMA 23 would have been about $110 cheaper and has no brake.</p>
 
     <h3>The rest of the checks</h3>
     <ul>
-      <li><strong>Tilt:</strong> 0.026° with 30 kg sitting 150 mm off center, against a 0.5° budget.</li>
-      <li><strong>Jackshaft:</strong> 15 mm keyed steel has a fatigue safety factor of 1.6 under deliberately pessimistic keyseat assumptions. A 12 mm shaft falls below 1.</li>
-      <li><strong>Bearings:</strong> the worst-loaded one has a rated life of 2,860 hours against a 500 hour requirement.</li>
-      <li><strong>Regeneration:</strong> stopping the unbalanced worst case returns about 49 J that the power supply cannot absorb. A diode and three 4,700 µF capacitors are sized to hold the bus under 80 V, below where the driver trips.</li>
+      <li><strong>Tilt:</strong> 0.026° with 30 kg sitting 150 mm off center, against a 0.5° budget.</li>
+      <li><strong>Jackshaft:</strong> 15 mm keyed steel has a fatigue safety factor of 1.6 under deliberately pessimistic keyseat assumptions. A 12 mm shaft falls below 1.</li>
+      <li><strong>Bearings:</strong> the worst-loaded one has a rated life of 2,860 hours against a 500 hour requirement.</li>
+      <li><strong>Regeneration:</strong> stopping the unbalanced worst case returns about 49 J that the power supply cannot absorb. A diode and three 4,700 µF capacitors are sized to hold the bus under 80 V, below where the driver trips.</li>
     </ul>
 
     <h2>What the review caught</h2>
@@ -125,11 +125,11 @@
 
     <div class="broke">
       <h3>A belt that could go slack during a landing</h3>
-      <p>The first belt model split the drive force evenly between the two lower spans. Near the bottom of the stroke one span is under 0.1 m long and many times stiffer than the other, so it takes almost all of any change in load. At 150 N of pretension a drone landing or a brake stop there would take that span to minus 18 N, which means slack.</p>
-      <p>Pretension went from 150 to 250 N. The lowest tension in any span, in any case, is now 82 N and the highest is 540 N against a 1,120 N rating.</p>
+      <p>The first belt model split the drive force evenly between the two lower spans. Near the bottom of the stroke one span is under 0.1 m long and many times stiffer than the other, so it takes almost all of any change in load. At 150 N of pretension a drone landing or a brake stop there would take that span to minus 18 N, which means slack.</p>
+      <p>Pretension went from 150 to 250 N. The lowest tension in any span, in any case, is now 82 N and the highest is 540 N against a 1,120 N rating.</p>
     </div>
 
-    <figure class=""><div class="frame white"><a href="media/heave/belt-tension-1280.jpg"><img src="media/heave/belt-tension-800.jpg" srcset="media/heave/belt-tension-800.jpg 800w, media/heave/belt-tension-1280.jpg 1280w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Bar chart of belt tension ranges in four load cases at 250 newtons of pretension, all below the permissible limit" width="1280" height="640" loading="lazy" decoding="async"></a></div><figcaption>Belt tension at 250 N pretension: every case stays above zero and under the 1,120 N limit.</figcaption></figure>
+    <figure class=""><div class="frame white"><a href="media/heave/belt-tension-1280.jpg"><img src="media/heave/belt-tension-800.jpg" srcset="media/heave/belt-tension-800.jpg 800w, media/heave/belt-tension-1280.jpg 1280w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Bar chart of belt tension ranges in four load cases at 250 newtons of pretension, all below the permissible limit" width="1280" height="640" loading="lazy" decoding="async"></a></div><figcaption>Belt tension at 250 N pretension: every case stays above zero and under the 1,120 N limit.</figcaption></figure>
 
     <div class="broke">
       <h3>A driver fault that would have left the brake released</h3>
@@ -138,25 +138,25 @@
 
     <div class="broke">
       <h3>A structure that was softer than first estimated</h3>
-      <p>The side-to-side mode dropped from 5.7 to 5.1 Hz once the cross members' own bending was counted, and the target is 5 Hz. That is marginal, and real bolted joints are softer than the rigid ones in the model. I added gussets at the tower bases and kept a second bolt-in fix ready. A tap test is the check that settles it.</p>
+      <p>The side-to-side mode dropped from 5.7 to 5.1 Hz once the cross members' own bending was counted, and the target is 5 Hz. That is marginal, and real bolted joints are softer than the rigid ones in the model. I added gussets at the tower bases and kept a second bolt-in fix ready. A tap test is the check that settles it.</p>
       <p class="result">The fourth finding: in non-sinusoidal profiles peak speed and peak acceleration can coincide, so the two are now limited together.</p>
     </div>
 
-    <figure class=""><div class="frame white"><a href="media/heave/modes-1280.jpg"><img src="media/heave/modes-800.jpg" srcset="media/heave/modes-800.jpg 800w, media/heave/modes-1280.jpg 1280w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Bar chart of estimated natural frequencies for six structural modes against the 5 hertz target" width="1280" height="640" loading="lazy" decoding="async"></a></div><figcaption>Estimated natural frequencies. The side-to-side mode with rigid joints sits right on the 5 Hz line; with pinned joints it fails, so the joints have to carry moment.</figcaption></figure>
+    <figure class=""><div class="frame white"><a href="media/heave/modes-1280.jpg"><img src="media/heave/modes-800.jpg" srcset="media/heave/modes-800.jpg 800w, media/heave/modes-1280.jpg 1280w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Bar chart of estimated natural frequencies for six structural modes against the 5 hertz target" width="1280" height="640" loading="lazy" decoding="async"></a></div><figcaption>Estimated natural frequencies. The side-to-side mode with rigid joints sits right on the 5 Hz line; with pinned joints it fails, so the joints have to carry moment.</figcaption></figure>
 
     <h2>Fail-safe in layers</h2>
     <ul>
       <li>Firmware clamps commands to the stroke.</li>
-      <li>Overtravel switches 20 mm past each end open a hard-wired safety chain: brake on, driver disabled. The microcontroller reads the chain but is not part of it, so a software crash cannot defeat it.</li>
+      <li>Overtravel switches 20 mm past each end open a hard-wired safety chain: brake on, driver disabled. The microcontroller reads the chain but is not part of it, so a software crash cannot defeat it.</li>
       <li>The brake engages on any loss of power.</li>
-      <li>Shock absorbers 80 mm past each end take whatever speed is left: 13.0 J each after a full-speed brake stop, 15.4 J if the brake does nothing, against a 19.6 J rating.</li>
+      <li>Shock absorbers 80 mm past each end take whatever speed is left: 13.0 J each after a full-speed brake stop, and 15.4 J each from full speed with no brake at all, against a 19.6 J rating.</li>
       <li>Pins lock the platform at the bottom while the payload is changed.</li>
     </ul>
 
     <figure class=""><div class="frame white"><a href="media/heave/safety-wiring-542.jpg"><img src="media/heave/safety-wiring-542.jpg" srcset="media/heave/safety-wiring-542.jpg 542w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Block diagram of the power and safety wiring: two power supplies, a safety chain of E-stop and overtravel switches, safety relay, driver, brake interlock relay and motor brake" width="542" height="647" loading="lazy" decoding="async"></a></div><figcaption>Power and safety wiring. The red blocks are the hard-wired chain and the brake interlock.</figcaption></figure>
 
     <h2>Cost</h2>
-    <p>The target was $1,500 and the cap $2,500. The parts list came to $2,444. Four things separate it from the cheaper machine, and each one traces to a requirement: the brake motor and driver ($192), the second rail kit for the counterweights ($130), the shock absorbers ($149), and 2 m of heavy extrusion per tower ($305).</p>
+    <p>The target was $1,500 and the cap $2,500. The parts list came to $2,444. Four things separate it from the cheaper machine, and each one traces to a requirement: the brake motor and driver ($192), the second rail kit for the counterweights ($130), the shock absorbers ($149), and 2 m of heavy extrusion per tower ($305).</p>
 
     <div class="next"><a href="boat.html">Next: boat control and telemetry</a><a href="dock.html">Back to the dock</a></div>
   </div>

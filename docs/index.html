@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Angelo Chaca: hardware and the software that runs it</title>
-<meta name="description" content="MIT sophomore in physics and EECS. A drone dock for an unmanned boat, the test rig that proves it, the boat&#x27;s control link, and a force-control simulation. What I built, what broke, and how I fixed it.">
+<meta name="description" content="MIT sophomore in physics and EECS. A drone dock for an unmanned boat, the rig built to test it, the boat&#x27;s control link, and a force-control simulation. What I built, what broke, and how I fixed it.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Angelo Chaca: I design, build and debug hardware">
-<meta property="og:description" content="MIT sophomore in physics and EECS. A drone dock for an unmanned boat, the test rig that proves it, the boat&#x27;s control link, and a force-control simulation. What I built, what broke, and how I fixed it.">
+<meta property="og:description" content="MIT sophomore in physics and EECS. A drone dock for an unmanned boat, the rig built to test it, the boat&#x27;s control link, and a force-control simulation. What I built, what broke, and how I fixed it.">
 <meta property="og:image" content="https://olegna27.github.io/media/dock/funnel-top-1600.jpg">
 <meta property="og:url" content="https://olegna27.github.io/">
 <meta name="twitter:card" content="summary_large_image">
@@ -45,7 +45,7 @@
     <a aria-labelledby="t2" class="tile" href="heave.html">
       <div class="media white"><img src="media/heave/layout-wide-800.jpg" srcset="media/heave/layout-wide-800.jpg 800w, media/heave/layout-wide-1600.jpg 1600w" sizes="(min-width: 46rem) 33rem, 100vw" alt="3D layout of a two-tower belt-driven test rig" width="1725" height="1150" loading="lazy" decoding="async"></div>
       <h2 id="t2">A test rig that heaves the dock like a boat deck</h2>
-      <p>1.5 m of travel at 0.8 m/s, counterweighted so the motor torque drops 4.6 times, with a brake and four more layers behind it.</p>
+      <p>1.5 m of travel at 0.8 m/s, counterweighted so the motor torque drops 4.6 times, with a brake and four more layers behind it.</p>
       <p class="where">MIT Beaver Works, October 2026 to present. Image: the layout model the build was planned from.</p>
       <p class="status built">Built and running</p>
     </a>
@@ -80,11 +80,11 @@
   <h2>What I have worked on, and where to see it</h2>
   <table class="proof">
     <tbody>
-      <tr><th scope="row">CAD for parts that can actually be made</th><td>A funnel assembly of 330 bodies with zero interferences, split and nested to fit a 32 x 18 in laser bed. <a href="dock.html">Drone dock</a>. SolidWorks servo-valve mounts on <a href="earlier.html#rocket">Rocket Team</a>.</td></tr>
+      <tr><th scope="row">CAD for parts that can actually be made</th><td>A funnel assembly of 330 bodies with zero interferences, split and nested to fit a 32 x 18 in laser bed. <a href="dock.html">Drone dock</a>. SolidWorks servo-valve mounts on <a href="earlier.html#rocket">Rocket Team</a>.</td></tr>
       <tr><th scope="row">Fabrication and assembly</th><td>Laser cutting, FDM printing, crimped power harnesses, soldering, press fits tuned with a coupon. <a href="dock.html">Drone dock</a>, <a href="boat.html">boat</a>.</td></tr>
-      <tr><th scope="row">Motors, drives and power</th><td>Sizing a closed-loop stepper drive with a brake, regeneration protection and a hard-wired safety chain. <a href="heave.html">Heave simulator</a>. A 48 V boat bus with 24, 12 and 5 V rails. <a href="boat.html">Boat</a>.</td></tr>
-      <tr><th scope="row">Magnets and rotating machinery</th><td>An electromagnetic lock rated for 60 kg makes single-digit newtons across a 1 mm gap, so the clamp's load path was reworked around it. <a href="dock.html">Drone dock</a>. Screws ruled out on whip speed (6,000 rpm needed, whip near 1,000), then a jackshaft checked for fatigue at a factor of 1.6, belt stiffness, bearing life and structural modes. <a href="heave.html">Heave simulator</a>.</td></tr>
-      <tr><th scope="row">Test rigs and measurement</th><td>A rig designed requirement by requirement, each with the test that checks it. <a href="heave.html">Heave simulator</a>.</td></tr>
+      <tr><th scope="row">Motors, drives and power</th><td>Sizing a closed-loop stepper drive with a brake, regeneration protection and a hard-wired safety chain. <a href="heave.html">Heave simulator</a>. A 48 V boat bus with 24, 12 and 5 V rails. <a href="boat.html">Boat</a>.</td></tr>
+      <tr><th scope="row">Magnets and rotating machinery</th><td>An electromagnetic lock rated for 60 kg makes single-digit newtons across a 1 mm gap, so the clamp's load path was reworked around it. <a href="dock.html">Drone dock</a>. Screws ruled out on whip speed (6,000 rpm needed, whip near 1,000), then a jackshaft checked for fatigue at a factor of 1.6, belt stiffness, bearing life and structural modes. <a href="heave.html">Heave simulator</a>.</td></tr>
+      <tr><th scope="row">Test rigs and measurement</th><td>A rig designed requirement by requirement, each paired with the test that will check it. <a href="heave.html">Heave simulator</a>.</td></tr>
       <tr><th scope="row">Embedded systems and links</th><td>Pixhawk on PX4 and ArduRover, Jetson, Teensy, Arduino, MAVLink, RS485. <a href="boat.html">Boat</a>.</td></tr>
       <tr><th scope="row">Estimation, control and simulation</th><td>Least-squares estimation of surface height and stiffness from force, a camera feedback loop, inverse dynamics control in Drake. <a href="shadingbot.html">ShadingBot</a>. Orbit determination with Monte Carlo uncertainty. <a href="earlier.html#orbit">Asteroid orbit</a>.</td></tr>
       <tr><th scope="row">Languages</th><td>Python, C, MATLAB.</td></tr>
@@ -116,8 +116,8 @@
     <article class="fix">
       <div><h3>Laser-cut joints that have to press together by hand</h3><p class="status built">Fixed on hardware</p><p class="from"><a href="dock.html">Drone dock</a></p></div>
       <dl>
-        <div><dt>Cause</dt><dd>Kerf widens every slot, and the first files drew slots at 0.232 in for 0.236 in stock.</dd></div>
-        <div><dt>Fix</dt><dd>A coupon with six slot widths and three dovetail offsets. The winner, 0.220 in, went back into the script that generates every part.</dd></div>
+        <div><dt>Cause</dt><dd>Kerf widens every slot, and the first files drew slots at 0.232 in for 0.236 in stock.</dd></div>
+        <div><dt>Fix</dt><dd>A coupon with six slot widths and three dovetail offsets. The winner, 0.220 in, went back into the script that generates every part.</dd></div>
       </dl>
     </article>
 
@@ -138,7 +138,7 @@
     </article>
 
     <article class="fix">
-      <div><h3>A servo controller board died</h3><p class="status built">Diagnosed on hardware</p><p class="from"><a href="boat.html">Boat control and telemetry</a></p></div>
+      <div><h3>A servo controller board died</h3><p class="status partial">Diagnosed on hardware</p><p class="from"><a href="boat.html">Boat control and telemetry</a></p></div>
       <dl>
         <div><dt>Cause</dt><dd>Back-EMF from the servos damaged the main processor of an Arduino UNO R4 WiFi.</dd></div>
         <div><dt>Fix</dt><dd>Recovered the board's second processor, an ESP32-S3.</dd></div>
@@ -147,13 +147,13 @@
 
   </div>
   <details class="more">
-    <summary>Three more, caught before anything was built or in simulation</summary>
+    <summary>Three more: two caught on paper, one in simulation</summary>
     <div class="fixlog">
 
     <article class="fix">
       <div><h3>A magnetic clamp that would release without anyone noticing</h3><p class="status designed">Caught on paper</p><p class="from"><a href="dock.html">Drone dock</a></p></div>
       <dl>
-        <div><dt>Cause</dt><dd>Pull and reaction were 60.6 mm apart: a 36.4 N·m couple against about 4.5 N·m from the drone's weight. It would pass any bench test with a hand on the drone.</dd></div>
+        <div><dt>Cause</dt><dd>Pull and reaction were 60.6 mm apart: a 36.4 N·m couple against about 4.5 N·m from the drone's weight. It would pass any bench test with a hand on the drone.</dd></div>
         <div><dt>Fix</dt><dd>Reaction pads moved outboard of the magnet. Found in design review, before anything was built.</dd></div>
       </dl>
     </article>
@@ -162,7 +162,7 @@
       <div><h3>A drive belt that could go slack during a landing</h3><p class="status designed">Caught on paper</p><p class="from"><a href="heave.html">Heave simulator</a></p></div>
       <dl>
         <div><dt>Cause</dt><dd>The first model shared load evenly between belt spans. Near the end of travel one span is short, far stiffer, and takes nearly all of it.</dd></div>
-        <div><dt>Fix</dt><dd>Pretension raised from 150 to 250 N. Lowest tension in any case went from minus 18 N to 82 N.</dd></div>
+        <div><dt>Fix</dt><dd>Pretension raised from 150 to 250 N. Lowest tension in any case went from minus 18 N to 82 N.</dd></div>
       </dl>
     </article>
 
@@ -170,7 +170,7 @@
       <div><h3>Camera feedback that was no better than no feedback</h3><p class="status sim">Fixed in simulation</p><p class="from"><a href="shadingbot.html">ShadingBot</a></p></div>
       <dl>
         <div><dt>Cause</dt><dd>In the first runs the loop watched only the center line of each row while the score averages the full row width: 0.081 against open loop's 0.079.</dd></div>
-        <div><dt>Fix</dt><dd>Full-width window and a touchdown bug fix: 0.051 against 0.064 on the same early test. Both went in together, so an ablation is still owed.</dd></div>
+        <div><dt>Fix</dt><dd>Full-width window and a touchdown bug fix: 0.051 against 0.064 on the same early test. Both went in together, so an ablation is still owed. As calibrated, the two methods now tie.</dd></div>
       </dl>
     </article>
 

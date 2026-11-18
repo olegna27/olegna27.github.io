@@ -112,10 +112,27 @@ def expand(body):
     return body
 
 
+UNITS = r"(?:mm/s|cm/s|m/s²|m/s|mm|cm|m|N·m|kN|N|J|Hz|kg|kPa|V|A|in|rpm|µF|au|ms|s|ohms|hours|degrees|Ah|AWG|MB|x)"
+
+
+def nbsp_units(body):
+    out, in_pre = [], False
+    for part in re.split(r"(<[^>]+>)", body):
+        if part.startswith("<"):
+            if part.startswith("<pre"):
+                in_pre = True
+            elif part.startswith("</pre"):
+                in_pre = False
+        elif not in_pre:
+            part = re.sub(rf"(\d) ({UNITS})(?![\w/])", "\\1\u00a0\\2", part)
+        out.append(part)
+    return "".join(out)
+
+
 def render(page):
     text = page.read_text()
     meta = json.loads(re.match(r"<!--(.*?)-->", text, re.S).group(1))
-    body = expand(text.split("-->", 1)[1])
+    body = nbsp_units(expand(text.split("-->", 1)[1]))
     name = page.name
     nav = "".join(
         f'<a href="{href}"{" aria-current=\"page\"" if href == name else ""}>{label}</a>' for label, href in NAV
