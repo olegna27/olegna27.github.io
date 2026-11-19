@@ -5,7 +5,6 @@
     <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#1746c8"/></marker>
     <marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#55616f"/></marker>
   </defs>
-  <text x="20" y="34" font-weight="700" font-size="22">Two force lines, 60.6 mm apart</text>
   <rect x="170" y="62" width="26" height="218" fill="#edf0f4" stroke="#18212e" stroke-width="1.5"/>
   <line x1="400" y1="104" x2="206" y2="104" stroke="#1746c8" stroke-width="5" marker-end="url(#b)"/>
   <text x="214" y="88" fill="#1746c8" font-weight="600">magnet pull</text>

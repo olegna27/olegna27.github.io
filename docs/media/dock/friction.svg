@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 470" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#18212e">
   <rect width="600" height="470" fill="#ffffff"/>
-  <text x="20" y="34" font-weight="700" font-size="22">A foot slides only left of the line</text>
   <g stroke="#d3d9e0" stroke-width="1"><line x1="150" y1="150" x2="150" y2="360"/><line x1="236" y1="150" x2="236" y2="360"/><line x1="322" y1="150" x2="322" y2="360"/><line x1="408" y1="150" x2="408" y2="360"/><line x1="494" y1="150" x2="494" y2="360"/><line x1="580" y1="150" x2="580" y2="360"/></g>
   <g fill="#55616f" font-size="18" text-anchor="middle"><text x="150" y="386">0</text><text x="236" y="386">0.1</text><text x="322" y="386">0.2</text><text x="408" y="386">0.3</text><text x="494" y="386">0.4</text><text x="580" y="386">0.5</text>
     <text x="365" y="418">Friction coefficient, foot on wall</text></g>

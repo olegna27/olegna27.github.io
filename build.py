@@ -104,7 +104,7 @@ def expand(body):
         wide = " wide" if "wide" in frame else ""
         frame = frame.replace("wide", "").strip()
         return (
-            f'<figure class="{wide.strip()}"><div class="frame {frame}"><a href="{largest(rel)}">{img_tag(rel, alt)}</a></div>'
+            f'<figure><div class="frame"><a href="{largest(rel)}">{img_tag(rel, alt)}</a></div>'
             f"<figcaption>{cap}</figcaption></figure>"
         )
 
@@ -140,9 +140,14 @@ def render(page):
     meta = json.loads(re.match(r"<!--(.*?)-->", text, re.S).group(1))
     body = nbsp_units(expand(text.split("-->", 1)[1]))
     name = page.name
+    def cur(href):
+        if href == name:
+            return ' aria-current="page"'
+        return ' aria-current="true"' if href.split("#")[0] == name else ""
+
     def links(items):
         return "".join(
-            f'<a href="{href}"{" aria-current=\"page\"" if href == name else ""}>{label}</a>' for label, href in items
+            f'<a href="{href}"{cur(href)}>{label}</a>' for label, href in items
         )
 
     nav, index = links(NAV), links(INDEX)

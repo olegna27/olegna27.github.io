@@ -42,9 +42,12 @@
       <h3>A battery port with no documentation</h3>
       <p>I assumed the monitor port was plain serial and wired it to a microcontroller. Nothing came back. Before writing more code I measured the port: 160 ohms across the two data wires, which is bus termination. It was differential RS485, not logic-level serial.</p>
       <p>On a proper adapter it still ignored Modbus and the framings that JBD, Daly, JK and PACE packs use. So I wrote a probe that sends every candidate frame at every common baud rate and prints anything that answers.</p>
-<pre><code>for baud in BAUDS:                      # 9600, 115200, 19200, 57600, 38400, 4800
-    s = serial.Serial(port, baud, bytesize=8, parity="N", stopbits=1, timeout=0.4)
-    for name, frame in FRAMES:          # LiTime, Modbus x3, PACE, JBD, Daly, JK
+<pre><code># six baud rates: 9600, 115200, 19200, 57600, 38400, 4800
+for baud in BAUDS:
+    s = serial.Serial(port, baud, bytesize=8, parity="N",
+                      stopbits=1, timeout=0.4)
+    # eight frames: LiTime, Modbus x3, PACE, JBD, Daly, JK
+    for name, frame in FRAMES:
         s.reset_input_buffer()
         s.write(frame); s.flush()
         time.sleep(0.05)
