@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Build the static site: src/ -> docs/.  Run: python3 -I build.py"""
+import hashlib
 import html
 import json
 import re
@@ -116,6 +117,7 @@ def expand(body):
     return body
 
 
+CSS_VERSION = hashlib.sha1((SRC / "style.css").read_bytes()).hexdigest()[:8]
 UNITS = r"(?:mm/s|cm/s|m/s²|m/s|mm|cm|m|N·m|kN|N|J|Hz|kg|kPa|V|A|in|rpm|µF|au|ms|s|ohms|hours|degrees|Ah|AWG|MB|x)"
 
 
@@ -159,6 +161,7 @@ def render(page):
         .replace("{{head}}", head_extra)
         .replace("{{base}}", meta.get("base", ""))
         .replace("{{body}}", body)
+        .replace('href="style.css"', f'href="style.css?v={CSS_VERSION}"')
     )
     (OUT / name).write_text(out)
 

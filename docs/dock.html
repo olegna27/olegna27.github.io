@@ -16,7 +16,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=affa5066">
 <script type="module">document.addEventListener('click',async e=>{const b=e.target.closest('button.load');if(!b||b.disabled)return;b.disabled=true;b.textContent='Loading model';await import('./vendor/model-viewer.min.js');const v=b.parentElement,m=document.createElement('model-viewer');for(const[k,x]of Object.entries({src:b.dataset.src,alt:b.dataset.alt,'camera-controls':'','disable-zoom':'','touch-action':'pan-y','camera-orbit':'30deg 55deg 74%','field-of-view':'24deg','shadow-intensity':'1.2','environment-image':'neutral','interaction-prompt':'none'}))m.setAttribute(k,x);m.addEventListener('load',()=>{v.querySelector('img').remove();b.remove();v.parentElement.querySelector('figcaption span').textContent='Drag to rotate. '});v.insertBefore(m,v.firstChild)});</script><noscript><style>.viewer button.load{display:none}</style></noscript>
 </head>
 <body>
