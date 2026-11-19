@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Boat control and telemetry over a satellite link | Angelo Chaca</title>
-<meta name="description" content="Control link, video, camera aim and battery telemetry for an unmanned boat, brought up on the bench: MAVLink over Tailscale and Starlink, a Python ground station, and an undocumented RS485 battery port.">
+<meta name="description" content="Power wiring, a MAVLink control link over Starlink, a camera and battery page, and RS485 battery telemetry for an unmanned boat.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Driving an unmanned boat from a laptop over a satellite link">
-<meta property="og:description" content="Control link, video, camera aim and battery telemetry for an unmanned boat, brought up on the bench: MAVLink over Tailscale and Starlink, a Python ground station, and an undocumented RS485 battery port.">
+<meta property="og:title" content="Boat control and telemetry">
+<meta property="og:description" content="Power wiring, a MAVLink control link over Starlink, a camera and battery page, and RS485 battery telemetry for an unmanned boat.">
 <meta property="og:image" content="https://olegna27.github.io/media/dock/funnel-top-1600.jpg">
 <meta property="og:url" content="https://olegna27.github.io/boat.html">
 <meta name="twitter:card" content="summary_large_image">
@@ -23,49 +23,27 @@
 <div class="shell">
 <header class="side">
   <a class="me" href="index.html">Angelo Chaca</a>
-  <nav class="main-nav" aria-label="Site"><a href="index.html">projects</a><a href="about.html">about</a><a href="fixlog.html">fix log</a><a href="Angelo_Chaca_Resume.pdf">resume</a><a href="mailto:chaca@mit.edu">contact</a></nav>
+  <nav class="main-nav" aria-label="Site"><a href="index.html">projects</a><a href="about.html">about</a><a href="Angelo_Chaca_Resume.pdf">resume</a><a href="mailto:chaca@mit.edu">contact</a></nav>
   <nav class="index" aria-label="Projects"><a href="dock.html">drone dock</a><a href="heave.html">heave simulator</a><a href="boat.html" aria-current="page">boat control and telemetry</a><a href="shadingbot.html">shadingbot</a><a href="earlier.html#pompeii">pompeii imaging</a><a href="earlier.html#orbit">asteroid orbit</a><a href="earlier.html#rocket">rocket team and research</a></nav>
 </header>
 <main>
 
-<div class="wrap case-head">
-  <h1>Driving an unmanned boat from a laptop over a satellite link</h1>
-  <p class="lede">The boat that carries the <a href="dock.html">drone dock</a> has to be driven, watched and monitored from shore. I wired its power, built the control link and the ground station, and got its undocumented battery to report its state.</p>
-  <p class="meta">Ran end to end on the bench in August 2026, propellers off. Not yet on water.</p>
-</div>
-
 <div class="wrap">
+  <h1>Boat control and telemetry</h1>
+  <p>The boat that carries the <a href="dock.html">drone dock</a> has to be driven and monitored from shore. I wired its power system and set up the control link, the camera page and the battery telemetry. On August 3, 2026 it all ran together on the bench with the propellers off. It hasn't been on the water yet.</p>
+  <p class="meta">MIT Beaver Works, summer 2026</p>
+
   <div class="hero white"><img src="media/boat/architecture.svg" alt="Block diagram: a laptop running QGroundControl and a browser dashboard connects over Tailscale and Starlink to a Jetson on the boat, which talks to a Pixhawk flight controller, an IP camera and the battery" width="640" height="700" fetchpriority="high"></div>
-</div>
 
-<div class="wrap case">
-  <div class="spec-col">
-    <dl class="spec">
-      <div><dt>Where</dt><dd>MIT Beaver Works, Hart lab, undergraduate research</dd></div>
-      <div><dt>Dates</dt><dd>June to August 2026</dd></div>
-      <div><dt>My part</dt><dd>Power wiring, control link, ground station, battery telemetry</dd></div>
-      <div><dt>Hardware</dt><dd>Pixhawk 6X (ArduRover), NVIDIA Jetson Orin Nano, Starlink, 48 V 100 Ah lithium pack, pan-tilt-zoom IP camera</dd></div>
-      <div><dt>Software</dt><dd>Python, MAVLink, mavlink-router, QGroundControl, Tailscale, WebRTC, ONVIF, RS485</dd></div>
-      <div><dt>Credit</dt><dd>Task plan and boat mounting design by Vasu Kaker</dd></div>
-    </dl>
-  </div>
+  <h2>Setup</h2>
+  <ul>
+    <li>Control: QGroundControl on a laptop talks to the Pixhawk 6X (ArduRover) through a Jetson Orin Nano, over Tailscale on Starlink.</li>
+    <li>Camera and battery: a Python page served from the Jetson shows WebRTC video, pan-tilt-zoom controls and battery data.</li>
+    <li>Power: a 48 V battery bus with 24, 12 and 5 V converters and an inverter. I assembled and crimped the harness.</li>
+  </ul>
 
-  <div class="prose">
-    <h2>What I built</h2>
-    <ul>
-      <li><strong>Power.</strong> Assembled and crimped the boat's distribution wiring: a 48 V battery bus feeding 24, 12 and 5 V converters and an inverter, in 10 AWG with ring and fork terminals.</li>
-      <li><strong>Control link.</strong> MAVLink from the Pixhawk through a Jetson Orin Nano and across a Tailscale mesh on Starlink, so a laptop anywhere drives the boat in QGroundControl as if it were plugged in.</li>
-      <li><strong>Ground station.</strong> One page served by a Python program with no dependencies beyond the standard library: live video, pan-tilt-zoom control and a live battery panel.</li>
-      <li><strong>Battery telemetry.</strong> A daemon that polls the battery management system every 2 seconds for pack voltage, current, charge, temperature and all 16 cell voltages.</li>
-    </ul>
-    <p>On August 3, 2026 all of it ran together: joystick drive with the propellers off, camera and battery on one dashboard, nobody touching the boat.</p>
-
-    <h2>What broke</h2>
-
-    <div class="broke">
-      <h3>A battery port with no documentation</h3>
-      <p>I assumed the monitor port was plain serial and wired it to a microcontroller. Nothing came back. Before writing more code I measured the port: 160 ohms across the two data wires, which is bus termination. It was differential RS485, not logic-level serial.</p>
-      <p>On a proper adapter it still ignored Modbus and the framings that JBD, Daly, JK and PACE packs use. So I wrote a probe that sends every candidate frame at every common baud rate and prints anything that answers.</p>
+  <h2>Battery telemetry</h2>
+  <p>The battery's monitor port had no documentation. I first wired it up as plain serial and got nothing back. Measuring 160 ohms across the two data wires showed it was RS485. It didn't answer Modbus or the other common battery protocols either, so I wrote a script that tries each protocol at each baud rate.</p>
 <pre><code># six baud rates: 9600, 115200, 19200, 57600, 38400, 4800
 for baud in BAUDS:
     s = serial.Serial(port, baud, bytesize=8, parity="N",
@@ -78,49 +56,16 @@ for baud in BAUDS:
         resp = s.read(256)
         if resp:
             print(f"  {name:&lt;11} -> {resp.hex(' ')}")</code></pre>
-      <p>One combination answered: a vendor-specific frame at 19,200 baud, which an open-source Bluetooth decoder for the same brand had already mapped. I adapted that decoder to the wired link and checked every field against the pack: 52.96 V, 0 A, 48%, 21 °C, 16 cells at about 3.3 V.</p>
-      <p class="result">The same bus carries commands that switch charging and discharging off. The daemon only ever sends the status request.</p>
-    </div>
+  <p>It answered a LiTime frame at 19,200 baud. An open-source decoder (calledit/LiTime_BMS_bluetooth) already had the frame layout, so I adapted it for the wired link. The readings matched the pack: 52.96 V, 48%, 16 cells. The daemon only sends the read command.</p>
 
-    <div class="broke">
-      <h3>The control link died on every boot</h3>
-      <p>Two separate causes. The router build exits silently when given the serial port as a command-line argument, so it needs a config file. Then Linux's ModemManager grabs the Pixhawk's serial port at boot and holds it, so the router finds the device busy and quits.</p>
-      <p>A retry loop relaunches the router every 5 seconds until the port frees, and the link now comes up without help.</p>
-      <p class="result">That is a workaround. The proper fix, service units that restart on failure and survive a reboot, is written and staged but not installed yet.</p>
-    </div>
-
-    <div class="broke">
-      <h3>The joystick moved and the motors did not</h3>
-      <p>The flight controller was receiving the stick channels, but both motor outputs sat pinned at minimum. The input endpoints had never been set. Setting minimum, maximum and trim for the two stick channels fixed it.</p>
-    </div>
-
-    <div class="broke">
-      <h3>Video that would not play in a browser</h3>
-      <p>The camera streams H.265 and browsers cannot play H.265 over WebRTC. I switched the camera's second stream to H.264 through its ONVIF configuration interface and served that instead.</p>
-    </div>
-
-    <div class="broke">
-      <h3>An inherited microcontroller bridge with two power sources</h3>
-      <p>A Teensy 4.1 sits between the Pixhawk and the vehicle control board. Before changing it I traced how it was powered. It now runs from a 24 V to 5 V converter into its input pin, with the trace that ties USB power to that pin cut so a plugged-in laptop cannot back-feed the rail, one common ground, and no second 5 V feed from the Pixhawk's telemetry port.</p>
-    </div>
-
-    <div class="broke">
-      <h3>A servo that killed its controller</h3>
-      <p>An Arduino UNO R4 WiFi driving servos died. I traced it to back-EMF from the servos damaging the board's main processor, and recovered the board's second processor, an ESP32-S3.</p>
-    </div>
-
-    <h2>What this does not show yet</h2>
-    <ul>
-      <li>Everything here is a bench result. The boat has not been driven on water.</li>
-      <li>Video latency has not been measured.</li>
-      <li>Only the MAVLink router restarts by itself after a reboot. The other services still have to be started by hand.</li>
-    </ul>
-
-    <h2>Credits</h2>
-    <p>The task plan and the mechanical design for mounting the dock to the boat are Vasu Kaker's. The battery frame layout comes from the open-source project calledit/LiTime_BMS_bluetooth. The link runs on mavlink-router, MediaMTX, QGroundControl, ArduPilot and Tailscale.</p>
-
-    <div class="next"><a href="shadingbot.html">Next: ShadingBot</a><a href="fixlog.html">Fix log</a></div>
-  </div>
+  <h2>Other fixes</h2>
+  <ul>
+    <li>mavlink-router died at boot because ModemManager grabs the Pixhawk's serial port. A retry loop gets around it for now.</li>
+    <li>The joystick moved but the motors didn't. The RC min, max and trim values had never been set.</li>
+    <li>The browser couldn't play the camera's H.265 stream, so I switched the camera's second stream to H.264.</li>
+    <li>The Teensy 4.1 between the Pixhawk and the vehicle control board was powered from two places. It now runs from one 24 V to 5 V converter, with the USB power trace cut.</li>
+    <li>An Arduino UNO R4 WiFi died from servo back-EMF. I recovered its ESP32-S3 side.</li>
+  </ul>
 </div>
 
 <footer class="foot">Angelo Chaca, MIT class of 2029, Cambridge MA. <a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></footer>

@@ -17,8 +17,7 @@ MEDIA = SRC / "media"
 SITE_URL = "https://olegna27.github.io"
 WIDTHS = (800, 1600)
 
-NAV = [("projects", "index.html"), ("about", "about.html"), ("fix log", "fixlog.html"),
-       ("resume", "Angelo_Chaca_Resume.pdf"), ("contact", "mailto:chaca@mit.edu")]
+NAV = [("projects", "index.html"), ("about", "about.html"), ("resume", "Angelo_Chaca_Resume.pdf"), ("contact", "mailto:chaca@mit.edu")]
 INDEX = [("drone dock", "dock.html"), ("heave simulator", "heave.html"), ("boat control and telemetry", "boat.html"),
          ("shadingbot", "shadingbot.html"), ("pompeii imaging", "earlier.html#pompeii"),
          ("asteroid orbit", "earlier.html#orbit"), ("rocket team and research", "earlier.html#rocket")]

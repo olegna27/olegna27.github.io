@@ -1,109 +1,41 @@
 <!--{
 "title": "ShadingBot: force control without knowing the surface | Angelo Chaca",
-"og_title": "ShadingBot: force control without knowing the surface",
-"description": "A simulated KUKA iiwa shades images by pressing a soft brush harder or lighter. Three ways of choosing pressure, compared when the brush and canvas are not what calibration assumed.",
+"og_title": "ShadingBot",
+"description": "A simulated KUKA iiwa shades grayscale images by brush pressure. Three ways of choosing the pressure, compared in Drake.",
 "og_image": "shadingbot/summary-tilt.png"
 }-->
-<div class="wrap case-head">
-  <h1>ShadingBot: holding the right pressure on a surface the robot has not measured</h1>
-  <p class="lede">A simulated KUKA iiwa shades a grayscale image by pressing a soft brush harder for dark tones and lighter for pale ones. We compare three ways of choosing that pressure, then change the brush and tilt the canvas without telling any of them.</p>
-  <p class="meta">Simulation only, one run per condition</p>
-  <p class="soft" style="margin:0.9rem 0 0;max-width:44rem">Below: the same target drawn three ways on a canvas secretly tilted 2 degrees. Error, lower is better: 0.131 open loop, 0.099 camera feedback, 0.025 force only.</p>
-</div>
-
 <div class="wrap">
+  <h1>ShadingBot</h1>
+  <p>Final project for MIT 6.4210 Robotic Manipulation, with Alexander Li and Laura Zhang. A simulated KUKA iiwa in Drake shades a grayscale image by pressing a soft brush harder where the image is darker. We compare three ways of choosing the pressure: a calibration table with no feedback, camera feedback, and force sensing only.</p>
+  <p class="meta">Fall 2026. Simulation only.</p>
+
   <div class="hero">{{vid:shadingbot/compare-tilt.mp4|shadingbot/summary-tilt.png|Three simulated runs drawing the same step wedge on a canvas tilted two degrees}}</div>
-</div>
+  <p class="meta">The same target drawn with each method on a canvas tilted 2°.</p>
 
-<div class="wrap case">
-  <div class="spec-col">
-    <dl class="spec">
-      <div><dt>Course</dt><dd>MIT 6.4210 Robotic Manipulation, final project</dd></div>
-      <div><dt>Dates</dt><dd>October to December 2026. Final report and video due December 2.</dd></div>
-      <div><dt>Team</dt><dd>Angelo Chaca, Alexander Li, Laura Zhang</dd></div>
-      <div><dt>My part</dt><dd>Simulation environment, the three methods, experiments, tests and CI, local app</dd></div>
-      <div><dt>Tools</dt><dd>Python, Drake (hydroelastic contact, inverse dynamics control, inverse kinematics), GitHub Actions</dd></div>
-    </dl>
+  <p>I built the Drake scene, the three methods, the tests and CI, and a small app that runs the methods side by side.</p>
+  <p>The force-only method isn't told where the canvas is. At the start of each row it presses down, fits the surface height and the brush stiffness from the force curve, and then holds a force.</p>
+
+  <h2>Results</h2>
+  <p>Error is the average darkness difference from the target on a 0 to 1 scale. Lower is better. One run each.</p>
+  <div class="scroll-x">
+  <table>
+    <thead><tr><th>Step wedge</th><th class="n">Table only</th><th class="n">Camera</th><th class="n">Force only</th></tr></thead>
+    <tbody>
+      <tr><td>As calibrated</td><td class="n">0.049</td><td class="n">0.051</td><td class="n">0.046</td></tr>
+      <tr><td>Brush 20% softer</td><td class="n">0.173</td><td class="n">0.064</td><td class="n">0.040</td></tr>
+      <tr><td>Brush 20% stiffer</td><td class="n">0.070</td><td class="n">0.046</td><td class="n">0.051</td></tr>
+      <tr><td>Canvas tilted 2°</td><td class="n">0.131</td><td class="n">0.099</td><td class="n">0.025</td></tr>
+    </tbody>
+  </table>
   </div>
 
-  <div class="prose">
-    <h2>The problem</h2>
-    <p>A robot that sands, polishes or holds an ultrasound probe has to deliver the right pressure across a surface whose height and stiffness it only roughly knows. Shading is our stand-in for that: it does nothing under a light touch, saturates under a heavy one, and a single photo of the finished canvas shows how well pressure was delivered everywhere.</p>
-    <p>The comparison changes one thing only, how pressure is chosen. The path, speed and brush stay fixed.</p>
+  {{fig:shadingbot/summary-tilt.png|Six-panel figure: target step wedge, three camera views of the finished canvases and three paint maps with their scores|Tilted canvas, final result for each method.|}}
 
-    <h2>What I built</h2>
-    <ul>
-      <li>The Drake scene: an iiwa 7 with the brush welded to its flange, a soft ellipsoid tip (6 x 6 x 20 mm) with hydroelastic contact on a rigid 20 cm canvas, and a simulated camera in front of the canvas.</li>
-      <li>The motion stack: global inverse kinematics for the start pose, differential inverse kinematics every 5 ms along a 23-row raster at 5 cm/s, and a joint-space inverse dynamics controller underneath.</li>
-      <li>The team's paint model, the depth-to-darkness calibration, the three pressure methods, and scoring from a rendered photo of the canvas.</li>
-      <li>29 tests and a CI job that runs lint, the tests and a contact smoke test on every pull request.</li>
-      <li>A local app that runs the three methods side by side on any uploaded image.</li>
-    </ul>
-
-    {{fig:shadingbot/scene.jpg|Rendered view of a KUKA iiwa arm holding a brush over a small square canvas|The simulated cell. The brush is welded to the flange so a slipping grasp cannot add error that has nothing to do with pressure.|}}
-
-    <h2>Three ways to choose pressure</h2>
-    <div class="scroll-x">
-    <table class="numbers">
-      <thead><tr><td></td><th>Open loop</th><th>Camera feedback</th><th>Force only</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">Senses</th><td>Nothing while drawing</td><td>Camera pixels 12 mm behind the brush</td><td>Contact force</td></tr>
-        <tr><th scope="row">Assumes a level canvas</th><td>Yes</td><td>Yes</td><td>No</td></tr>
-        <tr><th scope="row">Commands</th><td>Press depth from the calibration table</td><td>Table depth plus a PI correction at 25 Hz</td><td>The depth that holds a force setpoint</td></tr>
-      </tbody>
-    </table>
-    </div>
-    <p>The force-only method estimates before it controls. At each row's touchdown it ramps down, records depth against force, and fits two numbers by least squares: where the surface is, and how stiff the brush is compared with the calibrated one. It then rescales the calibration and holds the force that should give the target tone.</p>
-    <p>Across 23 rows it recovered brush stiffness as x0.97, x1.16 and x0.78 when the true values were x1.0, x1.2 and x0.8. On the tilted canvas it found the surface 2.7 to 3.0 mm from where a level canvas would be.</p>
-
-    <h2>Results</h2>
-    <p>Block tonal error is the mean absolute darkness gap between target and result over 23 x 23 blocks, on a scale where 0 is white and 1 is black. Lower is better. Our proposal's target was 0.10 or less.</p>
-    <div class="scroll-x">
-    <table class="numbers">
-      <thead><tr><th>Step wedge, condition</th><th class="n">Open loop</th><th class="n">Camera</th><th class="n">Force only</th></tr></thead>
-      <tbody>
-        <tr><td>As calibrated</td><td class="n">0.049</td><td class="n">0.051</td><td class="n">0.046</td></tr>
-        <tr><td>Brush 20% softer</td><td class="n">0.173</td><td class="n">0.064</td><td class="n">0.040</td></tr>
-        <tr><td>Brush 20% stiffer</td><td class="n">0.070</td><td class="n">0.046</td><td class="n">0.051</td></tr>
-        <tr><td>Canvas tilted 2 degrees</td><td class="n">0.131</td><td class="n">0.099</td><td class="n">0.025</td></tr>
-      </tbody>
-    </table>
-    </div>
-    <p>With nothing changed since calibration the three land within 0.005 of each other. Feedback only earns its keep when the world differs from the model. Force only is not best everywhere: camera feedback is slightly ahead with a stiffer brush.</p>
-
-    {{fig:shadingbot/summary-tilt.png|Six-panel figure: target step wedge, three camera views of the finished canvases and three paint maps with their scores|Canvas tilted 2 degrees, unknown to every method. The two that assume a level surface never touch down on the light side. Force only finds the surface at each row. Panel titles score the paint grid; the table scores the camera photo, so they differ in the third decimal.|white wide}}
-
-    {{fig:shadingbot/summary-portrait.png|Six-panel figure: a synthetic face target, the 23 by 23 scored blocks, and three shaded results|A test portrait drawn with a brush 20% stiffer than the calibrated one: 0.070, 0.068 and 0.057.|white wide}}
-
-    <h2>Decisions, with the numbers behind them</h2>
-    <h3>Where the camera goes</h3>
-    <p>Our proposal put the camera overhead. I simulated nine brush poses across the canvas and measured how much of the feedback window each of five camera positions could see. Overhead saw 0% with an upright brush, because the wrist sits directly above the window. A camera in front of the canvas, angled back, saw 92 to 100% averaged over the poses, 75% in the worst one. We moved the camera.</p>
-    <h3>Where the canvas goes</h3>
-    <p>A reach check over a 5 x 5 grid of points and all 23 rows, at an 8 mm press with brush tilts up to 35 degrees, showed that with the canvas 0.60 m from the base only 24 of 25 points were reachable at a 30 degree tilt. At 0.62 to 0.66 m everything passed, so the canvas moved 4 cm to 0.64 m, the middle of that range.</p>
-
-    <h2>What broke</h2>
-    <div class="broke">
-      <h3>The first camera loop was no better than no feedback</h3>
-      <p>In the first runs closed loop scored 0.081 against open loop's 0.079. The controller was watching only the center line of each row, while the score averages darkness across the full row width, and it came out too light. With the window widened to the full row and a touchdown bug fixed, closed loop scored 0.051 against 0.064 on the same early test.</p>
-      <p class="result">Both changes went in together, so I cannot yet say how much each one bought. An ablation is on the list. In the current as-calibrated run the two methods tie, 0.051 and 0.049; feedback pulls ahead only when the brush or canvas differs from calibration.</p>
-    </div>
-    <div class="broke">
-      <h3>The touchdown fit was biased by the arm's own motion</h3>
-      <p>Fitting stiffness from the touchdown ramp read 38% high even with the nominal brush, because the arm's own motion during the ramp leaks into the force curve. I measured that bias once with the calibrated brush (stiffness x1.379, contact +0.16 mm) and divide it out of every later fit.</p>
-    </div>
-
-    <h2>What this does not show yet</h2>
-    <ul>
-      <li>It is simulation. No hardware, no real brush or paper.</li>
-      <li>One run per condition, so no error bars.</li>
-      <li>The paint rule's 5 and 60 kPa limits are placeholders the team chose, not measurements.</li>
-      <li>Open loop and camera feedback command depth while force only commands force, so the comparison is not like for like. Part of force only's win on the tilted canvas comes from that. Putting a force loop under all three is the next build.</li>
-      <li>Force is the simulator's contact force plus 0.02 N of noise, not an estimate from joint torques.</li>
-    </ul>
-
-    <h2>Credits</h2>
-    <p>Team 6.1: Angelo Chaca, Alexander Li and Laura Zhang. The problem framing, paint rule and metric come from our joint proposal, and every entry in the decision log is a team decision.</p>
-
-    <div class="next"><a href="earlier.html">Next: earlier work</a><a href="fixlog.html">Fix log</a></div>
-  </div>
+  <h2>Changes along the way</h2>
+  <ul>
+    <li>The camera moved from overhead to the front of the canvas. In my visibility check the arm blocked the overhead view of the brush completely.</li>
+    <li>The canvas moved 4 cm so the arm could reach every point with the brush tilted.</li>
+    <li>The first camera loop only watched the center of each row and did no better than the table. It improved after I widened it to the full row and fixed a touchdown bug.</li>
+  </ul>
+  <p>The paint model's pressure limits are placeholders, and the table and camera methods command depth while the force method commands force, so the comparison isn't fully even yet.</p>
 </div>

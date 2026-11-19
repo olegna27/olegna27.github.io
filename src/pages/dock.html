@@ -1,122 +1,52 @@
 <!--{
 "title": "Drone dock for an unmanned boat | Angelo Chaca",
-"og_title": "A dock that lets a drone land, charge and relaunch from an unmanned boat",
-"description": "Landing funnel, drone build and charging hardware for a drone dock on a 3 to 5 m unmanned boat. What I designed, what broke, and how I fixed it.",
+"og_title": "Drone dock for an unmanned boat",
+"description": "A dock that lets a drone land, charge and take off from a small unmanned boat. I work on the landing funnel, the drone, the charging hardware and the boat electronics.",
 "og_image": "dock/funnel-top.png",
 "head": "<script type=\"module\">document.addEventListener('click',async e=>{const b=e.target.closest('button.load');if(!b||b.disabled)return;b.disabled=true;b.textContent='Loading model';await import('./vendor/model-viewer.min.js');const v=b.parentElement,m=document.createElement('model-viewer');for(const[k,x]of Object.entries({src:b.dataset.src,alt:b.dataset.alt,'camera-controls':'','disable-zoom':'','touch-action':'pan-y','camera-orbit':'30deg 55deg 74%','field-of-view':'24deg','shadow-intensity':'1.2','environment-image':'neutral','interaction-prompt':'none'}))m.setAttribute(k,x);m.addEventListener('load',()=>{v.querySelector('img').remove();b.remove();v.parentElement.querySelector('figcaption span').textContent='Drag to rotate. '});v.insertBefore(m,v.firstChild)});</script><noscript><style>.viewer button.load{display:none}</style></noscript>"
 }-->
-<div class="wrap case-head">
-  <h1>A dock that lets a drone land, charge and relaunch from an unmanned boat</h1>
-  <p class="lede">Offshore drone inspections need a crewed vessel nearby. This dock rides on a 3 to 5 m unmanned boat instead, so the drone can stay out for weeks. I build the landing funnel, the drone that lands in it, and the boat-side power and control.</p>
-  <p class="meta">Lands in the lab, including on a moving platform, and charges. Not yet on water.</p>
-</div>
-
 <div class="wrap">
-  <figure class="viewer" style="margin:0">
+  <h1>Drone dock for an unmanned boat</h1>
+  <p>A dock that sits on a 3 to 5 m unmanned boat so a drone can land, charge and take off again without a crewed vessel nearby. It's Vasu Kaker's thesis project in Prof. Douglas Hart's lab. I work on the landing funnel, the drone, the charging hardware and the <a href="boat.html">boat electronics</a>.</p>
+  <p class="meta">MIT Beaver Works, June 2026 to present</p>
+
+  <figure class="viewer">
     <div class="stage">
       {{eager:dock/funnel-top.png|CAD render of a square funnel-shaped landing pad made of eight laser-cut flap halves joined by dovetails, with a black marker plate at the center}}
       <button class="load" type="button" data-src="{{file:dock/funnel-v5.glb}}" data-alt="Interactive 3D model of the funnel landing pad">Rotate the 3D model (2.4 MB)</button>
     </div>
-    <figcaption><span></span>Landing funnel v5, straight from the assembly I cut and built from: 35 in across the rim, 14 in opening, walls at 16 degrees.</figcaption>
+    <figcaption><span></span>Landing funnel, CAD model.</figcaption>
   </figure>
-</div>
 
-<div class="wrap case">
-  <div class="spec-col">
-    <dl class="spec">
-      <div><dt>Where</dt><dd>MIT Beaver Works, Hart lab, undergraduate research</dd></div>
-      <div><dt>Dates</dt><dd>June 2026 to present</dd></div>
-      <div><dt>My part</dt><dd>Landing funnel, drone build and configuration, charging contact and clamp design, boat power wiring, <a href="boat.html">boat control and telemetry</a></dd></div>
-      <div><dt>Tools</dt><dd>Onshape, laser cutter, FDM printing, PX4, Arduino, crimping and soldering</dd></div>
-      <div><dt>Credit</dt><dd>Part of Vasu Kaker's thesis, advised by Prof. Douglas Hart</dd></div>
-    </dl>
-  </div>
+  <p>The drone is a Holybro X650 running PX4. It lands itself in the funnel on a vision marker, including with the platform under the dock pitching and rolling, and it has charged on the dock. The landing software is Vasu's. Nothing has been tested on the water yet.</p>
 
-  <div class="prose">
-    <h2>The problem</h2>
-    <p>A drone coming down on a small boat deck in waves will not hit a charging contact by itself. Published accuracy for vision-guided landings like this is a few tens of centimeters. The charging contacts need about a centimeter.</p>
-    <p>The dock closes that gap mechanically: a funnel catches a sloppy landing and gravity slides the drone to the center, where it is held and charged.</p>
+  <h2>Funnel</h2>
+  <p>35 in across the rim, 14 in opening, 16° walls. It's 6 mm MDF on eight ribs with stainless #8-32 hardware. The flaps were wider than the 32 x 18 in laser bed, so each one is cut in two halves and joined with dovetails and 3D-printed brackets. All ten blanks came out of four 24 x 36 in sheets.</p>
+  <p>Before cutting the full set I cut a test coupon with six slot widths. 0.220 in slots fit best in the 0.236 in MDF, and the cut files were regenerated with that.</p>
 
-    <h2>Where it stands</h2>
-    <ul>
-      <li>The drone, a Holybro X650 on PX4, lands itself in the funnel on the vision marker. The landing software is Vasu's; the funnel and the drone build are mine.</li>
-      <li>It has landed with the pitch and roll platform under the dock moving.</li>
-      <li>It has charged through the dock's contact pads.</li>
-      <li>The reworked magnetic clamp and the ring-and-pin contacts described below are designed, not yet built.</li>
-      <li>The boat's control, video and battery telemetry ran end to end on the bench in August. That is its own page: <a href="boat.html">driving the boat over a satellite link</a>.</li>
-      <li>Nothing has been tested on water yet.</li>
-    </ul>
+  {{fig:dock/sheet-plan.png|Cutting layout showing ten blanks nested on four MDF sheets, including a small fit coupon|Cut layout. Blank 8 is the test coupon.|}}
 
-    <h2>The funnel</h2>
-    <p>The funnel is 6 mm MDF on eight ribs, bolted with stainless #8-32 hardware because it will live in salt air. Ribs slot into the center box and hold captive square nuts in T-slot pockets, so every flap bolts down from the top.</p>
-
-    <h3>Made to fit the laser I had</h3>
-    <p>The flaps are 35 in wide and the laser bed is 32 x 18 in. Rather than find a bigger machine, I split each flap down its centerline into two 17.4 in halves. Three laser-cut dovetails and two printed splice brackets underneath join each seam.</p>
-    <p>All ten blanks nest onto four 24 x 36 in sheets. The cut files come from one parametric script, so a change to the bed size or sheet thickness regenerates every blank, and a script check found zero interferences across the 330 bodies in the assembly.</p>
-
-    {{fig:dock/sheet-plan.png|Cutting layout showing ten blanks nested on four MDF sheets, including a small fit coupon|Ten blanks on four sheets. Blank 8 is the fit coupon.|white wide}}
-
-    <figure>
-      <div class="pair">
-        <div class="frame">{{img:dock/funnel-seam.png|Close-up render of a dovetail seam joining two flap halves}}</div>
-        <div class="frame">{{img:dock/funnel-under.png|Render of the underside of the funnel showing ribs, red splice brackets and blue angle brackets}}</div>
-      </div>
-      <figcaption>First: the dovetail seam down the middle of a flap. Second: underneath, the eight ribs, printed splice brackets under each seam (red) and printed angle brackets where two flaps meet (blue). CAD renders.</figcaption>
-    </figure>
-
-    <h3>Measured the fit, then regenerated the parts</h3>
-    <p>Laser kerf widens every slot, and a press fit in MDF has almost no tolerance. The first files drew slots at 0.232 in for 0.236 in stock. Before cutting four sheets I cut a coupon with six slot widths from 0.220 to 0.240 in and three dovetail offsets, and tried each by hand.</p>
-    <p>The best fit was the tightest slot, 0.220 in, and dovetail sockets 0.008 in undersize per side. All ten blanks were regenerated with those values.</p>
-
-    <h2>What broke</h2>
-
-    <div class="broke">
-      <h3>The drone landed in the funnel but would not slide to the center</h3>
-      <p>The first plan was new landing gear: a narrower stance with PTFE ball feet on printed clamps, about $200 to $300 and a week of work. Before any of that was built, the symptom got a second look. The same feet slid fine on the lab's vinyl platform. A foot that works on one surface and not another points at the surface.</p>
-      <p>On a 16 degree wall a foot slides only if the friction coefficient is below tan 16°, which is 0.29. Raw MDF sits at or above that. The screw heads standing proud of the flaps were a second problem: a sliding foot of this size can only climb a step of about 0.13 to 0.20 mm.</p>
-      <p>The fix was to sink the screw heads flush and face each flap with UHMW tape. The drone now slides to center.</p>
-      <p class="result">The limit tightens as the deck tilts: 0.19 at 5 degrees and 0.10 at 10 degrees, which is the edge of what the tape can do.</p>
+  <figure>
+    <div class="pair">
+      <div class="frame">{{img:dock/funnel-seam.png|Close-up render of a dovetail seam joining two flap halves}}</div>
+      <div class="frame">{{img:dock/funnel-under.png|Render of the underside of the funnel showing ribs, red splice brackets and blue angle brackets}}</div>
     </div>
+    <figcaption>Dovetail seam in a flap, and the underside with ribs and printed brackets.</figcaption>
+  </figure>
 
-    {{fig:dock/friction.svg|Chart comparing friction ranges for raw MDF, packing tape and UHMW tape against the sliding limit at three deck tilts|Why the surface was the problem. A foot slides only if friction is left of the blue line for the current deck tilt.|white}}
+  <h2>Getting the drone to slide</h2>
+  <p>At first the drone landed in the funnel and stayed where it touched down. The same feet slid fine on the lab's vinyl platform, so the problem was the MDF and the screw heads sticking up. On a 16° wall the friction coefficient has to be under 0.29 for a foot to slide. I countersunk the screws and covered the flaps with UHMW tape, and it slides to the middle now.</p>
 
-    <div class="broke">
-      <h3>A clamp that would have let go without anyone noticing</h3>
-      <p>In the clamp design, the drone is held down by an electromagnetic lock rated for 60 kg. In my first layout the magnet's pull line and the point that reacts it were 60.6 mm apart. At full pull that is a 36.4 N·m couple, and the drone's weight on its landing gear resists with about 4.5 N·m. The drone would pitch, and 2 degrees of tilt at the plate opens a 1.29 mm gap.</p>
-      <p>That matters because a maglock holds but cannot pull: at a 1 mm gap it makes single-digit newtons. Worse, the fault is silent. It passes any bench test where someone steadies the drone by hand.</p>
-      <p>The fix is geometric: hard reaction pads outboard of the magnet, so the pull is reacted where it is applied. I put the layout through a load-path review before building any of it, and this is what the review found. The rework is on paper.</p>
-    </div>
+  {{fig:dock/friction.svg|Chart comparing friction ranges for raw MDF, packing tape and UHMW tape against the sliding limit at three deck tilts|Friction needed to slide at different deck tilts. The bars are handbook ranges.|}}
 
-    {{fig:dock/maglock-couple.svg|Diagram of two opposite forces 60.6 mm apart on the dock face, and a bar comparison of a 36.4 newton meter couple against 4.5 newton meters of restoring moment|The load path that did not close.|white}}
+  <h2>Clamp</h2>
+  <p>The clamp design holds the drone with a 60 kg electromagnetic lock. A review of my first layout showed the magnet's pull and the point reacting it were 60.6 mm apart. That makes a 36.4 N·m couple against about 4.5 N·m from the drone's weight, so the drone would tip and the magnet would let go. The new layout puts reaction pads outboard of the magnet. It isn't built yet.</p>
 
-    <div class="broke">
-      <h3>Charging pad wires kept breaking at the solder joint</h3>
-      <p>The joint was carrying the flexing. I changed the pads to through-hole connections, potted them in epoxy and added strain relief so the wire bends somewhere it can survive.</p>
-    </div>
+  {{fig:dock/maglock-couple.svg|Diagram of two opposite forces 60.6 mm apart on the dock face, and a bar comparison of a 36.4 newton meter couple against 4.5 newton meters of restoring moment|First clamp layout.|}}
 
-    <div class="broke">
-      <h3>The new drone thought it had eight motors</h3>
-      <p>The X650's flight controller arrived configured as a coaxial octocopter. I backed up all 1,101 parameters first, changed the airframe to a quadrotor, rebooted, and confirmed the controller reported a quadrotor with four rotors before going any further.</p>
-    </div>
-
-    <h2>The drone</h2>
-    <p>I assembled and wired the Holybro X650, a 650 mm quadrotor running PX4, corrected its airframe configuration, and brought up its telemetry radio link. It replaced a smaller first-generation drone used for the early landing tests.</p>
-
-    <h2>Charging contacts</h2>
-    <p>The drone can land at any heading, so the contact design puts concentric rings on the drone and spring pins on the dock. Contact force set the design. Bare copper needs 13 to 18 N to break through its oxide, and the whole dock has about 4 N to spend. So the design uses gold-plated spring pins at about 1.2 N each, which fits inside that budget.</p>
-    <p>Wireless charging was ruled out on mass: the receiver alone would be 11 to 16% of the drone's flying weight.</p>
-
-    <h2>Rules for modifying the airframe</h2>
-    <p>Agreed in August, before the drone-side parts were drawn:</p>
-    <ul>
-      <li>Never drill the carbon tubes. Everything mounts with split clamps.</li>
-      <li>Printed parts in PETG, nylon or carbon-fiber nylon only.</li>
-      <li>Nothing hangs below the skids unless it is faired, because the skids double as skis.</li>
-    </ul>
-
-    <h2>Credits</h2>
-    <p>This dock is Vasu Kaker's thesis project, advised by Prof. Douglas Hart in MIT Mechanical Engineering. The dock concept, the vision-guided landing and the way the dock mounts to the boat are Vasu's. The funnel, the drone build, the charging and clamp design, and the boat wiring and control link are mine.</p>
-
-    <div class="next"><a href="heave.html">Next: the heave simulator</a><a href="boat.html">Boat control and telemetry</a></div>
-  </div>
+  <h2>Other fixes</h2>
+  <ul>
+    <li>Charging pad wires kept breaking at the solder joints. I switched to through-hole connections, potted them in epoxy and added strain relief.</li>
+    <li>The X650 arrived configured as an octocopter. I backed up the parameters, changed the airframe to a quadrotor and checked it after a reboot.</li>
+  </ul>
 </div>
