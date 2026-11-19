@@ -16,7 +16,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=2bf5c49f">
+<link rel="stylesheet" href="style.css?v=a7b3cf12">
 
 </head>
 <body>
@@ -24,23 +24,25 @@
 <header class="side">
   <a class="me" href="index.html">Angelo Chaca</a>
   <nav class="main-nav" aria-label="Site"><a href="index.html">projects</a><a href="about.html">about</a><a href="Angelo_Chaca_Resume.pdf">resume</a><a href="mailto:chaca@mit.edu">contact</a></nav>
-  <nav class="index" aria-label="Projects"><a href="dock.html">drone dock</a><a href="heave.html">heave simulator</a><a href="boat.html">boat control and telemetry</a><a href="shadingbot.html" aria-current="page">shadingbot</a><a href="earlier.html#pompeii">pompeii imaging</a><a href="earlier.html#orbit">asteroid orbit</a><a href="earlier.html#rocket">rocket team and research</a></nav>
+  <nav class="index" aria-label="Projects"><a href="dock.html">drone dock</a><a href="heave.html">heave simulator</a><a href="boat.html">boat control and telemetry</a><a href="shadingbot.html" aria-current="page">shadingbot</a><a href="earlier.html#pompeii">pompeii imaging</a><a href="earlier.html#orbit">asteroid orbit</a><a href="earlier.html">other work</a></nav>
 </header>
 <main>
 
 <div class="wrap">
   <h1>ShadingBot</h1>
-  <p>Final project for MIT 6.4210 Robotic Manipulation, with Alexander Li and Laura Zhang. A simulated KUKA iiwa in Drake shades a grayscale image by pressing a soft brush harder where the image is darker. We compare three ways of choosing the pressure: open loop from a calibration table, camera feedback, and force sensing only.</p>
-  <p class="meta">Fall 2026. Simulation only.</p>
+  <p>Final project for MIT's robotic manipulation class, with Alexander Li and Laura Zhang. A simulated KUKA iiwa in Drake shades a grayscale image by pressing a soft brush harder where the image is darker. We compare three ways of choosing the pressure: open loop from a calibration table, camera feedback, and force sensing only.</p>
+  <p class="meta">MIT 6.4210, fall 2026. Simulation only.</p>
 
-  <div class="hero"><video src="media/shadingbot/compare-tilt.mp4" poster="media/shadingbot/summary-tilt-800.jpg" width="1760" height="720" muted loop playsinline controls data-auto preload="metadata" aria-label="Three simulated runs drawing the same step wedge on a canvas tilted two degrees"></video></div>
-  <p class="meta">The same target drawn with each method on a canvas tilted 2°.</p>
+  <figure class="hero">
+    <video src="media/shadingbot/compare-tilt.mp4" poster="media/shadingbot/summary-tilt-800.jpg" width="1760" height="720" muted loop playsinline controls data-auto preload="metadata" aria-label="Three simulated runs drawing the same step wedge on a canvas tilted two degrees"></video>
+    <figcaption>The same target drawn with each method on a canvas tilted 2°.</figcaption>
+  </figure>
 
   <p>I built the Drake scene, the three methods, the tests and CI, and a small app that runs the methods side by side.</p>
   <p>The force-only method isn't told where the canvas is. At the start of each row it presses down, fits the surface height and the brush stiffness from the force curve, and then holds a force.</p>
 
   <h2>Results</h2>
-  <p>Error is the average darkness difference from the target on a 0 to 1 scale. Lower is better. One run each.</p>
+  <p>The target is a step wedge, eight gray bars from light to dark. Error is the average darkness difference from the target on a 0 to 1 scale. Lower is better. One run each.</p>
   <div class="scroll-x">
   <table>
     <thead><tr><th>Step wedge</th><th class="n">Open loop</th><th class="n">Camera</th><th class="n">Force only</th></tr></thead>
@@ -53,19 +55,18 @@
   </table>
   </div>
 
-  <figure><div class="frame"><a href="media/shadingbot/summary-tilt-1600.jpg"><img src="media/shadingbot/summary-tilt-800.jpg" srcset="media/shadingbot/summary-tilt-800.jpg 800w, media/shadingbot/summary-tilt-1600.jpg 1600w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Six-panel figure: target step wedge, three camera views of the finished canvases and three paint maps with their scores" width="1760" height="720" loading="lazy" decoding="async"></a></div><figcaption>Tilted canvas, final result for each method.</figcaption></figure>
-
-  <p>Not a fair comparison yet. The paint pressure limits are placeholders, and two methods command depth while one commands force.</p>
+  <p>Not a fair comparison yet. The paint model's limits are placeholder values, and two methods command depth while one commands force.</p>
 
   <h2>Changes</h2>
   <ul>
     <li>The camera moved from overhead to the front of the canvas. With the brush upright, the arm hid the fresh paint from an overhead camera.</li>
     <li>The canvas moved 4 cm so the arm could reach every point with the brush tilted.</li>
-    <li>The first camera loop only watched the center of each row and did no better than open loop. It improved after I widened it to the full row and fixed a touchdown bug.</li>
+    <li>The first camera loop only watched the center of each row and did no better than open loop. It improved after I widened it to the full row and fixed a bug at the start of each row.</li>
   </ul>
+  <p class="next"><a href="earlier.html">Next: other work</a></p>
 </div>
 
-<footer class="foot">Angelo Chaca, MIT class of 2029, Cambridge MA. <a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></footer>
+<footer class="foot">Angelo Chaca, MIT class of 2029, Cambridge, MA. <a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></footer>
 </main>
 </div>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('video[data-auto]').forEach(v=>v.play().catch(()=>{}))</script>

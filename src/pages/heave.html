@@ -6,15 +6,17 @@
 }-->
 <div class="wrap">
   <h1>Heave simulator</h1>
-  <p>A rig that moves the <a href="dock.html">drone dock</a> up and down like a boat deck so we can test landings in the lab. The spec from Vasu was 1.5 m of travel at 0.8 m/s. It's built to carry the lab's pitch and roll platform, with a 15 kg payload and 30 kg at most.</p>
+  <p>A rig that moves the <a href="dock.html">drone dock</a> up and down like a boat deck so we can test landings in the lab. The spec from Vasu Kaker, who leads the dock project, was 1.5 m of travel at 0.8 m/s. It's built to carry the lab's pitch-roll platform and is sized for a 15 kg payload, 30 kg at most.</p>
   <p class="meta">MIT Beaver Works, October 2026 to present. Built and running.</p>
 
-  <div class="hero white">{{eager:heave/layout-wide.png|3D layout model of a two-tower aluminum frame with a platform between the towers, counterweights behind them and a motor on a jackshaft at the base}}</div>
-  <p class="meta">Layout model. The numbers on this page are from the design calculations.</p>
+  <figure class="hero white">
+    {{eager:heave/layout-wide.png|3D layout model of a two-tower aluminum frame with a carriage between the towers, counterweights behind them and a motor on a jackshaft at the base}}
+    <figcaption>Layout model. The numbers on this page are from the design calculations.</figcaption>
+  </figure>
 
   <h2>Design</h2>
-  <p>Screws were out. A 1.7 m screw whips near 1,000 rpm and an 8 mm lead needs 6,000. Rod actuators are too slow. I went with a belt drive. Two towers hold the platform between them, one motor on a jackshaft drives both belts, and each tower has a counterweight.</p>
-  <p>With the counterweights, peak motor torque for the 15 kg payload drops from 4.40 to 0.96 N·m. The motor is a closed-loop NEMA 34 stepper with a power-off brake on a 2:1 belt reduction. The brake stops the platform from full speed in 127 mm. Parts list: $2,444 of a $2,500 cap.</p>
+  <p>Lead screws and ball screws were out. A 1.7 m screw goes unstable (whips) near 1,000 rpm, and an 8 mm lead needs 6,000 rpm to reach 0.8 m/s. Rod actuators are too slow. I went with a belt drive. Two towers hold a carriage between them, one motor on a jackshaft drives both belts, and each tower has a counterweight.</p>
+  <p>With the counterweights, peak motor torque for the 15 kg payload drops from 4.40 to 0.96 N·m. The motor is a closed-loop NEMA 34 stepper with a power-off brake on a 2:1 belt reduction. The brake stops the carriage from full speed in 127 mm. Parts list: $2,444 of a $2,500 cap.</p>
 
   {{fig:heave/torque.png|Line chart of motor torque over one wave period, with and without the counterweight|Motor torque over one cycle, without counterweights (red) and with (green).|}}
 
@@ -30,12 +32,12 @@
   <ul>
     <li>Raised belt pretension from 150 N to 250 N. At 150 N one span could go slack during a landing or a brake stop.</li>
     <li>Added a relay so a driver fault also sets the brake.</li>
-    <li>Side-to-side natural frequency came out at 5.1 Hz against a 5 Hz target, so I added gussets at the tower bases.</li>
+    <li>Side-to-side natural frequency came out at 5.1 Hz, barely above the 5 Hz minimum, so I added gussets at the tower bases.</li>
   </ul>
 
   <h2>Safety</h2>
-  <p>Soft limits in firmware, overtravel switches on a hard-wired E-stop chain, the brake, and shock absorbers at both ends of travel. Pins lock the platform when the payload is being changed.</p>
+  <p>The rig has soft limits in firmware, overtravel switches on a hard-wired E-stop chain, the brake, and shock absorbers at both ends of travel. Pins lock the carriage when the payload is being changed.</p>
 
   {{fig:heave/safety-wiring.png|Block diagram of the power and safety wiring: two power supplies, a safety chain of E-stop and overtravel switches, safety relay, driver, brake interlock relay and motor brake|Power and safety wiring.|}}
-
+  <p class="next"><a href="boat.html">Next: boat control and telemetry</a></p>
 </div>

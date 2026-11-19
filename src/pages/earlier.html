@@ -1,14 +1,14 @@
 <!--{
-"title": "Earlier work | Angelo Chaca",
-"og_title": "Earlier work",
+"title": "Other work | Angelo Chaca",
+"og_title": "Other work",
 "description": "Infrared imaging at Pompeii, asteroid orbit determination, MIT Rocket Team, nuclear forensics research and MIT EMS.",
 "og_image": "earlier/pompeii-after.jpg"
 }-->
 <div class="wrap">
-  <h1>Earlier work</h1>
+  <h1>Other work</h1>
 
   <h2 id="pompeii">Infrared imaging at Pompeii</h2>
-  <p class="meta">MIT 1.059, January 2026. With Coleman Duplessie and Joshua Curhan.</p>
+  <p class="meta">MIT class at Pompeii (1.059), January 2026. With Coleman Duplessie and Joshua Curhan.</p>
   <p>Egyptian Blue pigment glows in the near infrared when it's lit with visible light, and modified night-vision goggles can see that. The usual method subtracts an unlit photo from a lit one, which comes out noisy and uneven.</p>
   <p>I wrote the code for our strobe method. It takes a few seconds of 4K video from the goggles under a strobing light and sorts each pixel's brightness over time. It drops the darkest 15%, the brightest 15% and the middle 40%, averages the rest into a lit frame and an unlit frame, and subtracts them. Python, NumPy and OpenCV.</p>
 
@@ -19,24 +19,25 @@
       <div class="frame">{{img:earlier/pompeii-before.jpg|Noisy grayscale infrared image of a painted figure on a fresco}}</div>
       <div class="frame">{{img:earlier/pompeii-after.jpg|Much cleaner grayscale infrared image of the same painted figure}}</div>
     </div>
-    <figcaption>The same fresco with the old method and with ours.</figcaption>
+    <figcaption>The same fresco with the old method (first) and ours (second).</figcaption>
   </figure>
 
   <h2 id="orbit">Asteroid orbit determination</h2>
   <p class="meta">Summer Science Program, 2024. With Dillan Jagannath and Sarah Choi.</p>
-  <p>We determined the orbit of asteroid 2007 LR32 from twelve of our own telescope images. Each of us wrote our own Method of Gauss code in Python and ran a 10,000-sample Monte Carlo for the uncertainties. My result was a = 2.593 ± 0.085 au, e = 0.511 ± 0.013 and i = 10.12 ± 0.19°, each within 1.2% of JPL's values. We submitted the observations to the Minor Planet Center.</p>
+  <p>We determined the orbit of asteroid 2007 LR32 from twelve of our own telescope images. Each of us wrote our own Method of Gauss code in Python and ran a 10,000-sample Monte Carlo for the uncertainties. My result was semi-major axis a = 2.593 ± 0.085 au, eccentricity e = 0.511 ± 0.013 and inclination i = 10.12 ± 0.19°, each within 1.2% of JPL's values. We submitted the observations to the Minor Planet Center.</p>
 
   {{fig:earlier/ssp-elements.png|Six bar charts comparing each team member's orbital elements with the expected JPL value|Our three results against JPL's values (red), from our report.|}}
 
   <h2 id="rocket">MIT Rocket Team</h2>
-  <p class="meta">Fluid systems, August 2025 to May 2026</p>
+  <p class="meta">Fluid systems, August 2025 to May 2026.</p>
   <p>I designed servo-valve mounts in SolidWorks for Project Osiris, a throttleable liquid engine that uses nitrous oxide, and drafted valve-failure procedures for a throttle valve test.</p>
 
   <h2 id="nnsa">Nuclear forensics research</h2>
-  <p class="meta">MIT Nuclear Science and Engineering, December 2025 to September 2026</p>
+  <p class="meta">MIT Nuclear Science and Engineering, December 2025 to September 2026.</p>
   <p>I debugged the lab's MATLAB pipeline for flash calorimetry data and validated a mass-estimation method on indium samples.</p>
 
   <h2 id="ems">MIT EMS</h2>
-  <p class="meta">December 2025 to present</p>
+  <p class="meta">December 2025 to present.</p>
   <p>I'm a Nationally Registered EMT and run 911 calls in Cambridge and Boston.</p>
+  <p class="next"><a href="index.html">Back to projects</a></p>
 </div>

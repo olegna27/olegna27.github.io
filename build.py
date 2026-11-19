@@ -20,7 +20,7 @@ WIDTHS = (800, 1600)
 NAV = [("projects", "index.html"), ("about", "about.html"), ("resume", "Angelo_Chaca_Resume.pdf"), ("contact", "mailto:chaca@mit.edu")]
 INDEX = [("drone dock", "dock.html"), ("heave simulator", "heave.html"), ("boat control and telemetry", "boat.html"),
          ("shadingbot", "shadingbot.html"), ("pompeii imaging", "earlier.html#pompeii"),
-         ("asteroid orbit", "earlier.html#orbit"), ("rocket team and research", "earlier.html#rocket")]
+         ("asteroid orbit", "earlier.html#orbit"), ("other work", "earlier.html")]
 
 
 def img_variants(rel):
@@ -74,7 +74,8 @@ def img_tag(rel, alt, eager=False, sizes="(min-width: 62rem) 46rem, 100vw"):
         w, h = svg_size(MEDIA / rel)
         return f'<img src="{copy_media(rel)}" alt="{alt}" width="{w}" height="{h}" {load}>'
     srcset, fallback, w, h = img_variants(rel)
-    return f'<img src="{fallback}" srcset="{srcset}" sizes="{sizes}" alt="{alt}" width="{w}" height="{h}" {load}>'
+    small = f' style="max-width:{w}px"' if w < 800 else ""
+    return f'<img src="{fallback}" srcset="{srcset}" sizes="{sizes}" alt="{alt}" width="{w}" height="{h}"{small} {load}>'
 
 
 def video_tag(rel, poster, alt):
@@ -140,9 +141,7 @@ def render(page):
     body = nbsp_units(expand(text.split("-->", 1)[1]))
     name = page.name
     def cur(href):
-        if href == name:
-            return ' aria-current="page"'
-        return ' aria-current="true"' if href.split("#")[0] == name else ""
+        return ' aria-current="page"' if href == name else ""
 
     def links(items):
         return "".join(

@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Earlier work | Angelo Chaca</title>
+<title>Other work | Angelo Chaca</title>
 <meta name="description" content="Infrared imaging at Pompeii, asteroid orbit determination, MIT Rocket Team, nuclear forensics research and MIT EMS.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Earlier work">
+<meta property="og:title" content="Other work">
 <meta property="og:description" content="Infrared imaging at Pompeii, asteroid orbit determination, MIT Rocket Team, nuclear forensics research and MIT EMS.">
 <meta property="og:image" content="https://olegna27.github.io/media/earlier/pompeii-after-1600.jpg">
 <meta property="og:url" content="https://olegna27.github.io/earlier.html">
@@ -16,7 +16,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=2bf5c49f">
+<link rel="stylesheet" href="style.css?v=a7b3cf12">
 
 </head>
 <body>
@@ -24,15 +24,15 @@
 <header class="side">
   <a class="me" href="index.html">Angelo Chaca</a>
   <nav class="main-nav" aria-label="Site"><a href="index.html">projects</a><a href="about.html">about</a><a href="Angelo_Chaca_Resume.pdf">resume</a><a href="mailto:chaca@mit.edu">contact</a></nav>
-  <nav class="index" aria-label="Projects"><a href="dock.html">drone dock</a><a href="heave.html">heave simulator</a><a href="boat.html">boat control and telemetry</a><a href="shadingbot.html">shadingbot</a><a href="earlier.html#pompeii" aria-current="true">pompeii imaging</a><a href="earlier.html#orbit" aria-current="true">asteroid orbit</a><a href="earlier.html#rocket" aria-current="true">rocket team and research</a></nav>
+  <nav class="index" aria-label="Projects"><a href="dock.html">drone dock</a><a href="heave.html">heave simulator</a><a href="boat.html">boat control and telemetry</a><a href="shadingbot.html">shadingbot</a><a href="earlier.html#pompeii">pompeii imaging</a><a href="earlier.html#orbit">asteroid orbit</a><a href="earlier.html" aria-current="page">other work</a></nav>
 </header>
 <main>
 
 <div class="wrap">
-  <h1>Earlier work</h1>
+  <h1>Other work</h1>
 
   <h2 id="pompeii">Infrared imaging at Pompeii</h2>
-  <p class="meta">MIT 1.059, January 2026. With Coleman Duplessie and Joshua Curhan.</p>
+  <p class="meta">MIT class at Pompeii (1.059), January 2026. With Coleman Duplessie and Joshua Curhan.</p>
   <p>Egyptian Blue pigment glows in the near infrared when it's lit with visible light, and modified night-vision goggles can see that. The usual method subtracts an unlit photo from a lit one, which comes out noisy and uneven.</p>
   <p>I wrote the code for our strobe method. It takes a few seconds of 4K video from the goggles under a strobing light and sorts each pixel's brightness over time. It drops the darkest 15%, the brightest 15% and the middle 40%, averages the rest into a lit frame and an unlit frame, and subtracts them. Python, NumPy and OpenCV.</p>
 
@@ -43,29 +43,30 @@
       <div class="frame"><img src="media/earlier/pompeii-before-800.jpg" srcset="media/earlier/pompeii-before-800.jpg 800w, media/earlier/pompeii-before-1600.jpg 1600w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Noisy grayscale infrared image of a painted figure on a fresco" width="1843" height="1173" loading="lazy" decoding="async"></div>
       <div class="frame"><img src="media/earlier/pompeii-after-800.jpg" srcset="media/earlier/pompeii-after-800.jpg 800w, media/earlier/pompeii-after-1600.jpg 1600w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Much cleaner grayscale infrared image of the same painted figure" width="2199" height="1400" loading="lazy" decoding="async"></div>
     </div>
-    <figcaption>The same fresco with the old method and with ours.</figcaption>
+    <figcaption>The same fresco with the old method (first) and ours (second).</figcaption>
   </figure>
 
   <h2 id="orbit">Asteroid orbit determination</h2>
   <p class="meta">Summer Science Program, 2024. With Dillan Jagannath and Sarah Choi.</p>
-  <p>We determined the orbit of asteroid 2007 LR32 from twelve of our own telescope images. Each of us wrote our own Method of Gauss code in Python and ran a 10,000-sample Monte Carlo for the uncertainties. My result was a = 2.593 ± 0.085 au, e = 0.511 ± 0.013 and i = 10.12 ± 0.19°, each within 1.2% of JPL's values. We submitted the observations to the Minor Planet Center.</p>
+  <p>We determined the orbit of asteroid 2007 LR32 from twelve of our own telescope images. Each of us wrote our own Method of Gauss code in Python and ran a 10,000-sample Monte Carlo for the uncertainties. My result was semi-major axis a = 2.593 ± 0.085 au, eccentricity e = 0.511 ± 0.013 and inclination i = 10.12 ± 0.19°, each within 1.2% of JPL's values. We submitted the observations to the Minor Planet Center.</p>
 
   <figure><div class="frame"><a href="media/earlier/ssp-elements-1596.jpg"><img src="media/earlier/ssp-elements-800.jpg" srcset="media/earlier/ssp-elements-800.jpg 800w, media/earlier/ssp-elements-1596.jpg 1596w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Six bar charts comparing each team member&#x27;s orbital elements with the expected JPL value" width="1596" height="901" loading="lazy" decoding="async"></a></div><figcaption>Our three results against JPL's values (red), from our report.</figcaption></figure>
 
   <h2 id="rocket">MIT Rocket Team</h2>
-  <p class="meta">Fluid systems, August 2025 to May 2026</p>
+  <p class="meta">Fluid systems, August 2025 to May 2026.</p>
   <p>I designed servo-valve mounts in SolidWorks for Project Osiris, a throttleable liquid engine that uses nitrous oxide, and drafted valve-failure procedures for a throttle valve test.</p>
 
   <h2 id="nnsa">Nuclear forensics research</h2>
-  <p class="meta">MIT Nuclear Science and Engineering, December 2025 to September 2026</p>
+  <p class="meta">MIT Nuclear Science and Engineering, December 2025 to September 2026.</p>
   <p>I debugged the lab's MATLAB pipeline for flash calorimetry data and validated a mass-estimation method on indium samples.</p>
 
   <h2 id="ems">MIT EMS</h2>
-  <p class="meta">December 2025 to present</p>
+  <p class="meta">December 2025 to present.</p>
   <p>I'm a Nationally Registered EMT and run 911 calls in Cambridge and Boston.</p>
+  <p class="next"><a href="index.html">Back to projects</a></p>
 </div>
 
-<footer class="foot">Angelo Chaca, MIT class of 2029, Cambridge MA. <a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></footer>
+<footer class="foot">Angelo Chaca, MIT class of 2029, Cambridge, MA. <a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></footer>
 </main>
 </div>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('video[data-auto]').forEach(v=>v.play().catch(()=>{}))</script>

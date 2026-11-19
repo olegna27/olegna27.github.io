@@ -7,22 +7,22 @@
 }-->
 <div class="wrap">
   <h1>Drone dock for an unmanned boat</h1>
-  <p>A dock that sits on a 3 to 5 m unmanned boat so a drone can land, charge and take off again without a crewed vessel nearby. It's Vasu Kaker's thesis project in Prof. Douglas Hart's lab. I work on the landing funnel, the drone, the charging hardware and the <a href="boat.html">boat electronics</a>.</p>
-  <p class="meta">MIT Beaver Works, June 2026 to present</p>
+  <p>A dock that sits on a 3 to 5 m unmanned boat so a drone can land, charge and take off again without a crewed vessel nearby. It's Vasu Kaker's thesis project in Prof. Douglas Hart's lab. I work on the funnel the drone lands in, the drone, the charging hardware and the <a href="boat.html">boat electronics</a>.</p>
+  <p class="meta">MIT Beaver Works, June 2026 to present. Lab-tested, not yet on water.</p>
 
   <figure class="viewer">
     <div class="stage">
       {{eager:dock/funnel-top.png|CAD render of a square funnel-shaped landing pad made of eight laser-cut flap halves joined by dovetails, with a black marker plate at the center}}
       <button class="load" type="button" data-src="{{file:dock/funnel-v5.glb}}" data-alt="Interactive 3D model of the funnel landing pad">Rotate the 3D model (2.4 MB)</button>
     </div>
-    <figcaption><span></span>Landing funnel, CAD model.</figcaption>
+    <figcaption><span></span>Funnel, CAD model.</figcaption>
   </figure>
 
-  <p>The drone is a Holybro X650 running PX4. It lands itself in the funnel on a vision marker, including with the platform under the dock pitching and rolling, and it has charged on the dock. The landing software is Vasu's. Nothing has been tested on the water yet.</p>
+  <p>The drone is a Holybro X650 running the PX4 autopilot. It lands itself in the funnel on a vision marker, including while the lab's pitch-roll platform moves the dock, and it has charged on the dock. The landing software is Vasu's. A separate rig, the <a href="heave.html">heave simulator</a>, moves the dock up and down. Nothing has been tested on the water yet.</p>
 
   <h2>Funnel</h2>
-  <p>35 in across the rim, 14 in opening, 16° walls. It's 6 mm MDF on eight ribs with stainless #8-32 hardware. The flaps were wider than the 32 x 18 in laser bed, so each one is cut in two halves and joined with dovetails and 3D-printed brackets.</p>
-  <p>Before cutting the full set I cut a test coupon with six slot widths. 0.220 in slots fit best in the 0.236 in MDF, and the cut files were regenerated with that.</p>
+  <p>35 in across the rim, 14 in opening, 16° walls. It's 6 mm (0.236 in) MDF on eight ribs with stainless #8-32 hardware. The flaps were wider than the 32 x 18 in laser bed, so each one is cut in two halves and joined with dovetails and 3D-printed brackets.</p>
+  <p>The joints are press fits, so before cutting the full set I cut a test coupon with six slot widths. 0.220 in slots fit best, and the cut files were regenerated with that.</p>
 
   {{fig:dock/sheet-plan.png|Cutting layout showing ten blanks nested on four MDF sheets, including a small fit coupon|Cut layout. Blank 8 is the test coupon.|}}
 
@@ -35,12 +35,12 @@
   </figure>
 
   <h2>Sliding</h2>
-  <p>The drone landed but didn't slide to the middle. The same feet slid fine on the lab's vinyl platform, so it was the MDF and the raised screw heads. On a 16° wall the friction coefficient has to be under 0.29. I countersunk the screws and covered the flaps with UHMW tape, and it slides now.</p>
+  <p>The drone landed but didn't slide to the middle. The same feet slid fine on vinyl in the lab, so it was the MDF and the raised screw heads. On a level deck the friction coefficient has to be under 0.29 (tan 16°), and lower when the deck tilts. I countersunk the screws and covered the flaps with UHMW tape, a low-friction plastic, and it slides now.</p>
 
   {{fig:dock/friction.svg|Chart comparing friction ranges for raw MDF, packing tape and UHMW tape against the sliding limit at three deck tilts|Friction needed to slide at different deck tilts.|}}
 
   <h2>Clamp</h2>
-  <p>The clamp design holds the drone with a 60 kg electromagnetic lock. In my first layout the magnet's pull and its reaction point were 60.6 mm apart. That makes a 36.4 N·m couple against about 4.5 N·m from the drone's weight, so the drone would tip and the magnet would let go. The new layout puts reaction pads outboard of the magnet. It isn't built yet.</p>
+  <p>The clamp design holds the drone with an electromagnetic lock rated for 60 kg. In my first layout the magnet's pull and its reaction point were 60.6 mm apart. That makes a 36.4 N·m couple against about 4.5 N·m from the drone's weight, so the drone would tip and the lock would let go. The new layout puts reaction pads outboard of the lock. It isn't built yet.</p>
 
   {{fig:dock/maglock-couple.svg|Diagram of two opposite forces 60.6 mm apart on the dock face, and a bar comparison of a 36.4 newton meter couple against 4.5 newton meters of restoring moment|First clamp layout.|}}
 
@@ -49,4 +49,5 @@
     <li>Charging pad wires kept breaking at the solder joints. I switched to through-hole connections, potted them in epoxy and added strain relief.</li>
     <li>The X650 arrived configured as an octocopter. I backed up the parameters, changed the airframe to a quadrotor and checked it after a reboot.</li>
   </ul>
+  <p class="next"><a href="heave.html">Next: heave simulator</a></p>
 </div>

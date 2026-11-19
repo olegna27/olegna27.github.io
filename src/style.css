@@ -93,7 +93,7 @@ strong { font-weight: 600; }
 
 /* ---------- project pages ---------- */
 
-.hero { margin: 1.4rem 0 0.4rem; }
+.hero { margin: 1.4rem 0 1.6rem; }
 .hero img, .hero video { width: 100%; }
 .hero.white img { max-height: 30rem; object-fit: contain; }
 
@@ -138,7 +138,8 @@ pre {
 }
 .viewer button.load:hover { text-decoration: underline; }
 
-.next { margin-top: 3rem; display: flex; flex-wrap: wrap; gap: 0.3rem 2rem; }
+figure img[src$=".svg"] { max-width: 30rem; }
+.next { margin-top: 2.6rem; }
 .next a { padding: 0.5rem 0; }
 .foot { margin-top: 4rem; color: var(--soft); font-size: 0.82rem; max-width: 46rem; }
 .foot a { display: inline-block; padding: 0.5rem 0; }

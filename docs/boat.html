@@ -16,7 +16,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=2bf5c49f">
+<link rel="stylesheet" href="style.css?v=a7b3cf12">
 
 </head>
 <body>
@@ -24,22 +24,25 @@
 <header class="side">
   <a class="me" href="index.html">Angelo Chaca</a>
   <nav class="main-nav" aria-label="Site"><a href="index.html">projects</a><a href="about.html">about</a><a href="Angelo_Chaca_Resume.pdf">resume</a><a href="mailto:chaca@mit.edu">contact</a></nav>
-  <nav class="index" aria-label="Projects"><a href="dock.html">drone dock</a><a href="heave.html">heave simulator</a><a href="boat.html" aria-current="page">boat control and telemetry</a><a href="shadingbot.html">shadingbot</a><a href="earlier.html#pompeii">pompeii imaging</a><a href="earlier.html#orbit">asteroid orbit</a><a href="earlier.html#rocket">rocket team and research</a></nav>
+  <nav class="index" aria-label="Projects"><a href="dock.html">drone dock</a><a href="heave.html">heave simulator</a><a href="boat.html" aria-current="page">boat control and telemetry</a><a href="shadingbot.html">shadingbot</a><a href="earlier.html#pompeii">pompeii imaging</a><a href="earlier.html#orbit">asteroid orbit</a><a href="earlier.html">other work</a></nav>
 </header>
 <main>
 
 <div class="wrap">
   <h1>Boat control and telemetry</h1>
-  <p>I wired the power system on the boat that carries the <a href="dock.html">drone dock</a> and set up the control link, the camera page and the battery telemetry. On August 3, 2026 the control link, camera page and battery telemetry ran together on the bench with the propellers off. It hasn't been on the water yet.</p>
-  <p class="meta">MIT Beaver Works, summer 2026</p>
+  <p>I wired the power system on the boat that carries the <a href="dock.html">drone dock</a> and set up its control link, dashboard and battery telemetry. On August 3, 2026 all three ran together on the bench with the propellers off.</p>
+  <p class="meta">MIT Beaver Works, June to August 2026. Bench-tested, not yet on water.</p>
 
-  <div class="hero white"><img src="media/boat/architecture.svg" alt="Block diagram: a laptop running QGroundControl and a browser dashboard connects over Tailscale and Starlink to a Jetson on the boat, which talks to a Pixhawk flight controller, an IP camera and the battery" width="640" height="700" fetchpriority="high"></div>
+  <figure class="hero white">
+    <img src="media/boat/architecture.svg" alt="Block diagram: a laptop running QGroundControl and a browser dashboard connects over Tailscale and Starlink to a Jetson on the boat, which talks to a Pixhawk flight controller, an IP camera and the battery" width="640" height="700" fetchpriority="high">
+    <figcaption>How the laptop reaches the boat.</figcaption>
+  </figure>
 
   <h2>Setup</h2>
   <ul>
     <li>Control: QGroundControl on a laptop talks to the Pixhawk 6X (ArduRover) through a Jetson Orin Nano, over Tailscale on Starlink.</li>
-    <li>Camera and battery: a Python page served from the Jetson shows WebRTC video, pan-tilt-zoom controls and battery data.</li>
-    <li>Power: a 48 V battery bus with 24, 12 and 5 V converters and an inverter. I assembled and crimped the harness.</li>
+    <li>Dashboard: a Python page served from the Jetson shows WebRTC video, pan-tilt-zoom controls and battery data.</li>
+    <li>Power: a 48 V LiTime battery bus with 24, 12 and 5 V converters and an inverter. I assembled and crimped the harness.</li>
   </ul>
 
   <h2>Battery telemetry</h2>
@@ -56,19 +59,20 @@ for baud in BAUDS:
         resp = s.read(256)
         if resp:
             print(f"  {name:&lt;11} -> {resp.hex(' ')}")</code></pre>
-  <p>It answered a LiTime frame at 19,200 baud. An open-source decoder (calledit/LiTime_BMS_bluetooth) already had the frame layout, so I adapted it for the wired link. First reading: 52.96 V, 48%, 16 cells. The daemon only sends the read command.</p>
+  <p>It answered a LiTime frame at 19,200 baud. An open-source decoder (calledit/LiTime_BMS_bluetooth) already had the frame layout, so I adapted it for the wired link. First reading: 52.96 V, 48%, 16 cells. A daemon on the Jetson polls it every 2 s and only ever sends the read command.</p>
 
   <h2>Other fixes</h2>
   <ul>
-    <li>mavlink-router died at boot because ModemManager grabs the Pixhawk's serial port. A retry loop gets around it for now.</li>
-    <li>The joystick moved but the motors didn't. The RC min, max and trim values had never been set.</li>
+    <li>The MAVLink router died at boot because ModemManager grabs the Pixhawk's serial port. A retry loop gets around it for now.</li>
+    <li>The joystick moved but the motors didn't. The RC input calibration (min, max, trim) had never been set.</li>
     <li>The browser couldn't play the camera's H.265 stream, so I switched the camera's second stream to H.264.</li>
     <li>The Teensy 4.1 between the Pixhawk and the vehicle control board was powered from two places. It now runs from one 24 V to 5 V converter, with the USB power trace cut.</li>
-    <li>An Arduino UNO R4 WiFi died from servo back-EMF. I recovered its ESP32-S3 side.</li>
+    <li>An Arduino UNO R4 WiFi that drove servos died from back-EMF. I recovered its ESP32-S3 side.</li>
   </ul>
+  <p class="next"><a href="shadingbot.html">Next: ShadingBot</a></p>
 </div>
 
-<footer class="foot">Angelo Chaca, MIT class of 2029, Cambridge MA. <a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></footer>
+<footer class="foot">Angelo Chaca, MIT class of 2029, Cambridge, MA. <a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></footer>
 </main>
 </div>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('video[data-auto]').forEach(v=>v.play().catch(()=>{}))</script>
