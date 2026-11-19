@@ -16,7 +16,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=09f489f6">
+<link rel="stylesheet" href="style.css?v=2bf5c49f">
 <script type="module">document.addEventListener('click',async e=>{const b=e.target.closest('button.load');if(!b||b.disabled)return;b.disabled=true;b.textContent='Loading model';await import('./vendor/model-viewer.min.js');const v=b.parentElement,m=document.createElement('model-viewer');for(const[k,x]of Object.entries({src:b.dataset.src,alt:b.dataset.alt,'camera-controls':'','disable-zoom':'','touch-action':'pan-y','camera-orbit':'30deg 55deg 74%','field-of-view':'24deg','shadow-intensity':'1.2','environment-image':'neutral','interaction-prompt':'none'}))m.setAttribute(k,x);m.addEventListener('load',()=>{v.querySelector('img').remove();b.remove();v.parentElement.querySelector('figcaption span').textContent='Drag to rotate. '});v.insertBefore(m,v.firstChild)});</script><noscript><style>.viewer button.load{display:none}</style></noscript>
 </head>
 <body>
@@ -44,7 +44,7 @@
   <p>The drone is a Holybro X650 running PX4. It lands itself in the funnel on a vision marker, including with the platform under the dock pitching and rolling, and it has charged on the dock. The landing software is Vasu's. Nothing has been tested on the water yet.</p>
 
   <h2>Funnel</h2>
-  <p>35 in across the rim, 14 in opening, 16° walls. It's 6 mm MDF on eight ribs with stainless #8-32 hardware. The flaps were wider than the 32 x 18 in laser bed, so each one is cut in two halves and joined with dovetails and 3D-printed brackets. All ten blanks came out of four 24 x 36 in sheets.</p>
+  <p>35 in across the rim, 14 in opening, 16° walls. It's 6 mm MDF on eight ribs with stainless #8-32 hardware. The flaps were wider than the 32 x 18 in laser bed, so each one is cut in two halves and joined with dovetails and 3D-printed brackets.</p>
   <p>Before cutting the full set I cut a test coupon with six slot widths. 0.220 in slots fit best in the 0.236 in MDF, and the cut files were regenerated with that.</p>
 
   <figure><div class="frame"><a href="media/dock/sheet-plan-1600.jpg"><img src="media/dock/sheet-plan-800.jpg" srcset="media/dock/sheet-plan-800.jpg 800w, media/dock/sheet-plan-1600.jpg 1600w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Cutting layout showing ten blanks nested on four MDF sheets, including a small fit coupon" width="2332" height="891" loading="lazy" decoding="async"></a></div><figcaption>Cut layout. Blank 8 is the test coupon.</figcaption></figure>
@@ -57,15 +57,15 @@
     <figcaption>Dovetail seam in a flap, and the underside with ribs and printed brackets.</figcaption>
   </figure>
 
-  <h2>Getting the drone to slide</h2>
-  <p>At first the drone landed in the funnel and stayed where it touched down. The same feet slid fine on the lab's vinyl platform, so the problem was the MDF and the screw heads sticking up. On a 16° wall the friction coefficient has to be under 0.29 for a foot to slide. I countersunk the screws and covered the flaps with UHMW tape, and it slides to the middle now.</p>
+  <h2>Sliding</h2>
+  <p>The drone landed but didn't slide to the middle. The same feet slid fine on the lab's vinyl platform, so it was the MDF and the raised screw heads. On a 16° wall the friction coefficient has to be under 0.29. I countersunk the screws and covered the flaps with UHMW tape, and it slides now.</p>
 
-  <figure><div class="frame"><a href="media/dock/friction.svg"><img src="media/dock/friction.svg" alt="Chart comparing friction ranges for raw MDF, packing tape and UHMW tape against the sliding limit at three deck tilts" width="600" height="470" loading="lazy" decoding="async"></a></div><figcaption>Friction needed to slide at different deck tilts. The bars are handbook ranges.</figcaption></figure>
+  <figure><div class="frame"><a href="media/dock/friction.svg"><img src="media/dock/friction.svg" alt="Chart comparing friction ranges for raw MDF, packing tape and UHMW tape against the sliding limit at three deck tilts" width="600" height="414" loading="lazy" decoding="async"></a></div><figcaption>Friction needed to slide at different deck tilts.</figcaption></figure>
 
   <h2>Clamp</h2>
-  <p>The clamp design holds the drone with a 60 kg electromagnetic lock. A review of my first layout showed the magnet's pull and the point reacting it were 60.6 mm apart. That makes a 36.4 N·m couple against about 4.5 N·m from the drone's weight, so the drone would tip and the magnet would let go. The new layout puts reaction pads outboard of the magnet. It isn't built yet.</p>
+  <p>The clamp design holds the drone with a 60 kg electromagnetic lock. In my first layout the magnet's pull and its reaction point were 60.6 mm apart. That makes a 36.4 N·m couple against about 4.5 N·m from the drone's weight, so the drone would tip and the magnet would let go. The new layout puts reaction pads outboard of the magnet. It isn't built yet.</p>
 
-  <figure><div class="frame"><a href="media/dock/maglock-couple.svg"><img src="media/dock/maglock-couple.svg" alt="Diagram of two opposite forces 60.6 mm apart on the dock face, and a bar comparison of a 36.4 newton meter couple against 4.5 newton meters of restoring moment" width="600" height="560" loading="lazy" decoding="async"></a></div><figcaption>First clamp layout.</figcaption></figure>
+  <figure><div class="frame"><a href="media/dock/maglock-couple.svg"><img src="media/dock/maglock-couple.svg" alt="Diagram of two opposite forces 60.6 mm apart on the dock face, and a bar comparison of a 36.4 newton meter couple against 4.5 newton meters of restoring moment" width="600" height="462" loading="lazy" decoding="async"></a></div><figcaption>First clamp layout.</figcaption></figure>
 
   <h2>Other fixes</h2>
   <ul>

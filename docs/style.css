@@ -138,16 +138,6 @@ pre {
 }
 .viewer button.load:hover { text-decoration: underline; }
 
-/* ---------- fix log ---------- */
-
-.fix { padding: 1.1rem 0; border-bottom: 1px solid var(--rule); }
-.fix:first-of-type { border-top: 1px solid var(--rule); }
-.fix h3 { margin: 0 0 0.15rem; }
-.fix .meta { margin-bottom: 0.5rem; font-size: 0.85rem; }
-.fix dl { margin: 0; }
-.fix dt { float: left; clear: left; width: 3.4rem; color: var(--soft); }
-.fix dd { margin: 0 0 0.3rem 3.4rem; }
-
 .next { margin-top: 3rem; display: flex; flex-wrap: wrap; gap: 0.3rem 2rem; }
 .next a { padding: 0.5rem 0; }
 .foot { margin-top: 4rem; color: var(--soft); font-size: 0.82rem; max-width: 46rem; }

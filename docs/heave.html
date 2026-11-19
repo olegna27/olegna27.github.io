@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Heave simulator: a test rig for drone landings | Angelo Chaca</title>
+<title>Heave simulator | Angelo Chaca</title>
 <meta name="description" content="A belt-driven rig that moves a drone dock up and down 1.5 m at 0.8 m/s so landings can be tested in the lab.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Heave simulator">
@@ -16,7 +16,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=09f489f6">
+<link rel="stylesheet" href="style.css?v=2bf5c49f">
 
 </head>
 <body>
@@ -30,15 +30,15 @@
 
 <div class="wrap">
   <h1>Heave simulator</h1>
-  <p>A rig that moves the <a href="dock.html">drone dock</a> up and down like a boat deck so we can test landings in the lab. The spec from Vasu was 1.5 m of travel at 0.8 m/s. It carries the lab's pitch and roll platform and is designed for a 15 kg payload, 30 kg at most.</p>
+  <p>A rig that moves the <a href="dock.html">drone dock</a> up and down like a boat deck so we can test landings in the lab. The spec from Vasu was 1.5 m of travel at 0.8 m/s. It's built to carry the lab's pitch and roll platform, with a 15 kg payload and 30 kg at most.</p>
   <p class="meta">MIT Beaver Works, October 2026 to present. Built and running.</p>
 
   <div class="hero white"><img src="media/heave/layout-wide-800.jpg" srcset="media/heave/layout-wide-800.jpg 800w, media/heave/layout-wide-1600.jpg 1600w" sizes="(min-width: 70rem) 65rem, 100vw" alt="3D layout model of a two-tower aluminum frame with a platform between the towers, counterweights behind them and a motor on a jackshaft at the base" width="1725" height="1150" fetchpriority="high"></div>
   <p class="meta">Layout model. The numbers on this page are from the design calculations.</p>
 
   <h2>Design</h2>
-  <p>Of the eight mechanisms considered, lead screws and ball screws were out because a 1.7 m screw whips at around 1,000 rpm and an 8 mm lead would need 6,000 rpm. Rod actuators are too slow. I went with a belt drive. Two towers hold the platform between them, one motor on a jackshaft drives both belts, and each tower has a counterweight.</p>
-  <p>With the counterweights, peak motor torque for the 15 kg payload drops from 4.40 to 0.96 N·m. The motor is a closed-loop NEMA 34 stepper with a power-off brake on a 2:1 belt reduction. The brake stops the platform from full speed in 127 mm.</p>
+  <p>Screws were out. A 1.7 m screw whips near 1,000 rpm and an 8 mm lead needs 6,000. Rod actuators are too slow. I went with a belt drive. Two towers hold the platform between them, one motor on a jackshaft drives both belts, and each tower has a counterweight.</p>
+  <p>With the counterweights, peak motor torque for the 15 kg payload drops from 4.40 to 0.96 N·m. The motor is a closed-loop NEMA 34 stepper with a power-off brake on a 2:1 belt reduction. The brake stops the platform from full speed in 127 mm. Parts list: $2,444 of a $2,500 cap.</p>
 
   <figure><div class="frame"><a href="media/heave/torque-1280.jpg"><img src="media/heave/torque-800.jpg" srcset="media/heave/torque-800.jpg 800w, media/heave/torque-1280.jpg 1280w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Line chart of motor torque over one wave period, with and without the counterweight" width="1280" height="640" loading="lazy" decoding="async"></a></div><figcaption>Motor torque over one cycle, without counterweights (red) and with (green).</figcaption></figure>
 
@@ -51,11 +51,10 @@
   </figure>
 
   <h2>Changes before ordering</h2>
-  <p>The calculations were checked a second time before anything was ordered, and a few things changed.</p>
   <ul>
-    <li>Belt pretension went from 150 N to 250 N. At 150 N one belt span could go slack during a drone landing or a brake stop.</li>
-    <li>A relay was added so that a driver fault also sets the brake.</li>
-    <li>The side-to-side natural frequency came out at 5.1 Hz against a 5 Hz target, so I added gussets at the tower bases.</li>
+    <li>Raised belt pretension from 150 N to 250 N. At 150 N one span could go slack during a landing or a brake stop.</li>
+    <li>Added a relay so a driver fault also sets the brake.</li>
+    <li>Side-to-side natural frequency came out at 5.1 Hz against a 5 Hz target, so I added gussets at the tower bases.</li>
   </ul>
 
   <h2>Safety</h2>
@@ -63,7 +62,6 @@
 
   <figure><div class="frame"><a href="media/heave/safety-wiring-542.jpg"><img src="media/heave/safety-wiring-542.jpg" srcset="media/heave/safety-wiring-542.jpg 542w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Block diagram of the power and safety wiring: two power supplies, a safety chain of E-stop and overtravel switches, safety relay, driver, brake interlock relay and motor brake" width="542" height="647" loading="lazy" decoding="async"></a></div><figcaption>Power and safety wiring.</figcaption></figure>
 
-  <p>Parts came to $2,444 against a $2,500 cap.</p>
 </div>
 
 <footer class="foot">Angelo Chaca, MIT class of 2029, Cambridge MA. <a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></footer>

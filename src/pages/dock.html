@@ -21,7 +21,7 @@
   <p>The drone is a Holybro X650 running PX4. It lands itself in the funnel on a vision marker, including with the platform under the dock pitching and rolling, and it has charged on the dock. The landing software is Vasu's. Nothing has been tested on the water yet.</p>
 
   <h2>Funnel</h2>
-  <p>35 in across the rim, 14 in opening, 16° walls. It's 6 mm MDF on eight ribs with stainless #8-32 hardware. The flaps were wider than the 32 x 18 in laser bed, so each one is cut in two halves and joined with dovetails and 3D-printed brackets. All ten blanks came out of four 24 x 36 in sheets.</p>
+  <p>35 in across the rim, 14 in opening, 16° walls. It's 6 mm MDF on eight ribs with stainless #8-32 hardware. The flaps were wider than the 32 x 18 in laser bed, so each one is cut in two halves and joined with dovetails and 3D-printed brackets.</p>
   <p>Before cutting the full set I cut a test coupon with six slot widths. 0.220 in slots fit best in the 0.236 in MDF, and the cut files were regenerated with that.</p>
 
   {{fig:dock/sheet-plan.png|Cutting layout showing ten blanks nested on four MDF sheets, including a small fit coupon|Cut layout. Blank 8 is the test coupon.|}}
@@ -34,13 +34,13 @@
     <figcaption>Dovetail seam in a flap, and the underside with ribs and printed brackets.</figcaption>
   </figure>
 
-  <h2>Getting the drone to slide</h2>
-  <p>At first the drone landed in the funnel and stayed where it touched down. The same feet slid fine on the lab's vinyl platform, so the problem was the MDF and the screw heads sticking up. On a 16° wall the friction coefficient has to be under 0.29 for a foot to slide. I countersunk the screws and covered the flaps with UHMW tape, and it slides to the middle now.</p>
+  <h2>Sliding</h2>
+  <p>The drone landed but didn't slide to the middle. The same feet slid fine on the lab's vinyl platform, so it was the MDF and the raised screw heads. On a 16° wall the friction coefficient has to be under 0.29. I countersunk the screws and covered the flaps with UHMW tape, and it slides now.</p>
 
-  {{fig:dock/friction.svg|Chart comparing friction ranges for raw MDF, packing tape and UHMW tape against the sliding limit at three deck tilts|Friction needed to slide at different deck tilts. The bars are handbook ranges.|}}
+  {{fig:dock/friction.svg|Chart comparing friction ranges for raw MDF, packing tape and UHMW tape against the sliding limit at three deck tilts|Friction needed to slide at different deck tilts.|}}
 
   <h2>Clamp</h2>
-  <p>The clamp design holds the drone with a 60 kg electromagnetic lock. A review of my first layout showed the magnet's pull and the point reacting it were 60.6 mm apart. That makes a 36.4 N·m couple against about 4.5 N·m from the drone's weight, so the drone would tip and the magnet would let go. The new layout puts reaction pads outboard of the magnet. It isn't built yet.</p>
+  <p>The clamp design holds the drone with a 60 kg electromagnetic lock. In my first layout the magnet's pull and its reaction point were 60.6 mm apart. That makes a 36.4 N·m couple against about 4.5 N·m from the drone's weight, so the drone would tip and the magnet would let go. The new layout puts reaction pads outboard of the magnet. It isn't built yet.</p>
 
   {{fig:dock/maglock-couple.svg|Diagram of two opposite forces 60.6 mm apart on the dock face, and a bar comparison of a 36.4 newton meter couple against 4.5 newton meters of restoring moment|First clamp layout.|}}
 

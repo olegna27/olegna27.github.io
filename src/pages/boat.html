@@ -1,12 +1,12 @@
 <!--{
-"title": "Boat control and telemetry over a satellite link | Angelo Chaca",
+"title": "Boat control and telemetry | Angelo Chaca",
 "og_title": "Boat control and telemetry",
 "description": "Power wiring, a MAVLink control link over Starlink, a camera and battery page, and RS485 battery telemetry for an unmanned boat.",
-"og_image": "dock/funnel-top.png"
+"og_image": "boat/architecture-og.png"
 }-->
 <div class="wrap">
   <h1>Boat control and telemetry</h1>
-  <p>The boat that carries the <a href="dock.html">drone dock</a> has to be driven and monitored from shore. I wired its power system and set up the control link, the camera page and the battery telemetry. On August 3, 2026 it all ran together on the bench with the propellers off. It hasn't been on the water yet.</p>
+  <p>I wired the power system on the boat that carries the <a href="dock.html">drone dock</a> and set up the control link, the camera page and the battery telemetry. On August 3, 2026 the control link, camera page and battery telemetry ran together on the bench with the propellers off. It hasn't been on the water yet.</p>
   <p class="meta">MIT Beaver Works, summer 2026</p>
 
   <div class="hero white">{{eager:boat/architecture.svg|Block diagram: a laptop running QGroundControl and a browser dashboard connects over Tailscale and Starlink to a Jetson on the boat, which talks to a Pixhawk flight controller, an IP camera and the battery}}</div>
@@ -32,7 +32,7 @@ for baud in BAUDS:
         resp = s.read(256)
         if resp:
             print(f"  {name:&lt;11} -> {resp.hex(' ')}")</code></pre>
-  <p>It answered a LiTime frame at 19,200 baud. An open-source decoder (calledit/LiTime_BMS_bluetooth) already had the frame layout, so I adapted it for the wired link. The readings matched the pack: 52.96 V, 48%, 16 cells. The daemon only sends the read command.</p>
+  <p>It answered a LiTime frame at 19,200 baud. An open-source decoder (calledit/LiTime_BMS_bluetooth) already had the frame layout, so I adapted it for the wired link. First reading: 52.96 V, 48%, 16 cells. The daemon only sends the read command.</p>
 
   <h2>Other fixes</h2>
   <ul>

@@ -1,20 +1,20 @@
 <!--{
-"title": "Heave simulator: a test rig for drone landings | Angelo Chaca",
+"title": "Heave simulator | Angelo Chaca",
 "og_title": "Heave simulator",
 "description": "A belt-driven rig that moves a drone dock up and down 1.5 m at 0.8 m/s so landings can be tested in the lab.",
 "og_image": "heave/layout-wide.png"
 }-->
 <div class="wrap">
   <h1>Heave simulator</h1>
-  <p>A rig that moves the <a href="dock.html">drone dock</a> up and down like a boat deck so we can test landings in the lab. The spec from Vasu was 1.5 m of travel at 0.8 m/s. It carries the lab's pitch and roll platform and is designed for a 15 kg payload, 30 kg at most.</p>
+  <p>A rig that moves the <a href="dock.html">drone dock</a> up and down like a boat deck so we can test landings in the lab. The spec from Vasu was 1.5 m of travel at 0.8 m/s. It's built to carry the lab's pitch and roll platform, with a 15 kg payload and 30 kg at most.</p>
   <p class="meta">MIT Beaver Works, October 2026 to present. Built and running.</p>
 
   <div class="hero white">{{eager:heave/layout-wide.png|3D layout model of a two-tower aluminum frame with a platform between the towers, counterweights behind them and a motor on a jackshaft at the base}}</div>
   <p class="meta">Layout model. The numbers on this page are from the design calculations.</p>
 
   <h2>Design</h2>
-  <p>Of the eight mechanisms considered, lead screws and ball screws were out because a 1.7 m screw whips at around 1,000 rpm and an 8 mm lead would need 6,000 rpm. Rod actuators are too slow. I went with a belt drive. Two towers hold the platform between them, one motor on a jackshaft drives both belts, and each tower has a counterweight.</p>
-  <p>With the counterweights, peak motor torque for the 15 kg payload drops from 4.40 to 0.96 N·m. The motor is a closed-loop NEMA 34 stepper with a power-off brake on a 2:1 belt reduction. The brake stops the platform from full speed in 127 mm.</p>
+  <p>Screws were out. A 1.7 m screw whips near 1,000 rpm and an 8 mm lead needs 6,000. Rod actuators are too slow. I went with a belt drive. Two towers hold the platform between them, one motor on a jackshaft drives both belts, and each tower has a counterweight.</p>
+  <p>With the counterweights, peak motor torque for the 15 kg payload drops from 4.40 to 0.96 N·m. The motor is a closed-loop NEMA 34 stepper with a power-off brake on a 2:1 belt reduction. The brake stops the platform from full speed in 127 mm. Parts list: $2,444 of a $2,500 cap.</p>
 
   {{fig:heave/torque.png|Line chart of motor torque over one wave period, with and without the counterweight|Motor torque over one cycle, without counterweights (red) and with (green).|}}
 
@@ -27,11 +27,10 @@
   </figure>
 
   <h2>Changes before ordering</h2>
-  <p>The calculations were checked a second time before anything was ordered, and a few things changed.</p>
   <ul>
-    <li>Belt pretension went from 150 N to 250 N. At 150 N one belt span could go slack during a drone landing or a brake stop.</li>
-    <li>A relay was added so that a driver fault also sets the brake.</li>
-    <li>The side-to-side natural frequency came out at 5.1 Hz against a 5 Hz target, so I added gussets at the tower bases.</li>
+    <li>Raised belt pretension from 150 N to 250 N. At 150 N one span could go slack during a landing or a brake stop.</li>
+    <li>Added a relay so a driver fault also sets the brake.</li>
+    <li>Side-to-side natural frequency came out at 5.1 Hz against a 5 Hz target, so I added gussets at the tower bases.</li>
   </ul>
 
   <h2>Safety</h2>
@@ -39,5 +38,4 @@
 
   {{fig:heave/safety-wiring.png|Block diagram of the power and safety wiring: two power supplies, a safety chain of E-stop and overtravel switches, safety relay, driver, brake interlock relay and motor brake|Power and safety wiring.|}}
 
-  <p>Parts came to $2,444 against a $2,500 cap.</p>
 </div>

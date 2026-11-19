@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 560" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#18212e">
-  <rect width="600" height="560" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 46 600 462" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" fill="#18212e">
+  <rect y="46" width="600" height="462" fill="#ffffff"/>
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#18212e"/></marker>
     <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#1746c8"/></marker>
@@ -20,5 +20,4 @@
   <text x="20" y="450" font-size="18" fill="#55616f">Restoring moment from the drone's weight on its gear</text>
   <rect x="20" y="462" width="49" height="30" fill="#17724a"/>
   <text x="81" y="484" font-weight="700">about 4.5 N·m</text>
-  <text x="20" y="536" font-size="18" fill="#55616f">8 times short: the drone pitches and the gap opens.</text>
 </svg>

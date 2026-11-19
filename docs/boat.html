@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Boat control and telemetry over a satellite link | Angelo Chaca</title>
+<title>Boat control and telemetry | Angelo Chaca</title>
 <meta name="description" content="Power wiring, a MAVLink control link over Starlink, a camera and battery page, and RS485 battery telemetry for an unmanned boat.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Boat control and telemetry">
 <meta property="og:description" content="Power wiring, a MAVLink control link over Starlink, a camera and battery page, and RS485 battery telemetry for an unmanned boat.">
-<meta property="og:image" content="https://olegna27.github.io/media/dock/funnel-top-1600.jpg">
+<meta property="og:image" content="https://olegna27.github.io/media/boat/architecture-og-1600.jpg">
 <meta property="og:url" content="https://olegna27.github.io/boat.html">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://olegna27.github.io/boat.html">
@@ -16,7 +16,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=09f489f6">
+<link rel="stylesheet" href="style.css?v=2bf5c49f">
 
 </head>
 <body>
@@ -30,7 +30,7 @@
 
 <div class="wrap">
   <h1>Boat control and telemetry</h1>
-  <p>The boat that carries the <a href="dock.html">drone dock</a> has to be driven and monitored from shore. I wired its power system and set up the control link, the camera page and the battery telemetry. On August 3, 2026 it all ran together on the bench with the propellers off. It hasn't been on the water yet.</p>
+  <p>I wired the power system on the boat that carries the <a href="dock.html">drone dock</a> and set up the control link, the camera page and the battery telemetry. On August 3, 2026 the control link, camera page and battery telemetry ran together on the bench with the propellers off. It hasn't been on the water yet.</p>
   <p class="meta">MIT Beaver Works, summer 2026</p>
 
   <div class="hero white"><img src="media/boat/architecture.svg" alt="Block diagram: a laptop running QGroundControl and a browser dashboard connects over Tailscale and Starlink to a Jetson on the boat, which talks to a Pixhawk flight controller, an IP camera and the battery" width="640" height="700" fetchpriority="high"></div>
@@ -56,7 +56,7 @@ for baud in BAUDS:
         resp = s.read(256)
         if resp:
             print(f"  {name:&lt;11} -> {resp.hex(' ')}")</code></pre>
-  <p>It answered a LiTime frame at 19,200 baud. An open-source decoder (calledit/LiTime_BMS_bluetooth) already had the frame layout, so I adapted it for the wired link. The readings matched the pack: 52.96 V, 48%, 16 cells. The daemon only sends the read command.</p>
+  <p>It answered a LiTime frame at 19,200 baud. An open-source decoder (calledit/LiTime_BMS_bluetooth) already had the frame layout, so I adapted it for the wired link. First reading: 52.96 V, 48%, 16 cells. The daemon only sends the read command.</p>
 
   <h2>Other fixes</h2>
   <ul>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ShadingBot: force control without knowing the surface | Angelo Chaca</title>
+<title>ShadingBot | Angelo Chaca</title>
 <meta name="description" content="A simulated KUKA iiwa shades grayscale images by brush pressure. Three ways of choosing the pressure, compared in Drake.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ShadingBot">
@@ -16,7 +16,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=09f489f6">
+<link rel="stylesheet" href="style.css?v=2bf5c49f">
 
 </head>
 <body>
@@ -30,7 +30,7 @@
 
 <div class="wrap">
   <h1>ShadingBot</h1>
-  <p>Final project for MIT 6.4210 Robotic Manipulation, with Alexander Li and Laura Zhang. A simulated KUKA iiwa in Drake shades a grayscale image by pressing a soft brush harder where the image is darker. We compare three ways of choosing the pressure: a calibration table with no feedback, camera feedback, and force sensing only.</p>
+  <p>Final project for MIT 6.4210 Robotic Manipulation, with Alexander Li and Laura Zhang. A simulated KUKA iiwa in Drake shades a grayscale image by pressing a soft brush harder where the image is darker. We compare three ways of choosing the pressure: open loop from a calibration table, camera feedback, and force sensing only.</p>
   <p class="meta">Fall 2026. Simulation only.</p>
 
   <div class="hero"><video src="media/shadingbot/compare-tilt.mp4" poster="media/shadingbot/summary-tilt-800.jpg" width="1760" height="720" muted loop playsinline controls data-auto preload="metadata" aria-label="Three simulated runs drawing the same step wedge on a canvas tilted two degrees"></video></div>
@@ -43,25 +43,26 @@
   <p>Error is the average darkness difference from the target on a 0 to 1 scale. Lower is better. One run each.</p>
   <div class="scroll-x">
   <table>
-    <thead><tr><th>Step wedge</th><th class="n">Table only</th><th class="n">Camera</th><th class="n">Force only</th></tr></thead>
+    <thead><tr><th>Step wedge</th><th class="n">Open loop</th><th class="n">Camera</th><th class="n">Force only</th></tr></thead>
     <tbody>
       <tr><td>As calibrated</td><td class="n">0.049</td><td class="n">0.051</td><td class="n">0.046</td></tr>
       <tr><td>Brush 20% softer</td><td class="n">0.173</td><td class="n">0.064</td><td class="n">0.040</td></tr>
       <tr><td>Brush 20% stiffer</td><td class="n">0.070</td><td class="n">0.046</td><td class="n">0.051</td></tr>
-      <tr><td>Canvas tilted 2°</td><td class="n">0.131</td><td class="n">0.099</td><td class="n">0.025</td></tr>
+      <tr><td>Canvas tilted 2°</td><td class="n">0.132</td><td class="n">0.100</td><td class="n">0.025</td></tr>
     </tbody>
   </table>
   </div>
 
   <figure><div class="frame"><a href="media/shadingbot/summary-tilt-1600.jpg"><img src="media/shadingbot/summary-tilt-800.jpg" srcset="media/shadingbot/summary-tilt-800.jpg 800w, media/shadingbot/summary-tilt-1600.jpg 1600w" sizes="(min-width: 62rem) 46rem, 100vw" alt="Six-panel figure: target step wedge, three camera views of the finished canvases and three paint maps with their scores" width="1760" height="720" loading="lazy" decoding="async"></a></div><figcaption>Tilted canvas, final result for each method.</figcaption></figure>
 
-  <h2>Changes along the way</h2>
+  <p>Not a fair comparison yet. The paint pressure limits are placeholders, and two methods command depth while one commands force.</p>
+
+  <h2>Changes</h2>
   <ul>
-    <li>The camera moved from overhead to the front of the canvas. In my visibility check the arm blocked the overhead view of the brush completely.</li>
+    <li>The camera moved from overhead to the front of the canvas. With the brush upright, the arm hid the fresh paint from an overhead camera.</li>
     <li>The canvas moved 4 cm so the arm could reach every point with the brush tilted.</li>
-    <li>The first camera loop only watched the center of each row and did no better than the table. It improved after I widened it to the full row and fixed a touchdown bug.</li>
+    <li>The first camera loop only watched the center of each row and did no better than open loop. It improved after I widened it to the full row and fixed a touchdown bug.</li>
   </ul>
-  <p>The paint model's pressure limits are placeholders, and the table and camera methods command depth while the force method commands force, so the comparison isn't fully even yet.</p>
 </div>
 
 <footer class="foot">Angelo Chaca, MIT class of 2029, Cambridge MA. <a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></footer>
