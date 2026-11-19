@@ -20,16 +20,18 @@
 
 </head>
 <body>
-<header class="wrap site-head">
+<div class="shell">
+<header class="side">
   <a class="me" href="index.html">Angelo Chaca</a>
-  <nav aria-label="Site"><a href="index.html#work">Work</a><a href="index.html#evidence">Skills</a><a href="index.html#fixlog">Fix log</a><a href="about.html">About</a></nav>
+  <nav class="main-nav" aria-label="Site"><a href="index.html">projects</a><a href="about.html">about</a><a href="fixlog.html">fix log</a><a href="Angelo_Chaca_Resume.pdf">resume</a><a href="mailto:chaca@mit.edu">contact</a></nav>
+  <nav class="index" aria-label="Projects"><a href="dock.html">drone dock</a><a href="heave.html">heave simulator</a><a href="boat.html" aria-current="page">boat control and telemetry</a><a href="shadingbot.html">shadingbot</a><a href="earlier.html#pompeii">pompeii imaging</a><a href="earlier.html#orbit">asteroid orbit</a><a href="earlier.html#rocket">rocket team and research</a></nav>
 </header>
 <main>
 
 <div class="wrap case-head">
   <h1>Driving an unmanned boat from a laptop over a satellite link</h1>
   <p class="lede">The boat that carries the <a href="dock.html">drone dock</a> has to be driven, watched and monitored from shore. I wired its power, built the control link and the ground station, and got its undocumented battery to report its state.</p>
-  <p class="status partial">Ran end to end on the bench in August 2026, propellers off. Not yet on water.</p>
+  <p class="meta">Ran end to end on the bench in August 2026, propellers off. Not yet on water.</p>
 </div>
 
 <div class="wrap">
@@ -114,15 +116,13 @@
     <h2>Credits</h2>
     <p>The task plan and the mechanical design for mounting the dock to the boat are Vasu Kaker's. The battery frame layout comes from the open-source project calledit/LiTime_BMS_bluetooth. The link runs on mavlink-router, MediaMTX, QGroundControl, ArduPilot and Tailscale.</p>
 
-    <div class="next"><a href="shadingbot.html">Next: ShadingBot</a><a href="index.html#fixlog">Fix log</a></div>
+    <div class="next"><a href="shadingbot.html">Next: ShadingBot</a><a href="fixlog.html">Fix log</a></div>
   </div>
 </div>
 
+<footer class="foot">Angelo Chaca, MIT class of 2029, Cambridge MA. <a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></footer>
 </main>
-<footer class="wrap site-foot">
-  <span>Angelo Chaca, MIT class of 2029, Cambridge MA</span>
-  <span class="links"><a href="mailto:chaca@mit.edu">chaca@mit.edu</a> <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></span>
-</footer>
+</div>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('video[data-auto]').forEach(v=>v.play().catch(()=>{}))</script>
 </body>
 </html>

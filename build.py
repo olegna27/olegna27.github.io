@@ -16,7 +16,11 @@ MEDIA = SRC / "media"
 SITE_URL = "https://olegna27.github.io"
 WIDTHS = (800, 1600)
 
-NAV = [("Work", "index.html#work"), ("Skills", "index.html#evidence"), ("Fix log", "index.html#fixlog"), ("About", "about.html")]
+NAV = [("projects", "index.html"), ("about", "about.html"), ("fix log", "fixlog.html"),
+       ("resume", "Angelo_Chaca_Resume.pdf"), ("contact", "mailto:chaca@mit.edu")]
+INDEX = [("drone dock", "dock.html"), ("heave simulator", "heave.html"), ("boat control and telemetry", "boat.html"),
+         ("shadingbot", "shadingbot.html"), ("pompeii imaging", "earlier.html#pompeii"),
+         ("asteroid orbit", "earlier.html#orbit"), ("rocket team and research", "earlier.html#rocket")]
 
 
 def img_variants(rel):
@@ -106,7 +110,7 @@ def expand(body):
     body = re.sub(r"\{\{fig:(.+?)\}\}", fig, body, flags=re.S)
     body = re.sub(r"\{\{img:(.+?)\|(.+?)\}\}", lambda m: img_tag(m.group(1).strip(), m.group(2).strip()), body)
     body = re.sub(r"\{\{eager:(.+?)\|(.+?)\}\}", lambda m: img_tag(m.group(1).strip(), m.group(2).strip(), eager=True, sizes="(min-width: 70rem) 65rem, 100vw"), body)
-    body = re.sub(r"\{\{tile:(.+?)\|(.+?)\}\}", lambda m: img_tag(m.group(1).strip(), m.group(2).strip(), sizes="(min-width: 46rem) 33rem, 100vw"), body)
+    body = re.sub(r"\{\{thumb:(.+?)\|(.+?)\}\}", lambda m: img_tag(m.group(1).strip(), m.group(2).strip(), eager=True, sizes="(min-width: 70rem) 17rem, (min-width: 56rem) 30vw, 45vw").replace(' fetchpriority="high"', ""), body)
     body = re.sub(r"\{\{vid:(.+?)\|(.+?)\|(.+?)\}\}", lambda m: video_tag(m.group(1).strip(), m.group(2).strip(), m.group(3).strip()), body)
     body = re.sub(r"\{\{file:(.+?)\}\}", lambda m: copy_media(m.group(1).strip()), body)
     return body
@@ -134,9 +138,12 @@ def render(page):
     meta = json.loads(re.match(r"<!--(.*?)-->", text, re.S).group(1))
     body = nbsp_units(expand(text.split("-->", 1)[1]))
     name = page.name
-    nav = "".join(
-        f'<a href="{href}"{" aria-current=\"page\"" if href == name else ""}>{label}</a>' for label, href in NAV
-    )
+    def links(items):
+        return "".join(
+            f'<a href="{href}"{" aria-current=\"page\"" if href == name else ""}>{label}</a>' for label, href in items
+        )
+
+    nav, index = links(NAV), links(INDEX)
     og_image = f"{SITE_URL}/{largest(meta['og_image'])}" if meta.get("og_image") else ""
     url = SITE_URL + ("/" if name == "index.html" else f"/{name}")
     head_extra = meta.get("head", "")
@@ -148,6 +155,7 @@ def render(page):
         .replace("{{og_image}}", og_image)
         .replace("{{url}}", url)
         .replace("{{nav}}", nav)
+        .replace("{{index}}", index)
         .replace("{{head}}", head_extra)
         .replace("{{base}}", meta.get("base", ""))
         .replace("{{body}}", body)

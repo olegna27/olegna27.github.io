@@ -20,9 +20,11 @@
 
 </head>
 <body>
-<header class="wrap site-head">
+<div class="shell">
+<header class="side">
   <a class="me" href="index.html">Angelo Chaca</a>
-  <nav aria-label="Site"><a href="index.html#work">Work</a><a href="index.html#evidence">Skills</a><a href="index.html#fixlog">Fix log</a><a href="about.html" aria-current="page">About</a></nav>
+  <nav class="main-nav" aria-label="Site"><a href="index.html">projects</a><a href="about.html" aria-current="page">about</a><a href="fixlog.html">fix log</a><a href="Angelo_Chaca_Resume.pdf">resume</a><a href="mailto:chaca@mit.edu">contact</a></nav>
+  <nav class="index" aria-label="Projects"><a href="dock.html">drone dock</a><a href="heave.html">heave simulator</a><a href="boat.html">boat control and telemetry</a><a href="shadingbot.html">shadingbot</a><a href="earlier.html#pompeii">pompeii imaging</a><a href="earlier.html#orbit">asteroid orbit</a><a href="earlier.html#rocket">rocket team and research</a></nav>
 </header>
 <main>
 
@@ -51,16 +53,30 @@
     <h2>Outside the lab</h2>
     <p>I am a Nationally Registered EMT with MIT Emergency Medical Services and run 911 calls in Cambridge and Boston. It has taught me to do the right thing calmly when the situation is not under control.</p>
 
+    <h2>What I have worked on, and where to see it</h2>
+    <div class="scroll-x">
+    <table>
+    <tbody>
+      <tr><th scope="row">CAD for parts that can actually be made</th><td>A funnel assembly of 330 bodies with zero interferences, split and nested to fit a 32 x 18 in laser bed. <a href="dock.html">Drone dock</a>. SolidWorks servo-valve mounts on <a href="earlier.html#rocket">Rocket Team</a>.</td></tr>
+      <tr><th scope="row">Fabrication and assembly</th><td>Laser cutting, FDM printing, crimped power harnesses, soldering, press fits tuned with a coupon. <a href="dock.html">Drone dock</a>, <a href="boat.html">boat</a>.</td></tr>
+      <tr><th scope="row">Motors, drives and power</th><td>Sizing a closed-loop stepper drive with a brake, regeneration protection and a hard-wired safety chain. <a href="heave.html">Heave simulator</a>. A 48 V boat bus with 24, 12 and 5 V rails. <a href="boat.html">Boat</a>.</td></tr>
+      <tr><th scope="row">Magnets and rotating machinery</th><td>An electromagnetic lock rated for 60 kg makes single-digit newtons across a 1 mm gap, so the clamp's load path was reworked around it. <a href="dock.html">Drone dock</a>. Screws ruled out on whip speed (6,000 rpm needed, whip near 1,000), then a jackshaft checked for fatigue at a factor of 1.6, belt stiffness, bearing life and structural modes. <a href="heave.html">Heave simulator</a>.</td></tr>
+      <tr><th scope="row">Test rigs and measurement</th><td>A rig designed requirement by requirement, each paired with the test that will check it. <a href="heave.html">Heave simulator</a>.</td></tr>
+      <tr><th scope="row">Embedded systems and links</th><td>Pixhawk on PX4 and ArduRover, Jetson, Teensy, Arduino, MAVLink, RS485. <a href="boat.html">Boat</a>.</td></tr>
+      <tr><th scope="row">Estimation, control and simulation</th><td>Least-squares estimation of surface height and stiffness from force, a camera feedback loop, inverse dynamics control in Drake. <a href="shadingbot.html">ShadingBot</a>. Orbit determination with Monte Carlo uncertainty. <a href="earlier.html#orbit">Asteroid orbit</a>.</td></tr>
+      <tr><th scope="row">Languages</th><td>Python, C, MATLAB.</td></tr>
+    </tbody>
+  </table>
+    </div>
+
     <h2>How this site is written</h2>
-    <p>Each main project carries a status mark that says how real it is: a filled square for built and working, a half-filled square for working but not yet proven where it has to work, a hollow square for designed only, and a circle for simulation. Every number comes from my design records, logs or reports. Where something has not been built or tested yet, the page says so.</p>
+    <p>Each project page says plainly whether the thing is built, designed or simulated, and what has not been tested yet. Every number comes from my design records, logs or reports.</p>
   </div>
 </div>
 
+<footer class="foot">Angelo Chaca, MIT class of 2029, Cambridge MA. <a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></footer>
 </main>
-<footer class="wrap site-foot">
-  <span>Angelo Chaca, MIT class of 2029, Cambridge MA</span>
-  <span class="links"><a href="mailto:chaca@mit.edu">chaca@mit.edu</a> <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></span>
-</footer>
+</div>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('video[data-auto]').forEach(v=>v.play().catch(()=>{}))</script>
 </body>
 </html>

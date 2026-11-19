@@ -1,0 +1,95 @@
+<!--{
+"title": "Fix log | Angelo Chaca",
+"og_title": "Fix log: what broke, what was wrong, what I changed",
+"description": "Nine things that did not work on a drone dock, a test rig, a boat and a robot simulation: the cause and the fix for each.",
+"og_image": "dock/funnel-top.png"
+}-->
+<div class="wrap">
+  <h1>Fix log</h1>
+  <p>Things that did not work, what was actually wrong, and what I changed. Hardware first.</p>
+
+  <article class="fix">
+    <h3>The drone landed in the funnel but would not slide to center</h3>
+    <p class="meta"><a href="dock.html">Drone dock</a>. Fixed on hardware.</p>
+    <dl>
+    <dt>Cause</dt><dd>The surface, not the landing gear. On a 16° wall a foot slides only below a friction coefficient of 0.29, and raw MDF with proud screw heads is above it.</dd>
+    <dt>Fix</dt><dd>Screws sunk flush, flaps faced with UHMW tape. It slides now, and a $200 to $300 landing-gear redesign was never built.</dd>
+    </dl>
+  </article>
+
+  <article class="fix">
+    <h3>The boat's battery port answered nothing</h3>
+    <p class="meta"><a href="boat.html">Boat control and telemetry</a>. Fixed on hardware.</p>
+    <dl>
+    <dt>Cause</dt><dd>I had assumed logic-level serial. A 160 ohm reading across the data pair showed it was RS485, and the protocol was vendor-specific.</dd>
+    <dt>Fix</dt><dd>A probe that sweeps eight frame types across six baud rates found it at 19,200. Decoded values checked against the live pack.</dd>
+    </dl>
+  </article>
+
+  <article class="fix">
+    <h3>Laser-cut joints that have to press together by hand</h3>
+    <p class="meta"><a href="dock.html">Drone dock</a>. Fixed on hardware.</p>
+    <dl>
+    <dt>Cause</dt><dd>Kerf widens every slot, and the first files drew slots at 0.232 in for 0.236 in stock.</dd>
+    <dt>Fix</dt><dd>A coupon with six slot widths and three dovetail offsets. The winner, 0.220 in, went back into the script that generates every part.</dd>
+    </dl>
+  </article>
+
+  <article class="fix">
+    <h3>The control link died on every boot</h3>
+    <p class="meta"><a href="boat.html">Boat control and telemetry</a>. Worked around on hardware.</p>
+    <dl>
+    <dt>Cause</dt><dd>ModemManager grabs the flight controller's serial port at boot, so the router finds it busy and quits.</dd>
+    <dt>Fix</dt><dd>A retry loop until the port frees. Honest status: a workaround. The proper service units are staged, not installed.</dd>
+    </dl>
+  </article>
+
+  <article class="fix">
+    <h3>Charging pad wires kept breaking at the solder joint</h3>
+    <p class="meta"><a href="dock.html">Drone dock</a>. Fixed on hardware.</p>
+    <dl>
+    <dt>Cause</dt><dd>The joint was taking the flex.</dd>
+    <dt>Fix</dt><dd>Through-hole connections, epoxy potting and strain relief.</dd>
+    </dl>
+  </article>
+
+  <article class="fix">
+    <h3>A servo controller board died</h3>
+    <p class="meta"><a href="boat.html">Boat control and telemetry</a>. Diagnosed on hardware.</p>
+    <dl>
+    <dt>Cause</dt><dd>Back-EMF from the servos damaged the main processor of an Arduino UNO R4 WiFi.</dd>
+    <dt>Fix</dt><dd>Recovered the board's second processor, an ESP32-S3.</dd>
+    </dl>
+  </article>
+
+  <h2>Caught on paper or in simulation</h2>
+
+  <article class="fix">
+    <h3>A magnetic clamp that would release without anyone noticing</h3>
+    <p class="meta"><a href="dock.html">Drone dock</a>. Caught on paper.</p>
+    <dl>
+    <dt>Cause</dt><dd>Pull and reaction were 60.6 mm apart: a 36.4 N·m couple against about 4.5 N·m from the drone's weight. It would pass any bench test with a hand on the drone.</dd>
+    <dt>Fix</dt><dd>Reaction pads moved outboard of the magnet. Found in design review, before anything was built.</dd>
+    </dl>
+  </article>
+
+  <article class="fix">
+    <h3>A drive belt that could go slack during a landing</h3>
+    <p class="meta"><a href="heave.html">Heave simulator</a>. Caught on paper.</p>
+    <dl>
+    <dt>Cause</dt><dd>The first model shared load evenly between belt spans. Near the end of travel one span is short, far stiffer, and takes nearly all of it.</dd>
+    <dt>Fix</dt><dd>Pretension raised from 150 to 250 N. Lowest tension in any case went from minus 18 N to 82 N.</dd>
+    </dl>
+  </article>
+
+  <article class="fix">
+    <h3>Camera feedback that was no better than no feedback</h3>
+    <p class="meta"><a href="shadingbot.html">ShadingBot</a>. Fixed in simulation.</p>
+    <dl>
+    <dt>Cause</dt><dd>In the first runs the loop watched only the center line of each row while the score averages the full row width: 0.081 against open loop's 0.079.</dd>
+    <dt>Fix</dt><dd>Full-width window and a touchdown bug fix: 0.051 against 0.064 on the same early test. Both went in together, so an ablation is still owed. As calibrated, the two methods now tie.</dd>
+    </dl>
+  </article>
+
+  <div class="next"><a href="index.html">Back to projects</a></div>
+</div>

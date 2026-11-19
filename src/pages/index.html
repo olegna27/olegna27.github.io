@@ -4,154 +4,41 @@
 "description": "MIT sophomore in physics and EECS. A drone dock for an unmanned boat, the rig built to test it, the boat's control link, and a force-control simulation. What I built, what broke, and how I fixed it.",
 "og_image": "dock/funnel-top.png"
 }-->
-<div class="wrap intro">
+<div class="intro">
   <h1>I design, build and debug hardware, and write the software that runs it.</h1>
-  <p class="lede">I'm Angelo, a sophomore at MIT studying physics and electrical engineering and computer science. Since June I have been building a drone dock for an unmanned boat: the mechanisms, the wiring, the test rig, and the control link behind them.</p>
-  <p class="facts">Cambridge, MA. <a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a>, <a href="Angelo_Chaca_Resume.pdf">resume (PDF)</a>.</p>
+  <p>I'm Angelo, a sophomore at MIT studying physics and electrical engineering and computer science. Since June I have been building a drone dock for an unmanned boat at MIT Beaver Works: the mechanisms, the wiring, the test rig, and the control link behind them. Each project below says what I built, what broke, and how I fixed it.</p>
+  <p><a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a>, <a href="Angelo_Chaca_Resume.pdf">resume</a>, <a href="fixlog.html">fix log</a></p>
 </div>
 
-<section class="wrap" id="work" aria-label="Projects">
-  <div class="work">
-    <a aria-labelledby="t1" class="tile lead" href="dock.html">
-      <div class="media">{{eager:dock/funnel-top.png|CAD render of a square funnel-shaped landing pad for a drone}}</div>
-      <h2 id="t1">A dock that lets a drone land, charge and relaunch from an unmanned boat</h2>
-      <p>A funnel catches a sloppy landing and slides the drone onto its charging contacts. I designed and built the funnel, built the drone, and designed the clamp and contacts.</p>
-      <p class="where">MIT Beaver Works, June 2026 to present. Image: the CAD assembly the parts were cut from.</p>
-      <p class="status partial">Lands in the lab, including on a moving platform, and charges. Not yet on water.</p>
-    </a>
-
-    <a aria-labelledby="t2" class="tile" href="heave.html">
-      <div class="media white">{{tile:heave/layout-wide.png|3D layout of a two-tower belt-driven test rig}}</div>
-      <h2 id="t2">A test rig that heaves the dock like a boat deck</h2>
-      <p>1.5 m of travel at 0.8 m/s, counterweighted so the motor torque drops 4.6 times, with a brake and four more layers behind it.</p>
-      <p class="where">MIT Beaver Works, October 2026 to present. Image: the layout model the build was planned from.</p>
-      <p class="status built">Built and running</p>
-    </a>
-
-    <a aria-labelledby="t3" class="tile" href="boat.html">
-      <div class="media white">{{tile:boat/architecture.svg|Block diagram of the boat's control and telemetry link}}</div>
-      <h2 id="t3">Driving the boat from a laptop over a satellite link</h2>
-      <p>Power wiring, a MAVLink control link over Starlink, a ground station in plain Python, and a battery whose undocumented protocol had to be identified before it would talk.</p>
-      <p class="where">MIT Beaver Works, summer 2026</p>
-      <p class="status partial">Ran end to end on the bench. Not yet on water.</p>
-    </a>
-
-    <a aria-labelledby="t4" class="tile" href="shadingbot.html">
-      <div class="media">{{tile:shadingbot/scene.jpg|Simulated robot arm holding a brush over a canvas}}</div>
-      <h2 id="t4">ShadingBot: force control on a surface the robot has not measured</h2>
-      <p>A simulated arm estimates surface height and brush stiffness from the touchdown force alone, and beats camera feedback when the canvas is tilted.</p>
-      <p class="where">MIT 6.4210 Robotic Manipulation, fall 2026</p>
-      <p class="status sim">Simulation only</p>
-    </a>
-
-    <a aria-labelledby="t5" class="tile" href="earlier.html">
-      <div class="media">{{tile:earlier/pompeii-after.jpg|Infrared image of a figure on a Pompeii fresco}}</div>
-      <h2 id="t5">Earlier: infrared imaging at Pompeii, an asteroid's orbit, rocket valves</h2>
-      <p>A strobe-video method for finding Roman pigment in the infrared, orbit determination from twelve telescope images, and servo-valve mounts for a liquid engine.</p>
-      <p class="where">2024 to 2026</p>
-      <p class="status built">Field-tested</p>
-    </a>
-  </div>
-</section>
-
-<section class="wrap band" id="evidence">
-  <h2>What I have worked on, and where to see it</h2>
-  <table class="proof">
-    <tbody>
-      <tr><th scope="row">CAD for parts that can actually be made</th><td>A funnel assembly of 330 bodies with zero interferences, split and nested to fit a 32 x 18 in laser bed. <a href="dock.html">Drone dock</a>. SolidWorks servo-valve mounts on <a href="earlier.html#rocket">Rocket Team</a>.</td></tr>
-      <tr><th scope="row">Fabrication and assembly</th><td>Laser cutting, FDM printing, crimped power harnesses, soldering, press fits tuned with a coupon. <a href="dock.html">Drone dock</a>, <a href="boat.html">boat</a>.</td></tr>
-      <tr><th scope="row">Motors, drives and power</th><td>Sizing a closed-loop stepper drive with a brake, regeneration protection and a hard-wired safety chain. <a href="heave.html">Heave simulator</a>. A 48 V boat bus with 24, 12 and 5 V rails. <a href="boat.html">Boat</a>.</td></tr>
-      <tr><th scope="row">Magnets and rotating machinery</th><td>An electromagnetic lock rated for 60 kg makes single-digit newtons across a 1 mm gap, so the clamp's load path was reworked around it. <a href="dock.html">Drone dock</a>. Screws ruled out on whip speed (6,000 rpm needed, whip near 1,000), then a jackshaft checked for fatigue at a factor of 1.6, belt stiffness, bearing life and structural modes. <a href="heave.html">Heave simulator</a>.</td></tr>
-      <tr><th scope="row">Test rigs and measurement</th><td>A rig designed requirement by requirement, each paired with the test that will check it. <a href="heave.html">Heave simulator</a>.</td></tr>
-      <tr><th scope="row">Embedded systems and links</th><td>Pixhawk on PX4 and ArduRover, Jetson, Teensy, Arduino, MAVLink, RS485. <a href="boat.html">Boat</a>.</td></tr>
-      <tr><th scope="row">Estimation, control and simulation</th><td>Least-squares estimation of surface height and stiffness from force, a camera feedback loop, inverse dynamics control in Drake. <a href="shadingbot.html">ShadingBot</a>. Orbit determination with Monte Carlo uncertainty. <a href="earlier.html#orbit">Asteroid orbit</a>.</td></tr>
-      <tr><th scope="row">Languages</th><td>Python, C, MATLAB.</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<section class="wrap band" id="fixlog">
-  <h2>Fix log</h2>
-  <p class="lede">Things that did not work, what was actually wrong, and what I changed. Hardware first.</p>
-  <div class="fixlog">
-
-    <article class="fix">
-      <div><h3>The drone landed in the funnel but would not slide to center</h3><p class="status built">Fixed on hardware</p><p class="from"><a href="dock.html">Drone dock</a></p></div>
-      <dl>
-        <div><dt>Cause</dt><dd>The surface, not the landing gear. On a 16° wall a foot slides only below a friction coefficient of 0.29, and raw MDF with proud screw heads is above it.</dd></div>
-        <div><dt>Fix</dt><dd>Screws sunk flush, flaps faced with UHMW tape. It slides now, and a $200 to $300 landing-gear redesign was never built.</dd></div>
-      </dl>
-    </article>
-
-    <article class="fix">
-      <div><h3>The boat's battery port answered nothing</h3><p class="status built">Fixed on hardware</p><p class="from"><a href="boat.html">Boat control and telemetry</a></p></div>
-      <dl>
-        <div><dt>Cause</dt><dd>I had assumed logic-level serial. A 160 ohm reading across the data pair showed it was RS485, and the protocol was vendor-specific.</dd></div>
-        <div><dt>Fix</dt><dd>A probe that sweeps eight frame types across six baud rates found it at 19,200. Decoded values checked against the live pack.</dd></div>
-      </dl>
-    </article>
-
-    <article class="fix">
-      <div><h3>Laser-cut joints that have to press together by hand</h3><p class="status built">Fixed on hardware</p><p class="from"><a href="dock.html">Drone dock</a></p></div>
-      <dl>
-        <div><dt>Cause</dt><dd>Kerf widens every slot, and the first files drew slots at 0.232 in for 0.236 in stock.</dd></div>
-        <div><dt>Fix</dt><dd>A coupon with six slot widths and three dovetail offsets. The winner, 0.220 in, went back into the script that generates every part.</dd></div>
-      </dl>
-    </article>
-
-    <article class="fix">
-      <div><h3>The control link died on every boot</h3><p class="status partial">Worked around on hardware</p><p class="from"><a href="boat.html">Boat control and telemetry</a></p></div>
-      <dl>
-        <div><dt>Cause</dt><dd>ModemManager grabs the flight controller's serial port at boot, so the router finds it busy and quits.</dd></div>
-        <div><dt>Fix</dt><dd>A retry loop until the port frees. Honest status: a workaround. The proper service units are staged, not installed.</dd></div>
-      </dl>
-    </article>
-
-    <article class="fix">
-      <div><h3>Charging pad wires kept breaking at the solder joint</h3><p class="status built">Fixed on hardware</p><p class="from"><a href="dock.html">Drone dock</a></p></div>
-      <dl>
-        <div><dt>Cause</dt><dd>The joint was taking the flex.</dd></div>
-        <div><dt>Fix</dt><dd>Through-hole connections, epoxy potting and strain relief.</dd></div>
-      </dl>
-    </article>
-
-    <article class="fix">
-      <div><h3>A servo controller board died</h3><p class="status partial">Diagnosed on hardware</p><p class="from"><a href="boat.html">Boat control and telemetry</a></p></div>
-      <dl>
-        <div><dt>Cause</dt><dd>Back-EMF from the servos damaged the main processor of an Arduino UNO R4 WiFi.</dd></div>
-        <div><dt>Fix</dt><dd>Recovered the board's second processor, an ESP32-S3.</dd></div>
-      </dl>
-    </article>
-
-  </div>
-  <details class="more">
-    <summary>Three more: two caught on paper, one in simulation</summary>
-    <div class="fixlog">
-
-    <article class="fix">
-      <div><h3>A magnetic clamp that would release without anyone noticing</h3><p class="status designed">Caught on paper</p><p class="from"><a href="dock.html">Drone dock</a></p></div>
-      <dl>
-        <div><dt>Cause</dt><dd>Pull and reaction were 60.6 mm apart: a 36.4 N·m couple against about 4.5 N·m from the drone's weight. It would pass any bench test with a hand on the drone.</dd></div>
-        <div><dt>Fix</dt><dd>Reaction pads moved outboard of the magnet. Found in design review, before anything was built.</dd></div>
-      </dl>
-    </article>
-
-    <article class="fix">
-      <div><h3>A drive belt that could go slack during a landing</h3><p class="status designed">Caught on paper</p><p class="from"><a href="heave.html">Heave simulator</a></p></div>
-      <dl>
-        <div><dt>Cause</dt><dd>The first model shared load evenly between belt spans. Near the end of travel one span is short, far stiffer, and takes nearly all of it.</dd></div>
-        <div><dt>Fix</dt><dd>Pretension raised from 150 to 250 N. Lowest tension in any case went from minus 18 N to 82 N.</dd></div>
-      </dl>
-    </article>
-
-    <article class="fix">
-      <div><h3>Camera feedback that was no better than no feedback</h3><p class="status sim">Fixed in simulation</p><p class="from"><a href="shadingbot.html">ShadingBot</a></p></div>
-      <dl>
-        <div><dt>Cause</dt><dd>In the first runs the loop watched only the center line of each row while the score averages the full row width: 0.081 against open loop's 0.079.</dd></div>
-        <div><dt>Fix</dt><dd>Full-width window and a touchdown bug fix: 0.051 against 0.064 on the same early test. Both went in together, so an ablation is still owed. As calibrated, the two methods now tie.</dd></div>
-      </dl>
-    </article>
-
-    </div>
-  </details>
-</section>
+<div class="grid">
+  <a class="tile" href="dock.html">
+    {{thumb:dock/funnel-top.png|CAD render of a square funnel-shaped landing pad for a drone}}
+    <b>Drone dock for an unmanned boat</b>
+    <i>MIT Beaver Works, 2026. Lab-tested, not yet on water.</i>
+  </a>
+  <a class="tile" href="heave.html">
+    {{thumb:heave/layout-wide.png|3D layout of a two-tower belt-driven test rig}}
+    <b>Heave simulator</b>
+    <i>MIT Beaver Works, 2026. Built and running.</i>
+  </a>
+  <a class="tile fit" href="boat.html">
+    {{thumb:boat/architecture.svg|Block diagram of the boat's control and telemetry link}}
+    <b>Boat control and telemetry</b>
+    <i>MIT Beaver Works, 2026. Bench-tested.</i>
+  </a>
+  <a class="tile" href="shadingbot.html">
+    {{thumb:shadingbot/scene.jpg|Simulated robot arm holding a brush over a canvas}}
+    <b>ShadingBot</b>
+    <i>MIT 6.4210, 2026. Simulation.</i>
+  </a>
+  <a class="tile" href="earlier.html#pompeii">
+    {{thumb:earlier/pompeii-after.jpg|Infrared image of a figure on a Pompeii fresco}}
+    <b>Infrared imaging at Pompeii</b>
+    <i>MIT 1.059, 2026. Used on site.</i>
+  </a>
+  <a class="tile" href="earlier.html#orbit">
+    {{thumb:earlier/orbit.png|Orbit diagram of an asteroid, Earth and Mars around the Sun}}
+    <b>Asteroid orbit determination</b>
+    <i>Summer Science Program, 2024.</i>
+  </a>
+</div>

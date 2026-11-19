@@ -20,16 +20,18 @@
 <script type="module">document.addEventListener('click',async e=>{const b=e.target.closest('button.load');if(!b||b.disabled)return;b.disabled=true;b.textContent='Loading model';await import('./vendor/model-viewer.min.js');const v=b.parentElement,m=document.createElement('model-viewer');for(const[k,x]of Object.entries({src:b.dataset.src,alt:b.dataset.alt,'camera-controls':'','disable-zoom':'','touch-action':'pan-y','camera-orbit':'30deg 55deg 74%','field-of-view':'24deg','shadow-intensity':'1.2','environment-image':'neutral','interaction-prompt':'none'}))m.setAttribute(k,x);m.addEventListener('load',()=>{v.querySelector('img').remove();b.remove();v.parentElement.querySelector('figcaption span').textContent='Drag to rotate. '});v.insertBefore(m,v.firstChild)});</script><noscript><style>.viewer button.load{display:none}</style></noscript>
 </head>
 <body>
-<header class="wrap site-head">
+<div class="shell">
+<header class="side">
   <a class="me" href="index.html">Angelo Chaca</a>
-  <nav aria-label="Site"><a href="index.html#work">Work</a><a href="index.html#evidence">Skills</a><a href="index.html#fixlog">Fix log</a><a href="about.html">About</a></nav>
+  <nav class="main-nav" aria-label="Site"><a href="index.html">projects</a><a href="about.html">about</a><a href="fixlog.html">fix log</a><a href="Angelo_Chaca_Resume.pdf">resume</a><a href="mailto:chaca@mit.edu">contact</a></nav>
+  <nav class="index" aria-label="Projects"><a href="dock.html" aria-current="page">drone dock</a><a href="heave.html">heave simulator</a><a href="boat.html">boat control and telemetry</a><a href="shadingbot.html">shadingbot</a><a href="earlier.html#pompeii">pompeii imaging</a><a href="earlier.html#orbit">asteroid orbit</a><a href="earlier.html#rocket">rocket team and research</a></nav>
 </header>
 <main>
 
 <div class="wrap case-head">
   <h1>A dock that lets a drone land, charge and relaunch from an unmanned boat</h1>
   <p class="lede">Offshore drone inspections need a crewed vessel nearby. This dock rides on a 3 to 5 m unmanned boat instead, so the drone can stay out for weeks. I build the landing funnel, the drone that lands in it, and the boat-side power and control.</p>
-  <p class="status partial">Lands in the lab, including on a moving platform, and charges. Not yet on water.</p>
+  <p class="meta">Lands in the lab, including on a moving platform, and charges. Not yet on water.</p>
 </div>
 
 <div class="wrap">
@@ -142,11 +144,9 @@
   </div>
 </div>
 
+<footer class="foot">Angelo Chaca, MIT class of 2029, Cambridge MA. <a href="mailto:chaca@mit.edu">chaca@mit.edu</a>, <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></footer>
 </main>
-<footer class="wrap site-foot">
-  <span>Angelo Chaca, MIT class of 2029, Cambridge MA</span>
-  <span class="links"><a href="mailto:chaca@mit.edu">chaca@mit.edu</a> <a href="https://linkedin.com/in/angelo-chaca-58748238a">LinkedIn</a></span>
-</footer>
+</div>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('video[data-auto]').forEach(v=>v.play().catch(()=>{}))</script>
 </body>
 </html>
